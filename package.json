@@ -1,18 +1,23 @@
 {
-    "name": "@mparticle/audience-sdk",
-    "version": "0.1.0",
-    "description": "SDKs and JSON schema for defining and validating Audience criteria.",
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/your-org/audience-schema.git"
-    },
-    "keywords": [
-      "audience",
-      "json-schema",
-      "typescript",
-      "sdk",
-      "query-language"
-    ],
-    "license": "Apache-2.0"
+  "name": "@mparticle/audience-sdk",
+  "version": "0.1.1",
+  "description": "SDKs and JSON schema for defining and validating Audience criteria.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/audience-schema.git"
+  },
+  "keywords": [
+    "audience",
+    "json-schema",
+    "typescript",
+    "sdk",
+    "query-language"
+  ],
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "4.9.5"
   }
-  
+}
