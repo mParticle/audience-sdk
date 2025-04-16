@@ -1,0 +1,749 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Primitive": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ModelPath": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    },
+    "ArithmeticOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "enum": [
+            "plus",
+            "minus",
+            "multiply",
+            "divide",
+            "mod"
+          ]
+        }
+      },
+      "required": [
+        "operator"
+      ]
+    },
+    "LogicalOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "enum": [
+            "and",
+            "or"
+          ]
+        }
+      },
+      "required": [
+        "operator"
+      ]
+    },
+    "ComparisonOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "enum": [
+            "eq",
+            "lt",
+            "lte",
+            "gt",
+            "gte"
+          ]
+        }
+      },
+      "required": [
+        "operator"
+      ]
+    },
+    "ListComparisonOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "enum": [
+            "contains",
+            "between",
+            "match_any",
+            "match_all",
+            "in"
+          ]
+        }
+      },
+      "required": [
+        "operator"
+      ]
+    },
+    "ExistsOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "enum": [
+            "exists"
+          ]
+        }
+      },
+      "required": [
+        "operator"
+      ]
+    },
+    "NegativeOperator": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "enum": [
+            "not"
+          ]
+        }
+      },
+      "required": [
+        "operator"
+      ]
+    },
+    "Operand": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/Primitive"
+        },
+        {
+          "$ref": "#/definitions/ModelPath"
+        },
+        {
+          "$ref": "#/definitions/ArithmeticExpression"
+        }
+      ]
+    },
+    "ArithmeticExpression": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ArithmeticOperator"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "left": {
+              "$ref": "#/definitions/Operand"
+            },
+            "right": {
+              "$ref": "#/definitions/Operand"
+            }
+          },
+          "required": [
+            "left",
+            "right"
+          ]
+        }
+      ]
+    },
+    "BooleanExpression": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/Primitive"
+        },
+        {
+          "$ref": "#/definitions/ExistsExpression"
+        },
+        {
+          "$ref": "#/definitions/NegativeExpression"
+        },
+        {
+          "$ref": "#/definitions/ComparisonExpression"
+        },
+        {
+          "$ref": "#/definitions/ListComparisonExpression"
+        },
+        {
+          "$ref": "#/definitions/LogicalExpression"
+        }
+      ]
+    },
+    "ExistsExpression": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ExistsOperator"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "expression": {
+              "$ref": "#/definitions/Operand"
+            }
+          },
+          "required": [
+            "expression"
+          ]
+        }
+      ]
+    },
+    "NegativeExpression": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/NegativeOperator"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "expression": {
+              "$ref": "#/definitions/BooleanExpression"
+            }
+          },
+          "required": [
+            "expression"
+          ]
+        }
+      ]
+    },
+    "ComparisonExpression": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ComparisonOperator"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "left": {
+              "$ref": "#/definitions/Operand"
+            },
+            "right": {
+              "$ref": "#/definitions/Operand"
+            }
+          },
+          "required": [
+            "left",
+            "right"
+          ]
+        }
+      ]
+    },
+    "ListComparisonExpression": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ListComparisonOperator"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "left": {
+              "$ref": "#/definitions/Operand"
+            },
+            "right": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Operand"
+              }
+            }
+          },
+          "required": [
+            "left",
+            "right"
+          ]
+        }
+      ]
+    },
+    "LogicalExpression": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/LogicalOperator"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "expressions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BooleanExpression"
+              }
+            }
+          },
+          "required": [
+            "expressions"
+          ]
+        }
+      ]
+    },
+    "Model": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "type": "string",
+          "enum": [
+            "user",
+            "event"
+          ]
+        }
+      },
+      "required": [
+        "model"
+      ]
+    },
+    "CountExpression": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "#/definitions/UnaryComparisonExpression"
+            },
+            {
+              "$ref": "#/definitions/ComparisonExpression"
+            },
+            {
+              "$ref": "#/definitions/LogicalExpression"
+            }
+          ]
+        }
+      },
+      "required": [
+        "count"
+      ]
+    },
+    "CountWhereExpression": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "enum": [
+            "count"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "count": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/UnaryComparisonExpression"
+            },
+            {
+              "$ref": "#/definitions/ComparisonExpression"
+            }
+          ]
+        },
+        "counts": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/LogicalOperator"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "expressions": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/definitions/UnaryComparisonExpression"
+                      },
+                      {
+                        "$ref": "#/definitions/ComparisonExpression"
+                      }
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "expressions"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "operator",
+        "path"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "count"
+          ]
+        },
+        {
+          "required": [
+            "counts"
+          ]
+        }
+      ]
+    },
+    "UnaryComparisonExpression": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string"
+        },
+        "operand": {
+          "$ref": "#/definitions/Operand"
+        }
+      },
+      "required": [
+        "operator",
+        "operand"
+      ]
+    },
+    "ModelPathComparisonExpression": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string"
+        },
+        "left": {
+          "$ref": "#/definitions/ModelPath"
+        },
+        "right": {
+          "$ref": "#/definitions/Operand"
+        }
+      },
+      "required": [
+        "operator",
+        "left",
+        "right"
+      ]
+    },
+    "EventTypeExpression": {
+      "type": "object",
+      "properties": {
+        "event_type": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/UnaryComparisonExpression"
+            },
+            {
+              "$ref": "#/definitions/ModelPathComparisonExpression"
+            }
+          ]
+        }
+      },
+      "required": [
+        "event_type"
+      ]
+    },
+    "EventNameExpression": {
+      "type": "object",
+      "properties": {
+        "event_name": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/UnaryComparisonExpression"
+            },
+            {
+              "$ref": "#/definitions/ModelPathComparisonExpression"
+            }
+          ]
+        }
+      },
+      "required": [
+        "event_name"
+      ]
+    },
+    "EventAttributeExpression": {
+      "type": "object",
+      "properties": {
+        "event_attribute": {
+          "$ref": "#/definitions/BooleanExpression"
+        }
+      },
+      "required": [
+        "event_attribute"
+      ]
+    },
+    "DateUnit": {
+      "type": "string",
+      "enum": [
+        "second",
+        "minute",
+        "hour",
+        "day",
+        "week",
+        "month",
+        "quarter",
+        "year"
+      ]
+    },
+    "AbsoluteDate": {
+      "type": "object",
+      "properties": {
+        "absolute": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "absolute"
+      ]
+    },
+    "RelativeDate": {
+      "type": "object",
+      "properties": {
+        "relative": {
+          "type": "object",
+          "properties": {
+            "offset": {
+              "type": "number"
+            },
+            "unit": {
+              "$ref": "#/definitions/DateUnit"
+            },
+            "boundary": {
+              "type": "string",
+              "enum": [
+                "start",
+                "end",
+                "middle"
+              ]
+            }
+          },
+          "required": [
+            "offset",
+            "unit"
+          ]
+        }
+      },
+      "required": [
+        "relative"
+      ]
+    },
+    "DateValue": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/AbsoluteDate"
+        },
+        {
+          "$ref": "#/definitions/RelativeDate"
+        }
+      ]
+    },
+    "DateValueExpression": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ComparisonOperator"
+        },
+        {
+          "$ref": "#/definitions/DateValue"
+        }
+      ]
+    },
+    "DateSingleExpression": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "$ref": "#/definitions/DateValueExpression"
+        }
+      },
+      "required": [
+        "date"
+      ]
+    },
+    "DateListExpression": {
+      "type": "object",
+      "properties": {
+        "dates": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/LogicalOperator"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "expressions": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/DateValueExpression"
+                  }
+                }
+              },
+              "required": [
+                "expressions"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "dates"
+      ]
+    },
+    "DateExpression": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/DateSingleExpression"
+        },
+        {
+          "$ref": "#/definitions/DateListExpression"
+        }
+      ]
+    },
+    "EventQuery": {
+      "type": "object",
+      "properties": {
+        "event": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/Model"
+            },
+            {
+              "$ref": "#/definitions/EventTypeExpression"
+            },
+            {
+              "$ref": "#/definitions/EventNameExpression"
+            },
+            {
+              "$ref": "#/definitions/EventAttributeExpression"
+            },
+            {
+              "$ref": "#/definitions/CountExpression"
+            },
+            {
+              "$ref": "#/definitions/DateExpression"
+            },
+            {
+              "$ref": "#/definitions/CountWhereExpression"
+            }
+          ]
+        }
+      },
+      "required": [
+        "event"
+      ]
+    },
+    "UserQuery": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "user": {
+              "type": "object",
+              "properties": {
+                "attributes": {
+                  "$ref": "#/definitions/BooleanExpression"
+                }
+              },
+              "required": [
+                "attributes"
+              ]
+            }
+          },
+          "required": [
+            "user"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "user": {
+              "$ref": "#/definitions/CountWhereExpression"
+            }
+          },
+          "required": [
+            "user"
+          ]
+        }
+      ]
+    },
+    "GenericQuery": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/Model"
+            },
+            {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/BooleanExpression"
+                },
+                {
+                  "$ref": "#/definitions/CountExpression"
+                },
+                {
+                  "$ref": "#/definitions/CountWhereExpression"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "AudienceQuery": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/GenericQuery"
+        },
+        {
+          "$ref": "#/definitions/UserQuery"
+        },
+        {
+          "$ref": "#/definitions/EventQuery"
+        }
+      ]
+    },
+    "LogicalAudienceQueries": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "enum": [
+            "and",
+            "or"
+          ]
+        },
+        "queries": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/LogicalAudienceQueries"
+              },
+              {
+                "$ref": "#/definitions/AudienceQuery"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "operator",
+        "queries"
+      ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "audience": {
+      "$ref": "#/definitions/LogicalAudienceQueries"
+    }
+  },
+  "required": [
+    "audience"
+  ]
+}
