@@ -86,11 +86,11 @@ export type Expression =
         // join expression
     { model: string, expression: Expression }
     |   // unary expression
-    { model?: string, operator: UnaryOperator, expression: Expression }
+    { model?: string, operator: "not", expression: Expression }
+    |   // exists expression
+    { model?: string, operator: "exists", operand: Operand }
     |   // binary expression
-    { model?: string, operator: BinaryOperator, 
-        left: Operand | { model: string, operator: AggregationOperator, path: string, expression: Expression }, 
-        right: Operand | { model: string, operator: AggregationOperator, path: string, expression: Expression } }
+    { model?: string, operator: BinaryOperator, left: Operand, right: Operand }
     |   // model aggregation (left) expression
     { model: string, operator: BinaryOperator, expression: Expression, left: { operator: AggregationOperator, path: string }, right: Operand | { model: string, operator: AggregationOperator, path: string, expression: Expression } }
     |   // model aggregation (right) expression
