@@ -1,6 +1,5 @@
 import { Operand } from "../operand/operand";
 import { UnaryOperator, BinaryOperator, LogicalOperator, LocationOperator } from "../common/operator";
-import { Expression } from "./expression";
 import { LocationOperand } from "../operand/location-operand";
 
 /**
@@ -57,7 +56,7 @@ import { LocationOperand } from "../operand/location-operand";
  *      right: { path: "user.location" }
  *    }
  */
-export type SingleModelExpression = 
+export type SingleModelExpression =
     { operator: UnaryOperator, expression: SingleModelExpression }
     |   // binary expression
     { operator: BinaryOperator, left: Operand, right: Operand }

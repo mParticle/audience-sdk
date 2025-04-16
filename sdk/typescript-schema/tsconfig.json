@@ -18,7 +18,7 @@
       "outDir": "dist"
     },
     "include": [
-      "sdk/**/*"
+      "./**/*"
     ],
     "exclude": [
       "node_modules",

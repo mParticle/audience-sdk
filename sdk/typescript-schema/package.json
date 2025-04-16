@@ -1,6 +1,6 @@
 {
   "name": "@mparticle/audience-typescript-schema",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "TypeScript types for defining Audience criteria",
   "main": "audience.ts",
   "repository": {
@@ -10,5 +10,11 @@
   "keywords": [
     "audience"
   ],
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "4.9.5"
+  }
 }

@@ -1,5 +1,5 @@
 import { BinaryOperator, LogicalOperator } from "../common/operator";
-import { AbsoluteDate, RelativeDate, DateOperand } from "../operand/date-operand";
+import { AbsoluteDate, RelativeDate } from "../operand/date-operand";
 
 /**
  * Represents an expression that evaluates to a date or date-based condition.
@@ -40,7 +40,7 @@ import { AbsoluteDate, RelativeDate, DateOperand } from "../operand/date-operand
  *      ]
  *    }
  */
-export type DateExpression = 
+export type DateExpression =
     AbsoluteDate
     | RelativeDate
     |
