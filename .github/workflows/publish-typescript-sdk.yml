@@ -9,13 +9,6 @@ jobs:
     defaults:
       run:
         working-directory: sdk/typescript
-    env:
-      GITHUB_TOKEN: ${{ secrets.MP_SEMANTIC_RELEASE_BOT }}
-      GIT_AUTHOR_NAME: mparticle-automation
-      GIT_AUTHOR_EMAIL: developers@mparticle.com
-      GIT_COMMITTER_NAME: mparticle-automation
-      GIT_COMMITTER_EMAIL: developers@mparticle.com
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     steps:
       - uses: actions/checkout@v4

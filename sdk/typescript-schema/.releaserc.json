@@ -29,10 +29,6 @@
     ["@semantic-release/github", {
       "assets": "dist/*.tgz",
       "name": "audience-typescript-schema"
-    }],
-    ["@semantic-release/git", {
-      "assets": ["package.json", "CHANGELOG.md"],
-      "message": "chore(release): audience-typescript-schema@${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
     }]
   ]
 } 
