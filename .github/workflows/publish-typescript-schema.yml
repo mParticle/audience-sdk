@@ -1,12 +1,7 @@
 name: Publish TypeScript Schema Package
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'sdk/typescript-schema/**'
-      - '.github/workflows/publish-typescript-schema.yml'
+  workflow_dispatch:
 
 jobs:
   release:
