@@ -1,5 +1,5 @@
-import { Query } from '@mparticle/audience-schema/query/query';
-import { Expression } from '@mparticle/audience-schema/expression/expression';
+import { Query } from '@mparticle/audience-typescript-schema/query/query';
+import { Expression } from '@mparticle/audience-typescript-schema/expression/expression';
 
 export class QueryBuilder {
     protected model: string = '';

@@ -1,7 +1,7 @@
-import { UserQuery } from '@mparticle/audience-schema/query/user-query';
+import { UserQuery } from '@mparticle/audience-typescript-schema/query/user-query';
 import { QueryBuilder } from './query-builder';
-import { SingleModelExpression } from '@mparticle/audience-schema/expression/single-model-expression';
-import { LogicalOperator } from '@mparticle/audience-schema';
+import { SingleModelExpression } from '@mparticle/audience-typescript-schema/expression/single-model-expression';
+import { LogicalOperator } from '@mparticle/audience-typescript-schema';
 
 export class UserQueryBuilder extends QueryBuilder {
     private attributes?: SingleModelExpression;

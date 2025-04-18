@@ -1,5 +1,5 @@
-import { LocationOperand } from '@mparticle/audience-schema/operand/location-operand';
-import { Location, DistanceUnit } from '@mparticle/audience-schema/common/location';
+import { LocationOperand } from '@mparticle/audience-typescript-schema/operand/location-operand';
+import { Location, DistanceUnit } from '@mparticle/audience-typescript-schema/common/location';
 
 export class LocationOperandFactory {
     /**

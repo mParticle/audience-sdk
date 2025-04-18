@@ -1,7 +1,7 @@
-import { SingleModelExpression } from '@mparticle/audience-schema/expression/single-model-expression';
-import { Operand } from '@mparticle/audience-schema/operand/operand';
-import { UnaryOperator, BinaryOperator, LogicalOperator, LocationOperator } from '@mparticle/audience-schema/common/operator';
-import { LocationOperand } from '@mparticle/audience-schema/operand/location-operand';
+import { SingleModelExpression } from '@mparticle/audience-typescript-schema/expression/single-model-expression';
+import { Operand } from '@mparticle/audience-typescript-schema/operand/operand';
+import { UnaryOperator, BinaryOperator, LogicalOperator, LocationOperator } from '@mparticle/audience-typescript-schema/common/operator';
+import { LocationOperand } from '@mparticle/audience-typescript-schema/operand/location-operand';
 
 /**
  * Factory class for creating different types of single model expressions

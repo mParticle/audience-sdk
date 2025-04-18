@@ -1,6 +1,6 @@
-import { CountExpression } from '@mparticle/audience-schema/expression/count-expression';
-import { Operand } from '@mparticle/audience-schema/operand/operand';
-import { BinaryOperator, LogicalOperator } from '@mparticle/audience-schema/common/operator';
+import { CountExpression } from '@mparticle/audience-typescript-schema/expression/count-expression';
+import { Operand } from '@mparticle/audience-typescript-schema/operand/operand';
+import { BinaryOperator, LogicalOperator } from '@mparticle/audience-typescript-schema/common/operator';
 
 /**
  * Factory class for creating different types of count expressions

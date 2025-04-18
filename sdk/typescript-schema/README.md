@@ -13,15 +13,15 @@ The schema is organized into several key components:
 ## Installation
 
 ```bash
-npm install @mparticle/audience-schema
+npm install @mparticle/audience-typescript-schema
 # or
-yarn add @mparticle/audience-schema
+yarn add @mparticle/audience-typescript-schema
 ```
 
 ## Usage
 
 ```typescript
-import { Audience, Query, Expression, Operand } from '@mparticle/audience-schema';
+import { Audience, Query, Expression, Operand } from '@mparticle/audience-typescript-schema';
 
 // Create audience queries with type safety
 const query: Query = {

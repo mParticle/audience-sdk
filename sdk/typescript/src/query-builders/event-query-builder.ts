@@ -1,13 +1,13 @@
-import { EventQuery } from '@mparticle/audience-schema/query/event-query';
-import { PathExpression } from '@mparticle/audience-schema/expression/path-expression';
+import { EventQuery } from '@mparticle/audience-typescript-schema/query/event-query';
+import { PathExpression } from '@mparticle/audience-typescript-schema/expression/path-expression';
 import { QueryBuilder } from './query-builder';
-import { SingleModelExpression } from '@mparticle/audience-schema/expression/single-model-expression';
-import { BinaryOperator, LogicalOperator } from '@mparticle/audience-schema';
-import { CountExpression } from '@mparticle/audience-schema/expression/count-expression';
-import { DateExpression } from '@mparticle/audience-schema/expression/date-expression';
-import { LocationExpression } from '@mparticle/audience-schema/expression/location-expression';
-import { Operand } from '@mparticle/audience-schema/operand/operand';
-import { AbsoluteDate, DateUnit, RelativeDate } from '@mparticle/audience-schema/operand/date-operand';
+import { SingleModelExpression } from '@mparticle/audience-typescript-schema/expression/single-model-expression';
+import { BinaryOperator, LogicalOperator } from '@mparticle/audience-typescript-schema';
+import { CountExpression } from '@mparticle/audience-typescript-schema/expression/count-expression';
+import { DateExpression } from '@mparticle/audience-typescript-schema/expression/date-expression';
+import { LocationExpression } from '@mparticle/audience-typescript-schema/expression/location-expression';
+import { Operand } from '@mparticle/audience-typescript-schema/operand/operand';
+import { AbsoluteDate, DateUnit, RelativeDate } from '@mparticle/audience-typescript-schema/operand/date-operand';
 
 export class EventQueryBuilder extends QueryBuilder {
     private eventName?: PathExpression;

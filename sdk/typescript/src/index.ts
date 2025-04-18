@@ -1,9 +1,9 @@
-import { Audience, AudienceQuery } from '@mparticle/audience-schema/audience';
+import { Audience, AudienceQuery } from '@mparticle/audience-typescript-schema/audience';
 import { AudienceBuilder } from './audience-builder';
 import { LogicalQueryBuilder } from './audience-builder';
-import { Query } from '@mparticle/audience-schema/query/query';
-import { EventQuery } from '@mparticle/audience-schema/query/event-query';
-import { UserQuery } from '@mparticle/audience-schema/query/user-query';
+import { Query } from '@mparticle/audience-typescript-schema/query/query';
+import { EventQuery } from '@mparticle/audience-typescript-schema/query/event-query';
+import { UserQuery } from '@mparticle/audience-typescript-schema/query/user-query';
 import { EventQueryBuilder } from './query-builders/event-query-builder';
 import { QueryBuilder } from './query-builders/query-builder';
 import { UserQueryBuilder } from './query-builders/user-query-builder';

@@ -1,7 +1,7 @@
-import { Operand } from '@mparticle/audience-schema/operand/operand';
-import { DateOperand } from '@mparticle/audience-schema/operand/date-operand';
-import { LocationOperand } from '@mparticle/audience-schema/operand/location-operand';
-import { ArithmeticOperator } from '@mparticle/audience-schema/common/operator';
+import { Operand } from '@mparticle/audience-typescript-schema/operand/operand';
+import { DateOperand } from '@mparticle/audience-typescript-schema/operand/date-operand';
+import { LocationOperand } from '@mparticle/audience-typescript-schema/operand/location-operand';
+import { ArithmeticOperator } from '@mparticle/audience-typescript-schema/common/operator';
 import { DateOperandFactory } from './date-operand-factory';
 import { LocationOperandFactory } from './location-operand-factory';
 

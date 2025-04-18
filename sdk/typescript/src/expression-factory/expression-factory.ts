@@ -1,7 +1,7 @@
-import { Expression } from '@mparticle/audience-schema/expression/expression';
-import { Operand } from '@mparticle/audience-schema/operand/operand';
-import { BinaryOperator, LogicalOperator, LocationOperator, AggregationOperator } from '@mparticle/audience-schema/common/operator';
-import { LocationOperand } from '@mparticle/audience-schema/operand/location-operand';
+import { Expression } from '@mparticle/audience-typescript-schema/expression/expression';
+import { Operand } from '@mparticle/audience-typescript-schema/operand/operand';
+import { BinaryOperator, LogicalOperator, LocationOperator, AggregationOperator } from '@mparticle/audience-typescript-schema/common/operator';
+import { LocationOperand } from '@mparticle/audience-typescript-schema/operand/location-operand';
 
 /**
  * Factory class for creating different types of expressions

@@ -1,4 +1,4 @@
-import { DateOperand, AbsoluteDate, RelativeDate, DateUnit } from '@mparticle/audience-schema/operand/date-operand';
+import { DateOperand, AbsoluteDate, RelativeDate, DateUnit } from '@mparticle/audience-typescript-schema/operand/date-operand';
 
 export class DateOperandFactory {
     /**

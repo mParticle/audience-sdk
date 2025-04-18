@@ -1,14 +1,23 @@
 {
-  "name": "@mparticle/audience-schema",
+  "name": "@mparticle/audience-typescript-schema",
   "version": "1.0.0",
   "description": "TypeScript schema definitions for mParticle Audiences",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20.8.1"
+  },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^9.2.6",
+    "@semantic-release/npm": "^11.0.2",
+    "semantic-release": "^23.0.2"
   }
 }

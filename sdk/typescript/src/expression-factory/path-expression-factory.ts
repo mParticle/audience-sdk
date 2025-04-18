@@ -1,7 +1,7 @@
-import { PathExpression } from '@mparticle/audience-schema/expression/path-expression';
-import { Operand } from '@mparticle/audience-schema/operand/operand';
-import { UnaryOperator, BinaryOperator } from '@mparticle/audience-schema/common/operator';
-import { Expression } from '@mparticle/audience-schema/expression/expression';
+import { PathExpression } from '@mparticle/audience-typescript-schema/expression/path-expression';
+import { Operand } from '@mparticle/audience-typescript-schema/operand/operand';
+import { UnaryOperator, BinaryOperator } from '@mparticle/audience-typescript-schema/common/operator';
+import { Expression } from '@mparticle/audience-typescript-schema/expression/expression';
 
 /**
  * Factory class for creating different types of path expressions

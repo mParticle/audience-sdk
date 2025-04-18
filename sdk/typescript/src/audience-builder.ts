@@ -1,6 +1,6 @@
 
-import { Audience, AudienceQuery, LogicalAudienceQueries } from '@mparticle/audience-schema/audience';
-import { LogicalOperator } from '@mparticle/audience-schema/common/operator';
+import { Audience, AudienceQuery, LogicalAudienceQueries } from '@mparticle/audience-typescript-schema/audience';
+import { LogicalOperator } from '@mparticle/audience-typescript-schema/common/operator';
 
 export class AudienceBuilder {
     private queries: (LogicalAudienceQueries | AudienceQuery)[] = [];
