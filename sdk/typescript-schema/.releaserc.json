@@ -25,10 +25,6 @@
       "npmPublish": true,
       "tarballDir": "dist",
       "pkgRoot": "."
-    }],
-    ["@semantic-release/github", {
-      "assets": "dist/*.tgz",
-      "name": "audience-typescript-schema"
     }]
   ]
 } 
