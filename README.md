@@ -1,52 +1,29 @@
-# Audience SDK
-Audience schema and SDKs for interacting with mParticle's Audience definitions.
-# Audience Definition Format
+# Audience Schema & SDK
 
-This repository contains an evolving specification for defining audience segments through a JSON-based query format. The format enables building complex audience definitions by combining different types of queries and expressions.
+This repository contains tools and specifications for working with audience definitions in a standardized format. It includes TypeScript implementations of the audience schema along with SDKs to help build and validate audience definitions.
 
-TODO: requirements
+## Overview
 
-## Building Blocks
+The audience schema provides a structured way to define target audiences through a combination of user attributes, events, and logical conditions. The TypeScript implementation offers type-safe ways to construct and validate these audience definitions.
 
-### Models and References
+## Components
 
-The format works with different data models that represent various aspects of user behavior and attributes:
+### TypeScript Schema
+Located in `sdk/typescript-schema`, this package contains the core TypeScript types and interfaces that define the audience schema format. It provides the foundational types used by the SDK.
 
-- Application events
-- Ecommerce events 
-- User attributes
-- (Future) Identity resolution
-- (Future) Media consumption
+### TypeScript SDK 
+Located in `sdk/typescript`, this is a full-featured SDK that provides builders and utilities for working with audience definitions. It includes:
 
-Models can be referenced and joined together to create more complex audience definitions.
+- Builder classes for constructing audience definitions
+- Expression factories for creating complex queries
+- Validation utilities
+- Serialization/deserialization helpers
 
-### Operators
+## Getting Started
 
-Several types of operators are supported:
+### Installation
 
-TODO: operators
+For the TypeScript SDK:
 
-### Expressions
 
-Expressions combine operators with values to create filtering conditions:
-
-TODO: expressions
-
-### Queries
-
-Queries tie everything together to define the audience:
-
-TODO: queries
-
-## Roadmap
-
-The specification is being developed incrementally:
-
-1. ⋯ Event sequencing
-2. ⋯ Calculated Attributes (as a definition, and a query))
-3. ⋯ Additional domain-specific models (identity, ecommerce, media)
-
-## Examples
-
-TODO Examples
 

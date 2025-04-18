@@ -15,7 +15,10 @@
         "es2017", "ES2019.Object", "dom", "es2018.promise", "esnext.weakref"
       ],
       "noUnusedLocals": true,
-      "outDir": "dist"
+      "outDir": "dist",
+      "declaration": true,
+      "declarationDir": "dist",
+      "declarationMap": true
     },
     "include": [
       "./**/*"

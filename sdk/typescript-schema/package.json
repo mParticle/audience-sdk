@@ -1,20 +1,14 @@
 {
-  "name": "@mparticle/audience-typescript-schema",
-  "version": "0.1.1",
-  "description": "TypeScript types for defining Audience criteria",
-  "main": "audience.ts",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mParticle/audience-sdk.git"
-  },
-  "keywords": [
-    "audience"
-  ],
+  "name": "@mparticle/audience-schema",
+  "version": "1.0.0",
+  "description": "TypeScript schema definitions for mParticle Audiences",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc"
   },
   "devDependencies": {
-    "typescript": "4.9.5"
+    "typescript": "^5.0.4"
   }
 }

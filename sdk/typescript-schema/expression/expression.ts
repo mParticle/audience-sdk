@@ -1,5 +1,5 @@
 import { Operand } from "../operand/operand";
-import { AggregationOperator, BinaryOperator, LocationOperator, LogicalOperator, UnaryOperator } from "../common/operator";
+import { AggregationOperator, BinaryOperator, LocationOperator, LogicalOperator } from "../common/operator";
 import { LocationOperand } from "../operand/location-operand";
 
 /**

@@ -1,6 +1,5 @@
 import { Operand } from "../operand/operand";
 import { UnaryOperator, BinaryOperator } from "../common/operator";
-import { Expression } from "./expression";
 
 /**
  * Represents an expression that evaluates to a path or value.
@@ -32,6 +31,6 @@ export type PathExpression =
     | number
     | string
     |   // unary expression 
-    { operator: UnaryOperator, expression: Omit<Expression, "model"> }
+    { operator: UnaryOperator, expression: PathExpression }
     |   // binary expression
     { operator: BinaryOperator, operand: Operand };
