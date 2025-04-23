@@ -9,6 +9,7 @@
     "node": ">=20.8.1"
   },
   "scripts": {
+    "prebuild": "node -e \"require('fs').writeFileSync('version.ts', 'export const VERSION = \\'' + require('./package.json').version + '\\';')\"",
     "build": "tsc",
     "semantic-release": "semantic-release"
   },

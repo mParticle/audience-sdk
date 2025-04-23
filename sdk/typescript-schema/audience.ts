@@ -1,4 +1,5 @@
 import { LogicalOperator } from "./common/operator";
+import { Version } from "./common/version";
 import { EventQuery } from "./query/event-query";
 import { Query } from "./query/query";
 import { UserQuery } from "./query/user-query";
@@ -67,5 +68,7 @@ export type LogicalAudienceQueries =
  * }
  */
 export type Audience = { 
-    audience: LogicalAudienceQueries
-};
+    audience: 
+        { version: Version }
+        & LogicalAudienceQueries
+}

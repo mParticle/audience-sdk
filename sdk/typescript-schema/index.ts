@@ -1,3 +1,6 @@
+// Export version
+export { VERSION } from './version';
+
 // Export audience types
 export * from './audience';
 
