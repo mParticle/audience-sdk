@@ -1,6 +1,6 @@
-
 import { Audience, AudienceQuery, LogicalAudienceQueries } from '@mparticle/audience-typescript-schema/audience';
 import { LogicalOperator } from '@mparticle/audience-typescript-schema/common/operator';
+import { VERSION } from '@mparticle/audience-typescript-schema/version';
 
 export class AudienceBuilder {
     private queries: (LogicalAudienceQueries | AudienceQuery)[] = [];
@@ -48,6 +48,7 @@ export class AudienceBuilder {
 
         return {
             audience: {
+                version: VERSION,
                 operator: this.currentOperator,
                 queries: this.queries
             }

@@ -150,7 +150,7 @@ export class EventQueryBuilder extends QueryBuilder {
      * Builds and returns the event query
      */
     build(): EventQuery {
-        if (!this.model) {
+        if (!this.models) {
             throw new Error('Model is required for an event query');
         }
 
@@ -159,7 +159,7 @@ export class EventQueryBuilder extends QueryBuilder {
         }
 
         return {
-            model: this.model,
+            models: this.models,
             event_name: this.eventName,
             ...(this.attributes && { attributes: this.attributes }),
             ...(this.count !== undefined && { count: this.count }),

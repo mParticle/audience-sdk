@@ -1,3 +1,4 @@
+import { Models } from "../common/model"
 import { CountExpression } from "../expression/count-expression"
 import { DateExpression } from "../expression/date-expression"
 import { LocationExpression } from "../expression/location-expression"
@@ -10,13 +11,13 @@ import { Query } from "./query"
  * Examples:
  * 1. Simple event query:
  *    {
- *      model: "event",
+ *      models: ["event"],
  *      event_name: { path: "purchase" }
  *    }
  * 
  * 2. Complex event query with multiple conditions:
  *    {
- *      model: "event",
+ *      models: ["event", "transaction", "session"],
  *      event_type: { path: "commerce" },
  *      event_name: { path: "purchase" },
  *      attributes: {
@@ -40,7 +41,7 @@ import { Query } from "./query"
  */
 export type EventQuery = 
     {
-        model: string,
+        models: Models,
         event_type?: PathExpression,
         event_name?: PathExpression,
         attributes?: SingleModelExpression,
