@@ -25,6 +25,10 @@
       "npmPublish": true,
       "tarballDir": "dist",
       "pkgRoot": "."
+    }],
+    ["@semantic-release/github", {
+      "assets": ["dist"],
+      "releaseNameTemplate": "Audience Typescript Schema <%= nextRelease.version %>"
     }]
   ]
 } 

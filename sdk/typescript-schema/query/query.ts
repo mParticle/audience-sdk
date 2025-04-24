@@ -5,11 +5,14 @@ import { Expression } from "../expression/expression";
  * Represents a base query with a model and optional expression.
  * Examples:
  * 1. Simple query without expression:
- *    { models: ["user"] }
+ *    { models: [{ type: "user", id: 1 }] }
  * 
  * 2. Query with expression:
  *    { 
- *      models: ["user", "high_ltv_users"],
+ *      models: [
+ *        { type: "user", id: 1 },
+ *        { type: "segment", id: 2, name: "high_ltv_users" }
+ *      ],
  *      expression: {
  *        operator: "equals",
  *        path: "age",

@@ -275,8 +275,741 @@
         "meters",
         "miles",
         "kilometers"
-      ],
-      "type": "string"
+      ]
+    },
+    "Model": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ]
+    },
+    "Models": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "all"
+          ]
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Model"
+          }
+        }
+      ]
+    },
+    "Version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9]+)?$"
+    },
+    "Location": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        },
+        "distance": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "unit": {
+              "$ref": "#/definitions/DistanceUnit"
+            }
+          },
+          "required": [
+            "value",
+            "unit"
+          ]
+        }
+      },
+      "required": [
+        "latitude",
+        "longitude"
+      ]
+    },
+    "AbsoluteDate": {
+      "type": "object",
+      "properties": {
+        "absolute": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "absolute"
+      ]
+    },
+    "RelativeDate": {
+      "type": "object",
+      "properties": {
+        "relative": {
+          "type": "object",
+          "properties": {
+            "offset": {
+              "type": "number"
+            },
+            "unit": {
+              "$ref": "#/definitions/DateUnit"
+            },
+            "boundary": {
+              "type": "string",
+              "enum": [
+                "start",
+                "end",
+                "middle"
+              ]
+            }
+          },
+          "required": [
+            "offset",
+            "unit"
+          ]
+        }
+      },
+      "required": [
+        "relative"
+      ]
+    },
+    "DateOperand": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "date": {
+              "$ref": "#/definitions/AbsoluteDate"
+            }
+          },
+          "required": [
+            "date"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "date": {
+              "$ref": "#/definitions/RelativeDate"
+            }
+          },
+          "required": [
+            "date"
+          ]
+        }
+      ]
+    },
+    "LocationOperand": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "$ref": "#/definitions/Location"
+        }
+      },
+      "required": [
+        "location"
+      ]
+    },
+    "Operand": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/Primitive"
+        },
+        {
+          "$ref": "#/definitions/ModelPath"
+        },
+        {
+          "$ref": "#/definitions/DateOperand"
+        },
+        {
+          "$ref": "#/definitions/LocationOperand"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "$ref": "#/definitions/ArithmeticOperator"
+            },
+            "left": {
+              "$ref": "#/definitions/Operand"
+            },
+            "right": {
+              "$ref": "#/definitions/Operand"
+            }
+          },
+          "required": [
+            "operator",
+            "left",
+            "right"
+          ]
+        }
+      ]
+    },
+    "PathExpression": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/Primitive"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "$ref": "#/definitions/UnaryOperator"
+            },
+            "expression": {
+              "$ref": "#/definitions/PathExpression"
+            }
+          },
+          "required": [
+            "operator",
+            "expression"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "$ref": "#/definitions/BinaryOperator"
+            },
+            "operand": {
+              "$ref": "#/definitions/Operand"
+            }
+          },
+          "required": [
+            "operator",
+            "operand"
+          ]
+        }
+      ]
+    },
+    "SingleModelExpression": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "$ref": "#/definitions/UnaryOperator"
+            },
+            "expression": {
+              "$ref": "#/definitions/SingleModelExpression"
+            }
+          },
+          "required": [
+            "operator",
+            "expression"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "$ref": "#/definitions/BinaryOperator"
+            },
+            "left": {
+              "$ref": "#/definitions/Operand"
+            },
+            "right": {
+              "$ref": "#/definitions/Operand"
+            }
+          },
+          "required": [
+            "operator",
+            "left",
+            "right"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "$ref": "#/definitions/LogicalOperator"
+            },
+            "expressions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SingleModelExpression"
+              }
+            }
+          },
+          "required": [
+            "operator",
+            "expressions"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "$ref": "#/definitions/LocationOperator"
+            },
+            "left": {
+              "$ref": "#/definitions/LocationOperand"
+            },
+            "right": {
+              "$ref": "#/definitions/ModelPath"
+            }
+          },
+          "required": [
+            "operator",
+            "left",
+            "right"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "$ref": "#/definitions/LocationOperator"
+            },
+            "left": {
+              "$ref": "#/definitions/ModelPath"
+            },
+            "right": {
+              "$ref": "#/definitions/LocationOperand"
+            }
+          },
+          "required": [
+            "operator",
+            "left",
+            "right"
+          ]
+        }
+      ]
+    },
+    "CountExpression": {
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "$ref": "#/definitions/BinaryOperator"
+            },
+            "operand": {
+              "$ref": "#/definitions/Operand"
+            }
+          },
+          "required": [
+            "operator",
+            "operand"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "$ref": "#/definitions/LogicalOperator"
+            },
+            "expressions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CountExpression"
+              }
+            }
+          },
+          "required": [
+            "operator",
+            "expressions"
+          ]
+        }
+      ]
+    },
+    "DateExpression": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/AbsoluteDate"
+        },
+        {
+          "$ref": "#/definitions/RelativeDate"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "$ref": "#/definitions/BinaryOperator"
+            },
+            "operand": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/AbsoluteDate"
+                },
+                {
+                  "$ref": "#/definitions/RelativeDate"
+                }
+              ]
+            }
+          },
+          "required": [
+            "operator",
+            "operand"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "$ref": "#/definitions/LogicalOperator"
+            },
+            "expressions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DateExpression"
+              }
+            }
+          },
+          "required": [
+            "operator",
+            "expressions"
+          ]
+        }
+      ]
+    },
+    "LocationExpression": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/Location"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "$ref": "#/definitions/LocationOperator"
+            },
+            "operand": {
+              "$ref": "#/definitions/Location"
+            }
+          },
+          "required": [
+            "operator",
+            "operand"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "$ref": "#/definitions/LogicalOperator"
+            },
+            "expressions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LocationExpression"
+              }
+            }
+          },
+          "required": [
+            "operator",
+            "expressions"
+          ]
+        }
+      ]
+    },
+    "Expression": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "model": {
+              "type": "string"
+            },
+            "expression": {
+              "$ref": "#/definitions/Expression"
+            }
+          },
+          "required": [
+            "model",
+            "expression"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "model": {
+              "type": "string"
+            },
+            "operator": {
+              "$ref": "#/definitions/UnaryOperator"
+            },
+            "expression": {
+              "$ref": "#/definitions/Expression"
+            }
+          },
+          "required": [
+            "operator",
+            "expression"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "model": {
+              "type": "string"
+            },
+            "operator": {
+              "type": "string",
+              "enum": [
+                "exists"
+              ]
+            },
+            "operand": {
+              "$ref": "#/definitions/Operand"
+            }
+          },
+          "required": [
+            "operator",
+            "operand"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "model": {
+              "type": "string"
+            },
+            "operator": {
+              "$ref": "#/definitions/BinaryOperator"
+            },
+            "left": {
+              "$ref": "#/definitions/Operand"
+            },
+            "right": {
+              "$ref": "#/definitions/Operand"
+            }
+          },
+          "required": [
+            "operator",
+            "left",
+            "right"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "model": {
+              "type": "string"
+            },
+            "operator": {
+              "$ref": "#/definitions/BinaryOperator"
+            },
+            "expression": {
+              "$ref": "#/definitions/Expression"
+            },
+            "left": {
+              "type": "object",
+              "properties": {
+                "operator": {
+                  "$ref": "#/definitions/AggregationOperator"
+                },
+                "path": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "operator",
+                "path"
+              ]
+            },
+            "right": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/Operand"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "model": {
+                      "type": "string"
+                    },
+                    "operator": {
+                      "$ref": "#/definitions/AggregationOperator"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "expression": {
+                      "$ref": "#/definitions/Expression"
+                    }
+                  },
+                  "required": [
+                    "model",
+                    "operator",
+                    "path",
+                    "expression"
+                  ]
+                }
+              ]
+            }
+          },
+          "required": [
+            "model",
+            "operator",
+            "expression",
+            "left",
+            "right"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "model": {
+              "type": "string"
+            },
+            "operator": {
+              "$ref": "#/definitions/BinaryOperator"
+            },
+            "expression": {
+              "$ref": "#/definitions/Expression"
+            },
+            "left": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/Operand"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "model": {
+                      "type": "string"
+                    },
+                    "operator": {
+                      "$ref": "#/definitions/AggregationOperator"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "expression": {
+                      "$ref": "#/definitions/Expression"
+                    }
+                  },
+                  "required": [
+                    "model",
+                    "operator",
+                    "path",
+                    "expression"
+                  ]
+                }
+              ]
+            },
+            "right": {
+              "type": "object",
+              "properties": {
+                "operator": {
+                  "$ref": "#/definitions/AggregationOperator"
+                },
+                "path": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "operator",
+                "path"
+              ]
+            }
+          },
+          "required": [
+            "model",
+            "operator",
+            "expression",
+            "left",
+            "right"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "model": {
+              "type": "string"
+            },
+            "operator": {
+              "$ref": "#/definitions/LogicalOperator"
+            },
+            "expressions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Expression"
+              }
+            }
+          },
+          "required": [
+            "operator",
+            "expressions"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "model": {
+              "type": "string"
+            },
+            "operator": {
+              "$ref": "#/definitions/LocationOperator"
+            },
+            "left": {
+              "$ref": "#/definitions/LocationOperand"
+            },
+            "right": {
+              "$ref": "#/definitions/ModelPath"
+            }
+          },
+          "required": [
+            "operator",
+            "left",
+            "right"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "model": {
+              "type": "string"
+            },
+            "operator": {
+              "$ref": "#/definitions/LocationOperator"
+            },
+            "left": {
+              "$ref": "#/definitions/ModelPath"
+            },
+            "right": {
+              "$ref": "#/definitions/LocationOperand"
+            }
+          },
+          "required": [
+            "operator",
+            "left",
+            "right"
+          ]
+        }
+      ]
+    },
+    "Query": {
+      "type": "object",
+      "properties": {
+        "models": {
+          "$ref": "#/definitions/Models"
+        },
+        "expression": {
+          "$ref": "#/definitions/Expression"
+        }
+      },
+      "required": [
+        "models"
+      ]
     },
     "EventQuery": {
       "additionalProperties": false,
