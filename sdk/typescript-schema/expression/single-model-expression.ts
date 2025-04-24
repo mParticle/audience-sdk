@@ -1,5 +1,5 @@
 import { Operand } from "../operand/operand";
-import { UnaryOperator, BinaryOperator, LogicalOperator, LocationOperator } from "../common/operator";
+import { LogicalOperator, LocationOperator } from "../common/operator";
 import { LocationOperand } from "../operand/location-operand";
 
 /**
@@ -57,7 +57,7 @@ import { LocationOperand } from "../operand/location-operand";
  *    }
  */
 export type SingleModelExpression =
-        // not expression
+    // not expression
     { operator: "not", expression: SingleModelExpression }
     |   // exists expression
     { operator: "exists", operand: Operand }
