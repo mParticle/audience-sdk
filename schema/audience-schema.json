@@ -103,10 +103,19 @@
         "kilometers"
       ]
     },
+    "Model": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string" },
+        "id": { "type": "number" },
+        "name": { "type": "string" }
+      },
+      "required": ["type", "id"]
+    },
     "Models": {
       "oneOf": [
         { "type": "string", "enum": ["all"] },
-        { "type": "array", "items": { "type": "string" } }
+        { "type": "array", "items": { "$ref": "#/definitions/Model" } }
       ]
     },
     "Version": {

@@ -1,6 +1,6 @@
 import { Query } from '@mparticle/audience-typescript-schema/query/query';
 import { Expression } from '@mparticle/audience-typescript-schema/expression/expression';
-import { Models } from '@mparticle/audience-typescript-schema/common/model';
+import { Models, Model } from '@mparticle/audience-typescript-schema/common/model';
 
 export class QueryBuilder {
     protected models: Models = [];
@@ -15,10 +15,10 @@ export class QueryBuilder {
     }
 
     /**
-     * Sets the model for the query
-     * @param model The model name
+     * Sets the models for the query
+     * @param models The model names, IDs, or model objects with type
      */
-    setModels(models: string[]): this {
+    setModels(models: Model[]): this {
         this.models = models;
         return this;
     }

@@ -17,7 +17,7 @@ import { createAudience, createEventQueryBuilder } from '@mparticle/audience-sdk
 
 // Create an event query
 const eventQuery = createEventQueryBuilder()
-  .setModel('event')
+  .setModels(['event'])
   .setEventName({ path: 'purchase' })
   .build();
 
@@ -42,13 +42,13 @@ import {
 
 // Create an event query for purchases
 const purchaseQuery = createEventQueryBuilder()
-  .setModel('event')
+  .setModels(['event'])
   .setEventName({ path: 'purchase' })
   .build();
 
 // Create a user query for premium users
 const premiumUserQuery = createUserQueryBuilder()
-  .setModel('user')
+  .setModels(['user'])
   .addAttribute('subscription_tier', { path: 'premium' })
   .build();
 
@@ -159,13 +159,13 @@ import {
 
 // Simple event query
 const simpleEventQuery = createEventQueryBuilder()
-  .setModel('event')
+  .setModels(['event'])
   .setEventName({ path: 'purchase' })
   .build();
 
 // Event query with attributes
 const eventQueryWithAttributes = createEventQueryBuilder()
-  .setModel('event')
+  .setModels(['event'])
   .setEventName({ path: 'purchase' })
   .setAttributeOperator('and')
   .addAttributesExpression(
@@ -179,21 +179,21 @@ const eventQueryWithAttributes = createEventQueryBuilder()
 
 // Event query with count
 const eventQueryWithCount = createEventQueryBuilder()
-  .setModel('event')
+  .setModels(['event'])
   .setEventName({ path: 'purchase' })
   .setCountValue(5)
   .build();
 
 // Event query with date
 const eventQueryWithDate = createEventQueryBuilder()
-  .setModel('event')
+  .setModels(['event'])
   .setEventName({ path: 'purchase' })
   .setRelativeDate(-30, 'day', 'start')
   .build();
 
 // Event query with location
 const eventQueryWithLocation = createEventQueryBuilder()
-  .setModel('event')
+  .setModels(['event'])
   .setEventName({ path: 'purchase' })
   .setLocation(
     ExpressionFactory.createLocation(
@@ -216,7 +216,7 @@ import {
 
 // Simple user query
 const simpleUserQuery = createUserQueryBuilder()
-  .setModel('user')
+  .setModels(['user'])
   .setAttributeOperator('and')
   .addAttributesExpression(
     ExpressionFactory.createBinary(
@@ -229,7 +229,7 @@ const simpleUserQuery = createUserQueryBuilder()
 
 // Complex user query with multiple conditions
 const complexUserQuery = createUserQueryBuilder()
-  .setModel('user')
+  .setModels(['user'])
   .setAttributeOperator('and')
   .addAttributesExpression(
     ExpressionFactory.createBinary(
@@ -284,13 +284,15 @@ The main builder for creating Audience objects.
 
 #### GeneralQueryBuilder
 
-- `setModel(model: string)`: Sets the model for the query
+- `setAllModels()`: Sets the model to all models
+- `setModels(models: Model[])`: Sets the models for the query
 - `setExpression(expression: Expression)`: Sets the expression for the query
 - `build()`: Builds and returns the query
 
 #### EventQueryBuilder
 
-- `setModel(model: string)`: Sets the model for the event query
+- `setAllModels()`: Sets the model to all models
+- `setModels(models: Model[])`: Sets the models for the event query
 - `setEventName(eventName: PathExpression)`: Sets the event name
 - `setAttributeOperator(operator: LogicalOperator)`: Sets the operator for combining attribute expressions
 - `addAttributesExpression(expression: SingleModelExpression)`: Adds an expression to the query
@@ -307,22 +309,23 @@ The main builder for creating Audience objects.
 
 #### UserQueryBuilder
 
-- `setModel(model: string)`: Sets the model for the user query
+- `setAllModels()`: Sets the model to all models
+- `setModels(models: Model[])`: Sets the models for the user query
 - `setAttributeOperator(operator: LogicalOperator)`: Sets the operator for combining attribute expressions
 - `addAttributesExpression(expression: SingleModelExpression)`: Adds an expression to the query
 - `build()`: Builds and returns the user query
 
 ### Expression Factory
 
-- `createJoin(model: string, expression: Expression)`: Creates a join expression
-- `createNot(expression: Expression, model?: string)`: Creates a unary expression (NOT)
-- `createExists(operand: Operand, model?: string)`: Creates an exists expression
-- `createBinary(operator: BinaryOperator, left: Operand, right: Operand, model?: string)`: Creates a binary expression
-- `createModelAggregation(model: string, operator: BinaryOperator, expression: Expression, aggregation: { operator: AggregationOperator, path: string }, right: Operand | { model: string, operator: AggregationOperator, path: string, expression: Expression })`: Creates a model aggregation expression
-- `createLogical(operator: LogicalOperator, expressions: Expression[], model?: string)`: Creates a logical expression (AND/OR)
-- `createLocation(operator: LocationOperator, location: LocationOperand, path: { path: string }, model?: string)`: Creates a location expression
-- `createAnd(expressions: Expression[], model?: string)`: Creates an AND expression
-- `createOr(expressions: Expression[], model?: string)`: Creates an OR expression
+- `createJoin(model: Model, expression: Expression)`: Creates a join expression
+- `createNot(expression: Expression, model?: Model)`: Creates a unary expression (NOT)
+- `createExists(operand: Operand, model?: Model)`: Creates an exists expression
+- `createBinary(operator: BinaryOperator, left: Operand, right: Operand, model?: Model)`: Creates a binary expression
+- `createModelAggregation(model: Model, operator: BinaryOperator, expression: Expression, aggregation: { operator: AggregationOperator, path: string }, right: Operand | { model: string, operator: AggregationOperator, path: string, expression: Expression })`: Creates a model aggregation expression
+- `createLogical(operator: LogicalOperator, expressions: Expression[], model?: Model)`: Creates a logical expression (AND/OR)
+- `createLocation(operator: LocationOperator, location: LocationOperand, path: { path: string }, model?: Model)`: Creates a location expression
+- `createAnd(expressions: Expression[], model?: Model)`: Creates an AND expression
+- `createOr(expressions: Expression[], model?: Model)`: Creates an OR expression
 
 ### Operand Factory
 
@@ -336,6 +339,12 @@ The main builder for creating Audience objects.
 - `createLocationWithMiles(latitude: number, longitude: number, miles: number)`: Creates a location operand with latitude, longitude, and distance in miles
 - `createLocationWithKilometers(latitude: number, longitude: number, kilometers: number)`: Creates a location operand with latitude, longitude, and distance in kilometers
 
+### Model Factory
+
+- `createWithId(id: number, type: string)`: Creates a model with an ID and type
+- `createWithName(name: string, type: string)`: Creates a model with a name and type
+- `createModel(type: string, id: number, name?: string)`: Creates a model with type, ID, and optional name
+
 ### Utility Functions
 
 - `createAudience()`: Creates a new AudienceBuilder instance
@@ -345,4 +354,4 @@ The main builder for creating Audience objects.
 - `createUserQueryBuilder()`: Creates a new UserQueryBuilder instance
 - `validateAudience(audience: Audience)`: Validates an Audience object
 - `parseAudience(json: string)`: Parses a JSON string into an Audience object
-- `stringifyAudience(audience: Audience)`: Converts an Audience object to a JSON string 
+- `stringifyAudience(audience: Audience)`: Converts an Audience object to a JSON string

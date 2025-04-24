@@ -57,9 +57,10 @@ import { LocationOperand } from "../operand/location-operand";
  *    }
  */
 export type SingleModelExpression =
-    { operator: UnaryOperator, expression: SingleModelExpression }
-    |   // binary expression
-    { operator: BinaryOperator, left: Operand, right: Operand }
+        // not expression
+    { operator: "not", expression: SingleModelExpression }
+    |   // exists expression
+    { operator: "exists", operand: Operand }
     |   // logical expression group
     { operator: LogicalOperator, expressions: SingleModelExpression[] }
     |   // location (left) expression

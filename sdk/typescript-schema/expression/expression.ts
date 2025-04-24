@@ -1,6 +1,7 @@
 import { Operand } from "../operand/operand";
 import { AggregationOperator, BinaryOperator, LocationOperator, LogicalOperator } from "../common/operator";
 import { LocationOperand } from "../operand/location-operand";
+import { Model } from "../common/model";
 
 /**
  * Represents a complex expression that can evaluate to true, false, or noop.
@@ -8,7 +9,7 @@ import { LocationOperand } from "../operand/location-operand";
  * 
  * 1. Join expression (combining expressions from different models):
  *    {
- *      model: "user",
+ *      model: { type: "user", id: 1 },
  *      expression: {
  *        operator: "equals",
  *        left: { path: "age" },
@@ -37,7 +38,7 @@ import { LocationOperand } from "../operand/location-operand";
  *    {
  *      operator: "greater_than",
  *      left: { 
- *        model: "order", 
+ *        model: { type: "order", id: 1 }, 
  *        operator: "sum", 
  *        path: "amount",
  *        expression: {
@@ -49,7 +50,32 @@ import { LocationOperand } from "../operand/location-operand";
  *      right: 1000
  *    }
  * 
- * 5. Logical expression group (combining multiple expressions):
+ * 5. Binary expression with aggregation on both sides:
+ *    {
+ *      operator: "greater_than",
+ *      left: { 
+ *        model: { type: "order", id: 1 }, 
+ *        operator: "sum", 
+ *        path: "amount",
+ *        expression: {
+ *          operator: "equals",
+ *          left: { path: "status" },
+ *          right: "completed"
+ *        }
+ *      },
+ *      right: { 
+ *        model: { type: "order", id: 1 }, 
+ *        operator: "sum", 
+ *        path: "amount",
+ *        expression: {
+ *          operator: "equals",
+ *          left: { path: "status" },
+ *          right: "pending"
+ *        }
+ *      }
+ *    }
+ * 
+ * 6. Logical expression (AND/OR):
  *    {
  *      operator: "and",
  *      expressions: [
@@ -66,38 +92,35 @@ import { LocationOperand } from "../operand/location-operand";
  *      ]
  *    }
  * 
- * 6. Location expression (comparing locations):
+ * 7. Location expression:
  *    {
  *      operator: "within",
- *      left: {
- *        location: {
- *          latitude: 40.7128,
- *          longitude: -74.0060,
- *          distance: {
- *            value: 5,
- *            unit: "miles"
- *          }
- *        }
+ *      left: { 
+ *        location: { 
+ *          latitude: 37.7749, 
+ *          longitude: -122.4194,
+ *          distance: { value: 10, unit: "miles" }
+ *        } 
  *      },
  *      right: { path: "user.location" }
  *    }
  */
 export type Expression =
-        // join expression
-    { model: string, expression: Expression }
+    // join expression
+    { model: Model, expression: Expression }
     |   // unary expression
-    { model?: string, operator: "not", expression: Expression }
+    { model?: Model, operator: "not", expression: Expression }
     |   // exists expression
-    { model?: string, operator: "exists", operand: Operand }
+    { model?: Model, operator: "exists", operand: Operand }
     |   // binary expression
-    { model?: string, operator: BinaryOperator, left: Operand, right: Operand }
+    { model?: Model, operator: BinaryOperator, left: Operand, right: Operand }
     |   // model aggregation (left) expression
-    { model: string, operator: BinaryOperator, expression: Expression, left: { operator: AggregationOperator, path: string }, right: Operand | { model: string, operator: AggregationOperator, path: string, expression: Expression } }
+    { model: Model, operator: BinaryOperator, expression: Expression, left: { operator: AggregationOperator, path: string }, right: Operand | { model: string, operator: AggregationOperator, path: string, expression: Expression } }
     |   // model aggregation (right) expression
-    { model: string, operator: BinaryOperator, expression: Expression, left: Operand | { model: string, operator: AggregationOperator, path: string, expression: Expression }, right: { operator: AggregationOperator, path: string } }
+    { model: Model, operator: BinaryOperator, expression: Expression, left: Operand | { model: string, operator: AggregationOperator, path: string, expression: Expression }, right: { operator: AggregationOperator, path: string } }
     |   // logical expression group
-    { model?: string, operator: LogicalOperator, expressions: Expression[] }
+    { model?: Model, operator: LogicalOperator, expressions: Expression[] }
     |   // location (left) expression
-    { model?: string, operator: LocationOperator, left: LocationOperand, right: { path: string } }
+    { model?: Model, operator: LocationOperator, left: LocationOperand, right: { path: string } }
     |   // location (left) expression
-    { model?: string, operator: LocationOperator, left: { path: string }, right: LocationOperand };
+    { model?: Model, operator: LocationOperator, left: { path: string }, right: LocationOperand };
