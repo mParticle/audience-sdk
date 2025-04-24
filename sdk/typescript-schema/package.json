@@ -1,12 +1,12 @@
 {
   "name": "@mparticle/audience-typescript-schema",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TypeScript schema definitions for mParticle Audiences",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=20.8.1"
+    "node": ">=18.20.4"
   },
   "scripts": {
     "prebuild": "node -e \"require('fs').writeFileSync('version.ts', 'export const VERSION = \\'' + require('./package.json').version + '\\';')\"",
