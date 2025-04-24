@@ -343,6 +343,7 @@ The main builder for creating Audience objects.
 
 - `createWithId(id: number, type: string)`: Creates a model with an ID and type
 - `createWithName(name: string, type: string)`: Creates a model with a name and type
+- `createModel(type: string, id: number, name?: string)`: Creates a model with type, ID, and optional name
 
 ### Utility Functions
 

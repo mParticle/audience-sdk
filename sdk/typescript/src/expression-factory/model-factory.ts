@@ -21,6 +21,17 @@ export class ModelFactory {
      * @returns A model with name and type
      */
     static createWithName(name: string, type: string): Model {
-        return { name, type };
+        return { name, type, id: 0 }; // Using 0 as a default ID
+    }
+
+    /**
+     * Creates a model with type, ID, and optional name
+     * @param type The model type
+     * @param id The model ID
+     * @param name Optional model name
+     * @returns A model with type, ID, and optional name
+     */
+    static createModel(type: string, id: number, name?: string): Model {
+        return { type, id, name };
     }
 } 

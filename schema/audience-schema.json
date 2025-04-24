@@ -104,26 +104,13 @@
       ]
     },
     "Model": {
-      "oneOf": [
-        { "type": "number" },
-        { "type": "string" },
-        {
-          "type": "object",
-          "properties": {
-            "type": { "type": "string" },
-            "id": { "type": "number" }
-          },
-          "required": ["type", "id"]
-        },
-        {
-          "type": "object",
-          "properties": {
-            "type": { "type": "string" },
-            "name": { "type": "string" }
-          },
-          "required": ["type", "name"]
-        }
-      ]
+      "type": "object",
+      "properties": {
+        "type": { "type": "string" },
+        "id": { "type": "number" },
+        "name": { "type": "string" }
+      },
+      "required": ["type", "id"]
     },
     "Models": {
       "oneOf": [

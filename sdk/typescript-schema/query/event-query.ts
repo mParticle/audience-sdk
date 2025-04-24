@@ -11,13 +11,17 @@ import { Query } from "./query"
  * Examples:
  * 1. Simple event query:
  *    {
- *      models: ["event"],
+ *      models: [{ type: "event", id: 1 }],
  *      event_name: { path: "purchase" }
  *    }
  * 
  * 2. Complex event query with multiple conditions:
  *    {
- *      models: ["event", "transaction", "session"],
+ *      models: [
+ *        { type: "event", id: 1 },
+ *        { type: "transaction", id: 2 },
+ *        { type: "session", id: 3 }
+ *      ],
  *      event_type: { path: "commerce" },
  *      event_name: { path: "purchase" },
  *      attributes: {

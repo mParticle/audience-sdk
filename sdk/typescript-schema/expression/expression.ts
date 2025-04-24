@@ -9,7 +9,7 @@ import { Model } from "../common/model";
  * 
  * 1. Join expression (combining expressions from different models):
  *    {
- *      model: "user",
+ *      model: { type: "user", id: 1 },
  *      expression: {
  *        operator: "equals",
  *        left: { path: "age" },
@@ -38,7 +38,7 @@ import { Model } from "../common/model";
  *    {
  *      operator: "greater_than",
  *      left: { 
- *        model: "order", 
+ *        model: { type: "order", id: 1 }, 
  *        operator: "sum", 
  *        path: "amount",
  *        expression: {
@@ -50,7 +50,32 @@ import { Model } from "../common/model";
  *      right: 1000
  *    }
  * 
- * 5. Logical expression group (combining multiple expressions):
+ * 5. Binary expression with aggregation on both sides:
+ *    {
+ *      operator: "greater_than",
+ *      left: { 
+ *        model: { type: "order", id: 1 }, 
+ *        operator: "sum", 
+ *        path: "amount",
+ *        expression: {
+ *          operator: "equals",
+ *          left: { path: "status" },
+ *          right: "completed"
+ *        }
+ *      },
+ *      right: { 
+ *        model: { type: "order", id: 1 }, 
+ *        operator: "sum", 
+ *        path: "amount",
+ *        expression: {
+ *          operator: "equals",
+ *          left: { path: "status" },
+ *          right: "pending"
+ *        }
+ *      }
+ *    }
+ * 
+ * 6. Logical expression (AND/OR):
  *    {
  *      operator: "and",
  *      expressions: [
@@ -67,24 +92,21 @@ import { Model } from "../common/model";
  *      ]
  *    }
  * 
- * 6. Location expression (comparing locations):
+ * 7. Location expression:
  *    {
  *      operator: "within",
- *      left: {
- *        location: {
- *          latitude: 40.7128,
- *          longitude: -74.0060,
- *          distance: {
- *            value: 5,
- *            unit: "miles"
- *          }
- *        }
+ *      left: { 
+ *        location: { 
+ *          latitude: 37.7749, 
+ *          longitude: -122.4194,
+ *          distance: { value: 10, unit: "miles" }
+ *        } 
  *      },
  *      right: { path: "user.location" }
  *    }
  */
 export type Expression =
-        // join expression
+    // join expression
     { model: Model, expression: Expression }
     |   // unary expression
     { model?: Model, operator: "not", expression: Expression }

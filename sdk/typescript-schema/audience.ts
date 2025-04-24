@@ -8,13 +8,13 @@ import { UserQuery } from "./query/user-query";
  * Represents a query that can be either a general query, an event query, or a user query.
  * Examples:
  * 1. General query:
- *    { query: { model: "user", expression: { ... } } }
+ *    { query: { models: [{ type: "user", id: 1 }], expression: { ... } } }
  * 
  * 2. Event query:
- *    { event: { model: "event", event_name: { path: "purchase" }, attributes: { ... } } }
+ *    { event: { models: [{ type: "event", id: 1 }], event_name: { path: "purchase" }, attributes: { ... } } }
  * 
  * 3. User query:
- *    { user: { model: "user", attributes: { ... } } }
+ *    { user: { models: [{ type: "user", id: 1 }], attributes: { ... } } }
  */
 export type AudienceQuery = 
     { query: Query }
@@ -28,8 +28,8 @@ export type AudienceQuery =
  *    {
  *      operator: "and",
  *      queries: [
- *        { query: { model: "user" } },
- *        { event: { model: "event", event_name: { path: "purchase" } } }
+ *        { query: { models: [{ type: "user", id: 1 }] } },
+ *        { event: { models: [{ type: "event", id: 1 }], event_name: { path: "purchase" } } }
  *      ]
  *    }
  * 
@@ -37,12 +37,12 @@ export type AudienceQuery =
  *    {
  *      operator: "or",
  *      queries: [
- *        { query: { model: "user" } },
+ *        { query: { models: [{ type: "user", id: 1 }] } },
  *        {
  *          operator: "and",
  *          queries: [
- *            { event: { model: "event" } },
- *            { user: { model: "user" } }
+ *            { event: { models: [{ type: "event", id: 1 }] } },
+ *            { user: { models: [{ type: "user", id: 1 }] } }
  *          ]
  *        }
  *      ]
@@ -61,8 +61,8 @@ export type LogicalAudienceQueries =
  *   audience: {
  *     operator: "and",
  *     queries: [
- *       { query: { model: "user" } },
- *       { event: { model: "event", event_name: { path: "purchase" } } }
+ *       { query: { models: [{ type: "user", id: 1 }] } },
+ *       { event: { models: [{ type: "event", id: 1 }], event_name: { path: "purchase" } } }
  *     ]
  *   }
  * }

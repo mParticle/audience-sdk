@@ -7,7 +7,7 @@ import { Query } from "./query";
  * Examples:
  * 1. Simple user query:
  *    {
- *      models: ["user"],
+ *      models: [{ type: "user", id: 1 }],
  *      attributes: {
  *        operator: "equals",
  *        path: "age",
@@ -17,7 +17,7 @@ import { Query } from "./query";
  * 
  * 2. Complex user query with multiple attributes:
  *    {
- *      models: ["user"],
+ *      models: [{ type: "user", id: 1 }],
  *      attributes: {
  *        operator: "and",
  *        expressions: [
