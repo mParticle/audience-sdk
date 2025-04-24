@@ -11,14 +11,17 @@
   "scripts": {
     "prebuild": "node -e \"require('fs').writeFileSync('version.ts', 'export const VERSION = \\'' + require('./package.json').version + '\\';')\"",
     "build": "tsc",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "gen-schema": "ts-json-schema-generator --path audience.ts --out ../../schema/audience-schema.json",
+    "gen-schema-minified": "ts-json-schema-generator --path audience.ts --out ../../schema/audience-schema.min.json --minify"
   },
   "devDependencies": {
-    "typescript": "^5.0.4",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^9.2.6",
     "@semantic-release/npm": "^11.0.2",
-    "semantic-release": "^23.0.2"
+    "semantic-release": "^23.0.2",
+    "ts-json-schema-generator": "^2.4.0",
+    "typescript": "^5.0.4"
   }
 }
