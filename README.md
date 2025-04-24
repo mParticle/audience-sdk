@@ -16,6 +16,7 @@ Located in `sdk/typescript`, this is a full-featured SDK that provides builders 
 
 - Builder classes for constructing audience definitions
 - Expression factories for creating complex queries
+- Model factories for creating different types of models
 - Validation utilities
 - Serialization/deserialization helpers
 

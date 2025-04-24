@@ -1,6 +1,7 @@
 import { Operand } from "../operand/operand";
 import { AggregationOperator, BinaryOperator, LocationOperator, LogicalOperator } from "../common/operator";
 import { LocationOperand } from "../operand/location-operand";
+import { Model } from "../common/model";
 
 /**
  * Represents a complex expression that can evaluate to true, false, or noop.
@@ -84,20 +85,20 @@ import { LocationOperand } from "../operand/location-operand";
  */
 export type Expression =
         // join expression
-    { model: string, expression: Expression }
+    { model: Model, expression: Expression }
     |   // unary expression
-    { model?: string, operator: "not", expression: Expression }
+    { model?: Model, operator: "not", expression: Expression }
     |   // exists expression
-    { model?: string, operator: "exists", operand: Operand }
+    { model?: Model, operator: "exists", operand: Operand }
     |   // binary expression
-    { model?: string, operator: BinaryOperator, left: Operand, right: Operand }
+    { model?: Model, operator: BinaryOperator, left: Operand, right: Operand }
     |   // model aggregation (left) expression
-    { model: string, operator: BinaryOperator, expression: Expression, left: { operator: AggregationOperator, path: string }, right: Operand | { model: string, operator: AggregationOperator, path: string, expression: Expression } }
+    { model: Model, operator: BinaryOperator, expression: Expression, left: { operator: AggregationOperator, path: string }, right: Operand | { model: string, operator: AggregationOperator, path: string, expression: Expression } }
     |   // model aggregation (right) expression
-    { model: string, operator: BinaryOperator, expression: Expression, left: Operand | { model: string, operator: AggregationOperator, path: string, expression: Expression }, right: { operator: AggregationOperator, path: string } }
+    { model: Model, operator: BinaryOperator, expression: Expression, left: Operand | { model: string, operator: AggregationOperator, path: string, expression: Expression }, right: { operator: AggregationOperator, path: string } }
     |   // logical expression group
-    { model?: string, operator: LogicalOperator, expressions: Expression[] }
+    { model?: Model, operator: LogicalOperator, expressions: Expression[] }
     |   // location (left) expression
-    { model?: string, operator: LocationOperator, left: LocationOperand, right: { path: string } }
+    { model?: Model, operator: LocationOperator, left: LocationOperand, right: { path: string } }
     |   // location (left) expression
-    { model?: string, operator: LocationOperator, left: { path: string }, right: LocationOperand };
+    { model?: Model, operator: LocationOperator, left: { path: string }, right: LocationOperand };

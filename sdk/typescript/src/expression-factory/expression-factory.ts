@@ -2,6 +2,7 @@ import { Expression } from '@mparticle/audience-typescript-schema/expression/exp
 import { Operand } from '@mparticle/audience-typescript-schema/operand/operand';
 import { BinaryOperator, LogicalOperator, LocationOperator, AggregationOperator } from '@mparticle/audience-typescript-schema/common/operator';
 import { LocationOperand } from '@mparticle/audience-typescript-schema/operand/location-operand';
+import { Model } from '@mparticle/audience-typescript-schema/common/model';
 
 /**
  * Factory class for creating different types of expressions
@@ -9,31 +10,31 @@ import { LocationOperand } from '@mparticle/audience-typescript-schema/operand/l
 export class ExpressionFactory {
     /**
      * Creates a join expression
-     * @param model The model name
+     * @param model The model
      * @param expression The expression to join
      * @returns A join expression
      */
-    static createJoin(model: string, expression: Expression): Expression {
+    static createJoin(model: Model, expression: Expression): Expression {
         return { model, expression };
     }
 
     /**
      * Creates a unary expression (NOT)
      * @param expression The expression to negate
-     * @param model Optional model name
+     * @param model Optional model
      * @returns A unary expression
      */
-    static createNot(expression: Expression, model?: string): Expression {
+    static createNot(expression: Expression, model?: Model): Expression {
         return { model, operator: 'not', expression };
     }
 
     /**
      * Creates an exists expression
      * @param operand The operand to check for existence
-     * @param model Optional model name
+     * @param model Optional model
      * @returns An exists expression
      */
-    static createExists(operand: Operand, model?: string): Expression {
+    static createExists(operand: Operand, model?: Model): Expression {
         return { model, operator: 'exists', operand };
     }
 
@@ -42,21 +43,21 @@ export class ExpressionFactory {
      * @param operator The binary operator
      * @param left The left operand
      * @param right The right operand
-     * @param model Optional model name
+     * @param model Optional model
      * @returns A binary expression
      */
     static createBinary(
         operator: BinaryOperator,
         left: Operand,
         right: Operand,
-        model?: string
+        model?: Model
     ): Expression {
         return { model, operator, left, right };
     }
 
     /**
      * Creates a model aggregation expression
-     * @param model The model name
+     * @param model The model
      * @param operator The binary operator
      * @param expression The expression to filter the model
      * @param aggregation The aggregation to apply
@@ -64,7 +65,7 @@ export class ExpressionFactory {
      * @returns A model aggregation expression
      */
     static createModelAggregation(
-        model: string,
+        model: Model,
         operator: BinaryOperator,
         expression: Expression,
         aggregation: { operator: AggregationOperator, path: string },
@@ -77,13 +78,13 @@ export class ExpressionFactory {
      * Creates a logical expression (AND/OR)
      * @param operator The logical operator
      * @param expressions The expressions to combine
-     * @param model Optional model name
+     * @param model Optional model
      * @returns A logical expression
      */
     static createLogical(
         operator: LogicalOperator,
         expressions: Expression[],
-        model?: string
+        model?: Model
     ): Expression {
         return { model, operator, expressions };
     }
@@ -93,14 +94,14 @@ export class ExpressionFactory {
      * @param operator The location operator
      * @param location The location operand
      * @param path The path to compare against
-     * @param model Optional model name
+     * @param model Optional model
      * @returns A location expression
      */
     static createLocation(
         operator: LocationOperator,
         location: LocationOperand,
         path: { path: string },
-        model?: string
+        model?: Model
     ): Expression {
         return { model, operator, left: location, right: path };
     }
@@ -108,20 +109,20 @@ export class ExpressionFactory {
     /**
      * Creates an AND expression
      * @param expressions The expressions to combine
-     * @param model Optional model name
+     * @param model Optional model
      * @returns An AND expression
      */
-    static createAnd(expressions: Expression[], model?: string): Expression {
+    static createAnd(expressions: Expression[], model?: Model): Expression {
         return this.createLogical('and', expressions, model);
     }
 
     /**
      * Creates an OR expression
      * @param expressions The expressions to combine
-     * @param model Optional model name
+     * @param model Optional model
      * @returns An OR expression
      */
-    static createOr(expressions: Expression[], model?: string): Expression {
+    static createOr(expressions: Expression[], model?: Model): Expression {
         return this.createLogical('or', expressions, model);
     }
 } 
