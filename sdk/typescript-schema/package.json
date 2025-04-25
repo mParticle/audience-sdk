@@ -12,8 +12,8 @@
     "prebuild": "node -e \"require('fs').writeFileSync('version.ts', 'export const VERSION = \\'' + require('./package.json').version + '\\';')\"",
     "build": "tsc",
     "semantic-release": "semantic-release",
-    "gen-schema": "ts-json-schema-generator --path audience.ts --out ../../schema/audience-schema.json",
-    "gen-schema-minified": "ts-json-schema-generator --path audience.ts --out ../../schema/audience-schema.min.json --minify"
+    "gen-schema": "ts-json-schema-generator --path index.ts --out schema/audience-schema.json",
+    "gen-schema-minified": "ts-json-schema-generator --path index.ts --out schema/audience-schema.min.json --minify"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",

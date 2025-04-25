@@ -620,6 +620,17 @@
       ],
       "description": "Represents a complex expression that can evaluate to true, false, or noop. Examples:\n\n1. Join expression (combining expressions from different models):    {      model: { type: \"user\", id: 1 },      expression: {        operator: \"equals\",        left: { path: \"age\" },        right: 18      }    }\n\n2. Unary expression (operating on a single value):    {      operator: \"not\",      expression: {        operator: \"equals\",        left: { path: \"status\" },        right: \"inactive\"      }    }\n\n3. Binary expression (comparing two values):    {      operator: \"greater_than\",      left: { path: \"price\" },      right: 100    }\n\n4. Binary expression with aggregation:    {      operator: \"greater_than\",      left: {         model: { type: \"order\", id: 1 },         operator: \"sum\",         path: \"amount\",        expression: {          operator: \"equals\",          left: { path: \"status\" },          right: \"completed\"        }      },      right: 1000    }\n\n5. Binary expression with aggregation on both sides:    {      operator: \"greater_than\",      left: {         model: { type: \"order\", id: 1 },         operator: \"sum\",         path: \"amount\",        expression: {          operator: \"equals\",          left: { path: \"status\" },          right: \"completed\"        }      },      right: {         model: { type: \"order\", id: 1 },         operator: \"sum\",         path: \"amount\",        expression: {          operator: \"equals\",          left: { path: \"status\" },          right: \"pending\"        }      }    }\n\n6. Logical expression (AND/OR):    {      operator: \"and\",      expressions: [        {          operator: \"equals\",          left: { path: \"country\" },          right: \"US\"        },        {          operator: \"greater_than\",          left: { path: \"age\" },          right: 18        }      ]    }\n\n7. Location expression:    {      operator: \"within\",      left: {         location: {           latitude: 37.7749,           longitude: -122.4194,          distance: { value: 10, unit: \"miles\" }        }       },      right: { path: \"user.location\" }    }"
     },
+    "ListOperator": {
+      "description": "Represents operators that work with lists of values. Examples:\n- \"contains\": { list: [1, 2, 3], value: 2 }\n- \"between\": { list: [1, 10], value: 5 }\n- \"match_any\": { list: [\"a\", \"b\"], value: \"a\" }\n- \"in\": { list: [1, 2, 3], value: 2 }",
+      "enum": [
+        "contains",
+        "between",
+        "match_any",
+        "match_all",
+        "in"
+      ],
+      "type": "string"
+    },
     "Location": {
       "additionalProperties": false,
       "properties": {
