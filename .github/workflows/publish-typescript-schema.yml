@@ -25,6 +25,9 @@ jobs:
           token: ${{ secrets.MP_SEMANTIC_RELEASE_BOT }}
           fetch-depth: 0
 
+      - name: Check npmrc
+        run: cat ~/.npmrc
+
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v4
         with:
