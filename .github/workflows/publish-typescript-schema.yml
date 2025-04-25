@@ -40,9 +40,6 @@ jobs:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Check npmrc
-        run: cat /home/runner/work/_temp/.npmrc
-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
