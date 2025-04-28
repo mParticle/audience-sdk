@@ -60,6 +60,19 @@
       }
     ],
     [
+      "@semantic-release/exec", 
+      {
+        "prepareCmd": "yarn create-version-file && cp -f version.ts dist/"
+      }
+    ],    
+    [
+      "@semantic-release/git", 
+      {
+        "assets": ["version.ts", "package.json", "CHANGELOG.md"],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ],
+    [
       "@semantic-release/npm",
       {
         "npmPublish": true,
