@@ -60,6 +60,12 @@
       }
     ],
     [
+      "@semantic-release/npm",
+      {
+        "npmPublish": false
+      }
+    ],
+    [
       "@semantic-release/exec", 
       {
         "prepareCmd": "npm run create-version-file && ([ -d dist ] && cp -f version.ts dist/ || true)"
@@ -69,7 +75,7 @@
       "@semantic-release/git", 
       {
         "assets": ["version.ts", "package.json", "CHANGELOG.md"],
-        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
       }
     ],
     [
