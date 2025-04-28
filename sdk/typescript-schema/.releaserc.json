@@ -62,37 +62,14 @@
     [
       "@semantic-release/npm",
       {
-        "npmPublish": false
+        "npmPublish": false,
+        "tarballDir": false
       }
     ],
     [
       "@semantic-release/exec", 
       {
         "prepareCmd": "./scripts/prepare-dist.sh"
-      }
-    ],    
-    [
-      "@semantic-release/git", 
-      {
-        "assets": ["version.ts", "package.json", "CHANGELOG.md"],
-        "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
-      }
-    ],
-    [
-      "@semantic-release/npm",
-      {
-        "npmPublish": true,
-        "tarballDir": "dist",
-        "pkgRoot": "."
-      }
-    ],
-    [
-      "@semantic-release/github",
-      {
-        "assets": [
-          "dist/*.tgz"
-        ],
-        "releaseNameTemplate": "Audience Typescript Schema <%= nextRelease.version %>"
       }
     ]
   ]

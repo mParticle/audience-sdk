@@ -2,13 +2,8 @@
   "name": "@mparticle/audience-typescript-schema",
   "version": "1.1.9",
   "description": "TypeScript schema definitions for mParticle Audiences",
-  "main": "",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts"
-    }
-  },
   "files": [
     "dist"
   ],
