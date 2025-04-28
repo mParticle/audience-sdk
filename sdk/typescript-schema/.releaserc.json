@@ -62,7 +62,7 @@
     [
       "@semantic-release/exec", 
       {
-        "cmd": "yarn create-version-file && cp -f version.ts dist/"
+        "prepareCmd": "npm run create-version-file && cp -f version.ts dist/"
       }
     ],    
     [
