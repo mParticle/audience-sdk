@@ -62,8 +62,7 @@
     [
       "@semantic-release/exec", 
       {
-        "prepareCmd": "npm run create-version-file && cp -f version.ts dist/",
-        "shell": "/bin/sh"
+        "prepareCmd": "npm run create-version-file && ([ -d dist ] && cp -f version.ts dist/ || true)"
       }
     ],    
     [
