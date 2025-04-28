@@ -1,6 +1,6 @@
 import { SingleModelExpression } from '@mparticle/audience-typescript-schema/expression/single-model-expression';
 import { Operand } from '@mparticle/audience-typescript-schema/operand/operand';
-import { LogicalOperator, LocationOperator } from '@mparticle/audience-typescript-schema/common/operator';
+import { LogicalOperator, LocationOperator, BinaryOperator } from '@mparticle/audience-typescript-schema/common/operator';
 import { LocationOperand } from '@mparticle/audience-typescript-schema/operand/location-operand';
 
 /**
@@ -28,25 +28,10 @@ export class SingleModelExpressionFactory {
      * @param path The path to compare against
      * @returns A location expression
      */
-    static createLocationLeft(
-        operator: LocationOperator,
-        location: LocationOperand,
-        path: { path: string }
-    ): SingleModelExpression {
-        return { operator, left: location, right: path };
-    }
-
-    /**
-     * Creates a location expression with location on the right
-     * @param operator The location operator
-     * @param path The path to compare against
-     * @param location The location operand
-     * @returns A location expression
-     */
-    static createLocationRight(
+    static createLocation(
         operator: LocationOperator,
         path: { path: string },
-        location: LocationOperand
+        location: LocationOperand        
     ): SingleModelExpression {
         return { operator, left: path, right: location };
     }
@@ -61,22 +46,12 @@ export class SingleModelExpressionFactory {
     }
 
     /**
-     * Creates a unary expression
-     * @param operator The unary operator
-     * @param expression The expression to apply the operator to
-     * @returns A unary expression
-     */
-    static createUnary(operator: 'not', expression: SingleModelExpression): SingleModelExpression {
-        return { operator, expression };
-    }
-
-    /**
      * Creates a NOT expression
      * @param expression The expression to negate
      * @returns A NOT expression
      */
     static createNot(expression: SingleModelExpression): SingleModelExpression {
-        return this.createUnary('not', expression);
+        return { operator: 'not', expression };;
     }
 
     /**
@@ -98,42 +73,23 @@ export class SingleModelExpressionFactory {
     }
 
     /**
-     * Creates a within expression with location on the left
-     * @param location The location operand
-     * @param path The path to compare against
-     * @returns A within expression
-     */
-    static createWithinLeft(location: LocationOperand, path: { path: string }): SingleModelExpression {
-        return this.createLocationLeft('within', location, path);
-    }
-
-    /**
      * Creates a within expression with location on the right
      * @param path The path to compare against
      * @param location The location operand
      * @returns A within expression
      */
-    static createWithinRight(path: { path: string }, location: LocationOperand): SingleModelExpression {
-        return this.createLocationRight('within', path, location);
+    static createWithin(path: { path: string }, location: LocationOperand): SingleModelExpression {
+        return this.createLocation('within', path, location);
     }
 
     /**
-     * Creates a not within expression with location on the left
-     * @param location The location operand
-     * @param path The path to compare against
-     * @returns A not within expression
+     * Creates a binary expression
+     * @param operator The binary operator to use (e.g., 'equals', 'greater_than', etc.)
+     * @param left The left operand
+     * @param right The right operand
+     * @returns A binary expression
      */
-    static createNotWithinLeft(location: LocationOperand, path: { path: string }): SingleModelExpression {
-        return this.createUnary('not', this.createLocationLeft('within', location, path));
-    }
-
-    /**
-     * Creates a not within expression with location on the right
-     * @param path The path to compare against
-     * @param location The location operand
-     * @returns A not within expression
-     */
-    static createNotWithinRight(path: { path: string }, location: LocationOperand): SingleModelExpression {
-        return this.createUnary('not', this.createLocationRight('within', path, location));
+    static createBinary(operator: BinaryOperator, left: Operand, right: Operand): SingleModelExpression {
+        return { operator, left, right };
     }
 } 

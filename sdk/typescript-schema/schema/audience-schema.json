@@ -979,6 +979,26 @@
         {
           "additionalProperties": false,
           "properties": {
+            "left": {
+              "$ref": "#/definitions/Operand"
+            },
+            "operator": {
+              "$ref": "#/definitions/BinaryOperator"
+            },
+            "right": {
+              "$ref": "#/definitions/Operand"
+            }
+          },
+          "required": [
+            "operator",
+            "left",
+            "right"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
             "expressions": {
               "items": {
                 "$ref": "#/definitions/SingleModelExpression"

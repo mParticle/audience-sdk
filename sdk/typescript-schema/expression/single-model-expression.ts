@@ -1,5 +1,5 @@
 import { Operand } from "../operand/operand";
-import { LogicalOperator, LocationOperator } from "../common/operator";
+import { LogicalOperator, LocationOperator, BinaryOperator } from "../common/operator";
 import { LocationOperand } from "../operand/location-operand";
 
 /**
@@ -61,6 +61,8 @@ export type SingleModelExpression =
     { operator: "not", expression: SingleModelExpression }
     |   // exists expression
     { operator: "exists", operand: Operand }
+    |   // binary expression
+    { operator: BinaryOperator, left: Operand, right: Operand }
     |   // logical expression group
     { operator: LogicalOperator, expressions: SingleModelExpression[] }
     |   // location (left) expression
