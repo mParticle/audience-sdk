@@ -17,12 +17,13 @@
     "gen-schema-minified": "ts-json-schema-generator --path index.ts --out schema/audience-schema.min.json --minify"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^9.2.6",
-    "@semantic-release/npm": "^11.0.2",
-    "semantic-release": "^23.0.2",
-    "ts-json-schema-generator": "^2.4.0",
-    "typescript": "^5.0.4"
+    "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/exec": "2.3.0",
+    "@semantic-release/git": "10.0.1",
+    "@semantic-release/github": "9.2.6",
+    "@semantic-release/npm": "11.0.2",
+    "semantic-release": "23.0.2",
+    "ts-json-schema-generator": "2.4.0",
+    "typescript": "5.0.4"
   }
 }
