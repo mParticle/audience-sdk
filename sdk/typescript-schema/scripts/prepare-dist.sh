@@ -3,13 +3,7 @@
 # Check if dist directory exists
 if [ -d "dist" ]; then
     # Copy LICENSE file to dist directory
-    cp -f ../../LICENSE dist/
-
-    # Copy package.json to dist directory
-    cp -f package.json dist/
-
-    # Copy README.md to dist directory
-    cp -f README.md dist/
+    cp -f ../../LICENSE .
 
     # Overwrite any version file
     VERSION=$(node -p "require('./package.json').version")
