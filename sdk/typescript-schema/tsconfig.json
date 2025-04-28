@@ -6,7 +6,7 @@
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "moduleResolution": "node",
-      "sourceMap": true,
+      "sourceMap": false,
       "allowJs": true,
       "baseUrl": "src",
       "allowSyntheticDefaultImports": true,
@@ -18,14 +18,16 @@
       "outDir": "dist",
       "declaration": true,
       "declarationDir": "dist",
-      "declarationMap": true
+      "declarationMap": false,
+      "emitDeclarationOnly": true,
     },
     "include": [
       "./**/*"
     ],
     "exclude": [
       "node_modules",
-      "dist"
+      "dist",
+      "scripts"
     ]
   }
   
