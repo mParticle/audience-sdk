@@ -38,10 +38,12 @@
       "type": "string"
     },
     "Audience": {
+      "title": "AudienceDefinition",
       "additionalProperties": false,
       "description": "Represents a complete audience definition with a root logical query. Example: {   audience: {     operator: \"and\",     queries: [       { query: { models: [{ type: \"user\", id: 1 }] } },       { event: { models: [{ type: \"event\", id: 1 }], event_name: { path: \"purchase\" } } }     ]   } }",
       "properties": {
         "audience": {
+          "title": "Audience",
           "additionalProperties": false,
           "properties": {
             "operator": {
@@ -92,6 +94,7 @@
           "type": "object"
         },
         {
+          "title": "EventAudienceQuery",
           "additionalProperties": false,
           "properties": {
             "event": {
@@ -104,6 +107,7 @@
           "type": "object"
         },
         {
+          "title": "UserAudienceQuery",
           "additionalProperties": false,
           "properties": {
             "user": {
@@ -230,6 +234,7 @@
     "DateOperand": {
       "anyOf": [
         {
+          "title": "AbsoluteDateOperand",
           "additionalProperties": false,
           "properties": {
             "date": {
@@ -242,6 +247,7 @@
           "type": "object"
         },
         {
+          "title": "RelativeDateOperand",
           "additionalProperties": false,
           "properties": {
             "date": {
@@ -315,6 +321,7 @@
     "Expression": {
       "anyOf": [
         {
+          "title": "JoinExpression",
           "additionalProperties": false,
           "properties": {
             "expression": {
@@ -331,6 +338,7 @@
           "type": "object"
         },
         {
+          "title": "UnaryExpression",
           "additionalProperties": false,
           "properties": {
             "expression": {
@@ -351,6 +359,7 @@
           "type": "object"
         },
         {
+          "title": "ExistsExpression",
           "additionalProperties": false,
           "properties": {
             "model": {
@@ -371,6 +380,7 @@
           "type": "object"
         },
         {
+          "title": "BinaryExpression",
           "additionalProperties": false,
           "properties": {
             "left": {
@@ -394,6 +404,7 @@
           "type": "object"
         },
         {
+          "title": "ModelAggregationLeftExpression",
           "additionalProperties": false,
           "properties": {
             "expression": {
@@ -463,6 +474,7 @@
           "type": "object"
         },
         {
+          "title": "ModelAggregationRightExpression",
           "additionalProperties": false,
           "properties": {
             "expression": {
@@ -474,6 +486,7 @@
                   "$ref": "#/definitions/Operand"
                 },
                 {
+                  "title": "ModelAggregationOperand",
                   "additionalProperties": false,
                   "properties": {
                     "expression": {
@@ -532,6 +545,7 @@
           "type": "object"
         },
         {
+          "title": "LogicalExpression",
           "additionalProperties": false,
           "properties": {
             "expressions": {
@@ -554,6 +568,7 @@
           "type": "object"
         },
         {
+          "title": "LocationLeftExpression",
           "additionalProperties": false,
           "properties": {
             "left": {
@@ -586,6 +601,7 @@
           "type": "object"
         },
         {
+          "title": "LocationRightExpression",
           "additionalProperties": false,
           "properties": {
             "left": {
@@ -810,6 +826,7 @@
           "$ref": "#/definitions/DateOperand"
         },
         {
+          "title": "PathOperand",
           "additionalProperties": false,
           "properties": {
             "path": {
@@ -822,6 +839,7 @@
           "type": "object"
         },
         {
+          "title": "ArithmeticOperand",
           "additionalProperties": false,
           "properties": {
             "left": {
@@ -847,15 +865,19 @@
     "PathExpression": {
       "anyOf": [
         {
+          "title": "BooleanPathExpression",
           "type": "boolean"
         },
         {
+          "title": "NumberPathExpression",
           "type": "number"
         },
         {
+          "title": "StringPathExpression",
           "type": "string"
         },
         {
+          "title": "UnaryPathExpression",
           "additionalProperties": false,
           "properties": {
             "expression": {
@@ -872,6 +894,7 @@
           "type": "object"
         },
         {
+          "title": "BinaryPathExpression",
           "additionalProperties": false,
           "properties": {
             "operand": {
@@ -943,6 +966,7 @@
     "SingleModelExpression": {
       "anyOf": [
         {
+          "title": "NotSingleModelExpression",
           "additionalProperties": false,
           "properties": {
             "expression": {
@@ -960,6 +984,7 @@
           "type": "object"
         },
         {
+          "title": "ExistsSingleModelExpression",
           "additionalProperties": false,
           "properties": {
             "operand": {
@@ -977,6 +1002,7 @@
           "type": "object"
         },
         {
+          "title": "BinarySingleModelExpression",
           "additionalProperties": false,
           "properties": {
             "left": {
@@ -997,6 +1023,7 @@
           "type": "object"
         },
         {
+          "title": "LogicalSingleModelExpression",
           "additionalProperties": false,
           "properties": {
             "expressions": {
@@ -1016,6 +1043,7 @@
           "type": "object"
         },
         {
+          "title": "LocationSingleModelExpression",
           "additionalProperties": false,
           "properties": {
             "left": {
@@ -1045,6 +1073,7 @@
           "type": "object"
         },
         {
+          "title": "LocationRightSingleModelExpression",
           "additionalProperties": false,
           "properties": {
             "left": {
