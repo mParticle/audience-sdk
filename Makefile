@@ -1,6 +1,6 @@
 .PHONY: generate-models
 
-PYTHON_OUTPUT_DIR := sdk/python/models
+PYTHON_OUTPUT_DIR := sdk/python/audience_sdk/models
 SCHEMA_FILE := schema/audience-definition-schema.json
 PYTHON_OUTPUT_FILE := $(PYTHON_OUTPUT_DIR)/audience_models.py
 
