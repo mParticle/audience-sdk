@@ -1,6 +1,6 @@
 import json
 
-from audience_sdk.models.audience_models import (
+from mp_audience_sdk.models.audience_models import (
     AbsoluteDate,
     AbsoluteDateOperand,
     Audience,
