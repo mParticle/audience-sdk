@@ -284,14 +284,12 @@ The main builder for creating Audience objects.
 
 #### GeneralQueryBuilder
 
-- `setAllModels()`: Sets the model to all models
 - `setModels(models: Model[])`: Sets the models for the query
 - `setExpression(expression: Expression)`: Sets the expression for the query
 - `build()`: Builds and returns the query
 
 #### EventQueryBuilder
 
-- `setAllModels()`: Sets the model to all models
 - `setModels(models: Model[])`: Sets the models for the event query
 - `setEventName(eventName: PathExpression)`: Sets the event name
 - `setAttributeOperator(operator: LogicalOperator)`: Sets the operator for combining attribute expressions
@@ -309,7 +307,6 @@ The main builder for creating Audience objects.
 
 #### UserQueryBuilder
 
-- `setAllModels()`: Sets the model to all models
 - `setModels(models: Model[])`: Sets the models for the user query
 - `setAttributeOperator(operator: LogicalOperator)`: Sets the operator for combining attribute expressions
 - `addAttributesExpression(expression: SingleModelExpression)`: Adds an expression to the query
