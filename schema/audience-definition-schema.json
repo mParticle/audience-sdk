@@ -798,18 +798,10 @@
       "type": "object"
     },
     "Models": {
-      "anyOf": [
-        {
-          "const": "all",
-          "type": "string"
-        },
-        {
-          "items": {
-            "$ref": "#/definitions/Model"
-          },
-          "type": "array"
-        }
-      ]
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Model"
+      }
     },
     "Operand": {
       "anyOf": [
