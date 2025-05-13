@@ -115,12 +115,12 @@ export type Expression =
     |   // binary expression
     { model?: Model, operator: BinaryOperator, left: Operand, right: Operand }
     |   // model aggregation (left) expression
-    { model: Model, operator: BinaryOperator, expression: Expression, left: { operator: AggregationOperator, path: string }, right: Operand | { model: string, operator: AggregationOperator, path: string, expression: Expression } }
+    { model: Model, operator: BinaryOperator, expression: Expression, left: { operator: AggregationOperator, model: Model, path: string }, right: Operand | { model: Model, operator: AggregationOperator, path: string, expression: Expression } }
     |   // model aggregation (right) expression
-    { model: Model, operator: BinaryOperator, expression: Expression, left: Operand | { model: string, operator: AggregationOperator, path: string, expression: Expression }, right: { operator: AggregationOperator, path: string } }
+    { model: Model, operator: BinaryOperator, expression: Expression, left: Operand | { model: Model, operator: AggregationOperator, path: string, expression: Expression }, right: { operator: AggregationOperator, model: Model, path: string } }
     |   // logical expression group
-    { model?: Model, operator: LogicalOperator, expressions: Expression[] }
+    { operator: LogicalOperator, expressions: Expression[] }
     |   // location (left) expression
-    { model?: Model, operator: LocationOperator, left: LocationOperand, right: { path: string } }
+    { operator: LocationOperator, left: LocationOperand, right: { model: Model, path: string } }
     |   // location (left) expression
-    { model?: Model, operator: LocationOperator, left: { path: string }, right: LocationOperand };
+    { operator: LocationOperator, left: { model: Model, path: string }, right: LocationOperand };

@@ -1,5 +1,6 @@
 import { DateOperand } from "./date-operand";
 import { ArithmeticOperator } from "../common/operator";
+import { Model } from "../common/model";
 
 /**
  * Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations.
@@ -38,5 +39,5 @@ export type Operand =
     | number
     | string
     | DateOperand
-    | { path: string }
+    | { model: Model, path: string }
     | { operator: ArithmeticOperator, left: Operand, right: Operand };
