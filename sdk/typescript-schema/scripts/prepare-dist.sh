@@ -3,7 +3,7 @@
 # Check if dist directory exists
 if [ -d "dist" ]; then
     # Remove any pre-existing tgz packages
-    rm -f mparticle-audience-typescript-schema*.tgz
+    rm -f dist/mparticle-audience-typescript-schema*.tgz
 
     # Copy LICENSE file to dist directory
     cp -f ../../LICENSE .
