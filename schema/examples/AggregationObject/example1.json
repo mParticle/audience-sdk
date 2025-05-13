@@ -1,0 +1,6 @@
+{
+  "group_by": { "model": "user", "path": "country" },
+  "operator": "count",
+  "expression": { "model": "user", "path": "id" },
+  "conditions": { "operator": "equals", "left": "country", "right": "US" }
+} 

@@ -1,0 +1,6 @@
+{
+  "group_by": { "model": "segment", "path": "high_value" },
+  "operator": "avg",
+  "expression": { "model": "segment", "path": "score" },
+  "conditions": { "operator": "exists", "operand": "score" }
+} 

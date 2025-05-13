@@ -1,0 +1,6 @@
+{
+  "group_by": { "model": "event", "path": "event_type" },
+  "operator": "sum",
+  "expression": { "model": "event", "path": "amount" },
+  "conditions": { "operator": "greater_than", "left": "amount", "right": 100 }
+} 

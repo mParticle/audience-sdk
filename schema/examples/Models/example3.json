@@ -1,0 +1,4 @@
+[
+  { "type": "user", "id": 4 },
+  { "type": "user", "id": 5, "name": "Test User 2" }
+] 

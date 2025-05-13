@@ -1,0 +1,15 @@
+{
+  "audience": {
+    "operator": "and",
+    "queries": [
+      {
+        "query": {
+          "models": [
+            { "type": "user", "id": 1 }
+          ]
+        }
+      }
+    ],
+    "version": "1.0"
+  }
+} 

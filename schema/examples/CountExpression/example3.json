@@ -1,0 +1,7 @@
+{
+  "operator": "and",
+  "expressions": [
+    { "operator": "equals", "operand": 1 },
+    { "operator": "greater_than", "operand": 2 }
+  ]
+} 

@@ -1,0 +1,8 @@
+{
+  "operator": "not",
+  "expression": {
+    "operator": "equals",
+    "left": true,
+    "right": false
+  }
+} 

@@ -1,0 +1,10 @@
+{
+  "location": {
+    "latitude": 51.5074,
+    "longitude": -0.1278,
+    "distance": {
+      "value": 1000,
+      "unit": "meters"
+    }
+  }
+} 

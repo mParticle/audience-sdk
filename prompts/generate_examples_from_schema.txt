@@ -1,0 +1,17 @@
+Role:
+You are an expert in all things JSON, including JSON Schema.  
+
+Task:
+There is a JSON Schema file - audience-schema.json - located in the /schema directory of this repository.  Please create examples of each definition within the schema files.  
+
+Boundaries:
+All of the examples should be created in the /schema directory, in a folder called "examples".  
+Each JSON Schema definition should have a folder for their examples.  
+Do not create examples for definitions that are enums.  
+Do not create examples that are just literals.
+Do not create examples for these definitions: Version.
+Each definition folder should have three examples.  
+Each example should be in their own file. 
+If an existing example exists and it is valid, don't add, remove, or modify it.  
+If an existing example exists and it is not valid, remove the file and recreate a new example.  
+All JSON files should be pretty printed.

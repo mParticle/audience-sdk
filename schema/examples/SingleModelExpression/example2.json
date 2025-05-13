@@ -1,0 +1,4 @@
+{
+  "operator": "exists",
+  "operand": "user_id"
+} 

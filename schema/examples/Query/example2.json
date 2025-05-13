@@ -1,0 +1,11 @@
+{
+  "models": [
+    { "type": "user", "id": 1 },
+    { "type": "segment", "id": 2, "name": "high_ltv_users" }
+  ],
+  "expression": {
+    "operator": "equals",
+    "left": "age",
+    "right": 25
+  }
+} 

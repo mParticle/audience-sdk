@@ -1,0 +1,12 @@
+{
+  "models": [
+    { "type": "user", "id": 2 }
+  ],
+  "attributes": {
+    "operator": "and",
+    "expressions": [
+      { "operator": "equals", "left": "country", "right": "US" },
+      { "operator": "greater_than", "left": "age", "right": 18 }
+    ]
+  }
+} 

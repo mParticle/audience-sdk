@@ -1,0 +1,11 @@
+{
+  "models": [
+    { "type": "event", "id": 2 }
+  ],
+  "event_type": "purchase",
+  "attributes": {
+    "operator": "equals",
+    "left": "amount",
+    "right": 100
+  }
+} 

@@ -1,0 +1,8 @@
+{
+  "operator": "not",
+  "expression": {
+    "operator": "equals",
+    "left": "status",
+    "right": "inactive"
+  }
+} 

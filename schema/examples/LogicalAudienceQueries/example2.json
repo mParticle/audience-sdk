@@ -1,0 +1,13 @@
+{
+  "operator": "or",
+  "queries": [
+    { "query": { "models": [ { "type": "user", "id": 3 } ] } },
+    {
+      "operator": "and",
+      "queries": [
+        { "event": { "models": [ { "type": "event", "id": 4 } ] } },
+        { "user": { "models": [ { "type": "user", "id": 5 } ] } }
+      ]
+    }
+  ]
+} 

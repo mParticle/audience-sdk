@@ -1,0 +1,10 @@
+{
+  "models": [
+    { "type": "event", "id": 3 }
+  ],
+  "expression": {
+    "operator": "greater_than",
+    "left": "amount",
+    "right": 100
+  }
+} 

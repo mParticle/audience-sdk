@@ -1,0 +1,28 @@
+{
+  "audience": {
+    "operator": "or",
+    "queries": [
+      {
+        "event": {
+          "models": [
+            { "type": "event", "id": 2 }
+          ],
+          "event_name": "purchase"
+        }
+      },
+      {
+        "user": {
+          "models": [
+            { "type": "user", "id": 3 }
+          ],
+          "attributes": {
+            "operator": "equals",
+            "left": "country",
+            "right": "US"
+          }
+        }
+      }
+    ],
+    "version": "2.0"
+  }
+} 

@@ -1,0 +1,12 @@
+{
+  "models": [
+    { "type": "event", "id": 3 }
+  ],
+  "date": {
+    "absolute": "2023-01-01T00:00:00Z"
+  },
+  "location": {
+    "latitude": 40.7128,
+    "longitude": -74.0060
+  }
+} 

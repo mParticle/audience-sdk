@@ -1,0 +1,10 @@
+{
+  "models": [
+    { "type": "user", "id": 1 }
+  ],
+  "attributes": {
+    "operator": "equals",
+    "left": "age",
+    "right": 25
+  }
+} 

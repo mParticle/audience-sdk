@@ -1,0 +1,7 @@
+{
+  "query": {
+    "models": [
+      { "type": "user", "id": 1 }
+    ]
+  }
+} 

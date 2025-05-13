@@ -1,0 +1,12 @@
+{
+  "user": {
+    "models": [
+      { "type": "user", "id": 3 }
+    ],
+    "attributes": {
+      "operator": "equals",
+      "left": "country",
+      "right": "US"
+    }
+  }
+} 

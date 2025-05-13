@@ -1,0 +1,7 @@
+{
+  "operator": "and",
+  "queries": [
+    { "query": { "models": [ { "type": "user", "id": 1 } ] } },
+    { "event": { "models": [ { "type": "event", "id": 2 } ], "event_name": "purchase" } }
+  ]
+} 

@@ -1,0 +1,6 @@
+{
+  "models": [
+    { "type": "event", "id": 1 }
+  ],
+  "event_name": "login"
+} 

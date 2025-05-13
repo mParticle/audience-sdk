@@ -1,0 +1,9 @@
+{
+  "models": [
+    { "type": "user", "id": 3 }
+  ],
+  "attributes": {
+    "operator": "exists",
+    "operand": "email"
+  }
+} 

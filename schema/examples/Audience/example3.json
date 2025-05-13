@@ -1,0 +1,20 @@
+{
+  "audience": {
+    "operator": "and",
+    "queries": [
+      {
+        "query": {
+          "models": [
+            { "type": "user", "id": 4 }
+          ],
+          "expression": {
+            "operator": "greater_than",
+            "left": "age",
+            "right": 18
+          }
+        }
+      }
+    ],
+    "version": "3.0"
+  }
+} 
