@@ -424,8 +424,8 @@
                 }
               },
               "required": [
-                "operator",
                 "model",
+                "operator",
                 "path"
               ],
               "type": "object"
@@ -448,7 +448,7 @@
                       "$ref": "#/definitions/Expression"
                     },
                     "model": {
-                      "$ref": "#/definitions/Model"
+                      "type": "string"
                     },
                     "operator": {
                       "$ref": "#/definitions/AggregationOperator"
@@ -458,10 +458,10 @@
                     }
                   },
                   "required": [
+                    "expression",
                     "model",
                     "operator",
-                    "path",
-                    "expression"
+                    "path"
                   ],
                   "type": "object"
                 }
@@ -507,10 +507,10 @@
                     }
                   },
                   "required": [
+                    "expression",
                     "model",
                     "operator",
-                    "path",
-                    "expression"
+                    "path"
                   ],
                   "type": "object"
                 }
@@ -526,7 +526,7 @@
               "additionalProperties": false,
               "properties": {
                 "model": {
-                  "$ref": "#/definitions/Model"
+                  "type": "string"
                 },
                 "operator": {
                   "$ref": "#/definitions/AggregationOperator"
@@ -536,8 +536,8 @@
                 }
               },
               "required": [
-                "operator",
                 "model",
+                "operator",
                 "path"
               ],
               "type": "object"
@@ -583,20 +583,7 @@
               "$ref": "#/definitions/LocationOperator"
             },
             "right": {
-              "additionalProperties": false,
-              "properties": {
-                "model": {
-                  "$ref": "#/definitions/Model"
-                },
-                "path": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "model",
-                "path"
-              ],
-              "type": "object"
+              "$ref": "#/definitions/FieldLocator"
             }
           },
           "required": [
@@ -611,20 +598,7 @@
           "additionalProperties": false,
           "properties": {
             "left": {
-              "additionalProperties": false,
-              "properties": {
-                "model": {
-                  "$ref": "#/definitions/Model"
-                },
-                "path": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "model",
-                "path"
-              ],
-              "type": "object"
+              "$ref": "#/definitions/FieldLocator"
             },
             "operator": {
               "$ref": "#/definitions/LocationOperator"
@@ -642,6 +616,22 @@
         }
       ],
       "description": "Represents a complex expression that can evaluate to true, false, or noop. Examples:\n\n1. Join expression (combining expressions from different models):    {      model: { type: \"user\", id: 1 },      expression: {        operator: \"equals\",        left: { path: \"age\" },        right: 18      }    }\n\n2. Unary expression (operating on a single value):    {      operator: \"not\",      expression: {        operator: \"equals\",        left: { path: \"status\" },        right: \"inactive\"      }    }\n\n3. Binary expression (comparing two values):    {      operator: \"greater_than\",      left: { path: \"price\" },      right: 100    }\n\n4. Binary expression with aggregation:    {      operator: \"greater_than\",      left: {         model: { type: \"order\", id: 1 },         operator: \"sum\",         path: \"amount\",        expression: {          operator: \"equals\",          left: { path: \"status\" },          right: \"completed\"        }      },      right: 1000    }\n\n5. Binary expression with aggregation on both sides:    {      operator: \"greater_than\",      left: {         model: { type: \"order\", id: 1 },         operator: \"sum\",         path: \"amount\",        expression: {          operator: \"equals\",          left: { path: \"status\" },          right: \"completed\"        }      },      right: {         model: { type: \"order\", id: 1 },         operator: \"sum\",         path: \"amount\",        expression: {          operator: \"equals\",          left: { path: \"status\" },          right: \"pending\"        }      }    }\n\n6. Logical expression (AND/OR):    {      operator: \"and\",      expressions: [        {          operator: \"equals\",          left: { path: \"country\" },          right: \"US\"        },        {          operator: \"greater_than\",          left: { path: \"age\" },          right: 18        }      ]    }\n\n7. Location expression:    {      operator: \"within\",      left: {         location: {           latitude: 37.7749,           longitude: -122.4194,          distance: { value: 10, unit: \"miles\" }        }       },      right: { path: \"user.location\" }    }"
+    },
+    "FieldLocator": {
+      "additionalProperties": false,
+      "properties": {
+        "model": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "model",
+        "path"
+      ],
+      "type": "object"
     },
     "ListOperator": {
       "description": "Represents operators that work with lists of values. Examples:\n- \"contains\": { list: [1, 2, 3], value: 2 }\n- \"between\": { list: [1, 10], value: 5 }\n- \"match_any\": { list: [\"a\", \"b\"], value: \"a\" }\n- \"in\": { list: [1, 2, 3], value: 2 }",
@@ -786,8 +776,8 @@
       "type": "string"
     },
     "Model": {
-      "title": "Model",
-          "type": "string"
+      "type": "string",
+      "title": "Model"
     },
     "Models": {
       "items": {
@@ -810,21 +800,7 @@
           "$ref": "#/definitions/DateOperand"
         },
         {
-          "title": "PathOperand",
-          "additionalProperties": false,
-          "properties": {
-            "model": {
-              "$ref": "#/definitions/Model"
-            },
-            "path": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "model",
-            "path"
-          ],
-          "type": "object"
+          "$ref": "#/definitions/FieldLocator"
         },
         {
           "title": "ArithmeticOperand",
@@ -879,10 +855,10 @@
             "operator",
             "expression"
           ],
-          "type": "object"
+          "type": "object",
+          "title": "BooleanPathExpression"
         },
         {
-          "title": "BinaryPathExpression",
           "additionalProperties": false,
           "properties": {
             "operand": {
@@ -896,10 +872,12 @@
             "operator",
             "operand"
           ],
-          "type": "object"
+          "type": "object",
+          "title": "BinaryPathExpression"
         }
       ],
-      "description": "Represents an expression that evaluates to a path or value. Examples:\n\n1. Primitive values:    - boolean: true    - number: 42    - string: \"hello\"\n\n2. Unary expression (operating on a path):    {      operator: \"not\",      expression: {        operator: \"equals\",        left: { path: \"status\" },        right: \"inactive\"      }    }\n\n3. Binary expression (comparing a path to a value):    {      operator: \"equals\",      operand: { path: \"user.age\" }    }"
+      "description": "Represents an expression that evaluates to a path or value. Examples:\n\n1. Primitive values:    - boolean: true    - number: 42    - string: \"hello\"\n\n2. Unary expression (operating on a path):    {      operator: \"not\",      expression: {        operator: \"equals\",        left: { path: \"status\" },        right: \"inactive\"      }    }\n\n3. Binary expression (comparing a path to a value):    {      operator: \"equals\",      operand: { path: \"user.age\" }    }",
+      "title": "PathExpression"
     },
     "Query": {
       "additionalProperties": false,
@@ -915,7 +893,8 @@
       "required": [
         "models"
       ],
-      "type": "object"
+      "type": "object",
+      "title": "Query"
     },
     "RelativeDate": {
       "additionalProperties": false,
@@ -949,12 +928,12 @@
       "required": [
         "relative"
       ],
-      "type": "object"
+      "type": "object",
+      "title": "RelativeDate"
     },
     "SingleModelExpression": {
       "anyOf": [
         {
-          "title": "NotSingleModelExpression",
           "additionalProperties": false,
           "properties": {
             "expression": {
@@ -969,10 +948,10 @@
             "operator",
             "expression"
           ],
-          "type": "object"
+          "type": "object",
+          "title": "NotSingleModelExpression"
         },
         {
-          "title": "ExistsSingleModelExpression",
           "additionalProperties": false,
           "properties": {
             "operand": {
@@ -987,10 +966,10 @@
             "operator",
             "operand"
           ],
-          "type": "object"
+          "type": "object",
+          "title": "ExistsSingleModelExpression"
         },
         {
-          "title": "BinarySingleModelExpression",
           "additionalProperties": false,
           "properties": {
             "left": {
@@ -1008,10 +987,10 @@
             "left",
             "right"
           ],
-          "type": "object"
+          "type": "object",
+          "title": "BinarySingleModelExpression"
         },
         {
-          "title": "LogicalSingleModelExpression",
           "additionalProperties": false,
           "properties": {
             "expressions": {
@@ -1028,10 +1007,10 @@
             "operator",
             "expressions"
           ],
-          "type": "object"
+          "type": "object",
+          "title": "LogicalSingleModelExpression"
         },
         {
-          "title": "LocationSingleModelExpression",
           "additionalProperties": false,
           "properties": {
             "left": {
@@ -1050,7 +1029,8 @@
               "required": [
                 "path"
               ],
-              "type": "object"
+              "type": "object",
+              "title": "LocationSingleModelExpression"
             }
           },
           "required": [
@@ -1058,10 +1038,10 @@
             "left",
             "right"
           ],
-          "type": "object"
+          "type": "object",
+          "title": "LocationSingleModelExpression"
         },
         {
-          "title": "LocationRightSingleModelExpression",
           "additionalProperties": false,
           "properties": {
             "left": {
@@ -1074,7 +1054,8 @@
               "required": [
                 "path"
               ],
-              "type": "object"
+              "type": "object",
+              "title": "LocationLeftExpression"
             },
             "operator": {
               "$ref": "#/definitions/LocationOperator"
@@ -1088,10 +1069,12 @@
             "left",
             "right"
           ],
-          "type": "object"
+          "type": "object",
+          "title": "LocationRightSingleModelExpression"
         }
       ],
-      "description": "Represents an expression that operates within a single model context. Examples:\n\n1. Unary expression (operating on a single value):    {      operator: \"not\",      expression: {        operator: \"equals\",        left: { path: \"status\" },        right: \"inactive\"      }    }\n\n2. Binary expression (comparing two values):    {      operator: \"greater_than\",      left: { path: \"price\" },      right: 100    }\n\n3. Logical expression group (combining multiple expressions):    {      operator: \"and\",      expressions: [        {          operator: \"equals\",          left: { path: \"country\" },          right: \"US\"        },        {          operator: \"greater_than\",          left: { path: \"age\" },          right: 18        }      ]    }\n\n4. Location expression (comparing locations):    {      operator: \"within\",      left: {        location: {          latitude: 40.7128,          longitude: -74.0060,          distance: {            value: 5,            unit: \"miles\"          }        }      },      right: { path: \"user.location\" }    }"
+      "description": "Represents an expression that operates within a single model context. Examples:\n\n1. Unary expression (operating on a single value):    {      operator: \"not\",      expression: {        operator: \"equals\",        left: { path: \"status\" },        right: \"inactive\"      }    }\n\n2. Binary expression (comparing two values):    {      operator: \"greater_than\",      left: { path: \"price\" },      right: 100    }\n\n3. Logical expression group (combining multiple expressions):    {      operator: \"and\",      expressions: [        {          operator: \"equals\",          left: { path: \"country\" },          right: \"US\"        },        {          operator: \"greater_than\",          left: { path: \"age\" },          right: 18        }      ]    }\n\n4. Location expression (comparing locations):    {      operator: \"within\",      left: {        location: {          latitude: 40.7128,          longitude: -74.0060,          distance: {            value: 5,            unit: \"miles\"          }        }      },      right: { path: \"user.location\" }    }",
+      "title": "SingleModelExpression"
     },
     "UnaryOperator": {
       "description": "Represents unary operators that operate on a single value. Examples:\n- \"not\": Negates a boolean expression\n- \"exist\": Checks if a value exists",
@@ -1099,7 +1082,8 @@
         "not",
         "exist"
       ],
-      "type": "string"
+      "type": "string",
+      "title": "UnaryOperator"
     },
     "UserQuery": {
       "additionalProperties": false,
@@ -1119,12 +1103,14 @@
         "attributes",
         "models"
       ],
-      "type": "object"
+      "type": "object",
+      "title": "UserQuery"
     },
     "Version": {
       "type": [
         "string"
-      ]
+      ],
+      "title": "Version"
     }
   }
 }
