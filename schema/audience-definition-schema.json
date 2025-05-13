@@ -413,6 +413,9 @@
             "left": {
               "additionalProperties": false,
               "properties": {
+                "model": {
+                  "$ref": "#/definitions/Model"
+                },
                 "operator": {
                   "$ref": "#/definitions/AggregationOperator"
                 },
@@ -422,6 +425,7 @@
               },
               "required": [
                 "operator",
+                "model",
                 "path"
               ],
               "type": "object"
@@ -444,7 +448,7 @@
                       "$ref": "#/definitions/Expression"
                     },
                     "model": {
-                      "type": "string"
+                      "$ref": "#/definitions/Model"
                     },
                     "operator": {
                       "$ref": "#/definitions/AggregationOperator"
@@ -493,7 +497,7 @@
                       "$ref": "#/definitions/Expression"
                     },
                     "model": {
-                      "type": "string"
+                      "$ref": "#/definitions/Model"
                     },
                     "operator": {
                       "$ref": "#/definitions/AggregationOperator"
@@ -521,6 +525,9 @@
             "right": {
               "additionalProperties": false,
               "properties": {
+                "model": {
+                  "$ref": "#/definitions/Model"
+                },
                 "operator": {
                   "$ref": "#/definitions/AggregationOperator"
                 },
@@ -530,6 +537,7 @@
               },
               "required": [
                 "operator",
+                "model",
                 "path"
               ],
               "type": "object"
@@ -554,9 +562,6 @@
               },
               "type": "array"
             },
-            "model": {
-              "$ref": "#/definitions/Model"
-            },
             "operator": {
               "$ref": "#/definitions/LogicalOperator"
             }
@@ -574,20 +579,21 @@
             "left": {
               "$ref": "#/definitions/LocationOperand"
             },
-            "model": {
-              "$ref": "#/definitions/Model"
-            },
             "operator": {
               "$ref": "#/definitions/LocationOperator"
             },
             "right": {
               "additionalProperties": false,
               "properties": {
+                "model": {
+                  "$ref": "#/definitions/Model"
+                },
                 "path": {
                   "type": "string"
                 }
               },
               "required": [
+                "model",
                 "path"
               ],
               "type": "object"
@@ -607,17 +613,18 @@
             "left": {
               "additionalProperties": false,
               "properties": {
+                "model": {
+                  "$ref": "#/definitions/Model"
+                },
                 "path": {
                   "type": "string"
                 }
               },
               "required": [
+                "model",
                 "path"
               ],
               "type": "object"
-            },
-            "model": {
-              "$ref": "#/definitions/Model"
             },
             "operator": {
               "$ref": "#/definitions/LocationOperator"
@@ -779,29 +786,14 @@
       "type": "string"
     },
     "Model": {
-      "additionalProperties": false,
-      "properties": {
-        "id": {
-          "type": "number"
-        },
-        "name": {
+      "title": "Model",
           "type": "string"
-        },
-        "type": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "type",
-        "id"
-      ],
-      "type": "object"
     },
     "Models": {
-      "type": "array",
       "items": {
         "$ref": "#/definitions/Model"
-      }
+      },
+      "type": "array"
     },
     "Operand": {
       "anyOf": [
@@ -821,11 +813,15 @@
           "title": "PathOperand",
           "additionalProperties": false,
           "properties": {
+            "model": {
+              "$ref": "#/definitions/Model"
+            },
             "path": {
               "type": "string"
             }
           },
           "required": [
+            "model",
             "path"
           ],
           "type": "object"
