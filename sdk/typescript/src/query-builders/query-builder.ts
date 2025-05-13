@@ -7,14 +7,6 @@ export class QueryBuilder {
     protected expression?: Expression;
 
     /**
-     * Sets the model for the query to all models
-     */
-    setAllModels(): this {
-        this.models = "all";
-        return this;
-    }
-
-    /**
      * Sets the models for the query
      * @param models The model names, IDs, or model objects with type
      */

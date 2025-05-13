@@ -832,6 +832,7 @@
       "title": "Model"
     },
     "Models": {
+<<<<<<< HEAD
       "anyOf": [
         {
           "const": "all",
@@ -845,6 +846,12 @@
         }
       ],
       "title": "Models"
+=======
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Model"
+      }
+>>>>>>> main
     },
     "Operand": {
       "anyOf": [
