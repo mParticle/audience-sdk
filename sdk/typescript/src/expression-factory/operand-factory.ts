@@ -11,7 +11,7 @@ import { Model } from '@mparticle/audience-typescript-schema/common/model';
 export class OperandFactory {
 
     /**
-     * Creates a path operand
+     * Creates a model and path operand
      * @param path The path to reference
      * @returns A path operand
      */

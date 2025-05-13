@@ -2,6 +2,7 @@ import { Operand } from "../operand/operand";
 import { AggregationOperator, BinaryOperator, LocationOperator, LogicalOperator } from "../common/operator";
 import { LocationOperand } from "../operand/location-operand";
 import { Model } from "../common/model";
+import { FieldLocator } from "../common/field-locator";
 
 /**
  * Represents a complex expression that can evaluate to true, false, or noop.
@@ -115,12 +116,12 @@ export type Expression =
     |   // binary expression
     { model?: Model, operator: BinaryOperator, left: Operand, right: Operand }
     |   // model aggregation (left) expression
-    { model: Model, operator: BinaryOperator, expression: Expression, left: { operator: AggregationOperator, model: Model, path: string }, right: Operand | { model: Model, operator: AggregationOperator, path: string, expression: Expression } }
+    { model: Model, operator: BinaryOperator, expression: Expression, left: ({ operator: AggregationOperator } & FieldLocator), right: Operand | ({ operator: AggregationOperator, expression: Expression } & FieldLocator) }
     |   // model aggregation (right) expression
-    { model: Model, operator: BinaryOperator, expression: Expression, left: Operand | { model: Model, operator: AggregationOperator, path: string, expression: Expression }, right: { operator: AggregationOperator, model: Model, path: string } }
+    { model: Model, operator: BinaryOperator, expression: Expression, left: Operand | ({ operator: AggregationOperator, expression: Expression } & FieldLocator), right: ({ operator: AggregationOperator } & FieldLocator) }
     |   // logical expression group
     { operator: LogicalOperator, expressions: Expression[] }
     |   // location (left) expression
-    { operator: LocationOperator, left: LocationOperand, right: { model: Model, path: string } }
+    { operator: LocationOperator, left: LocationOperand, right: FieldLocator }
     |   // location (left) expression
-    { operator: LocationOperator, left: { model: Model, path: string }, right: LocationOperand };
+    { operator: LocationOperator, left: FieldLocator, right: LocationOperand };

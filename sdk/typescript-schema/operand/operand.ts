@@ -1,6 +1,6 @@
 import { DateOperand } from "./date-operand";
 import { ArithmeticOperator } from "../common/operator";
-import { Model } from "../common/model";
+import { FieldLocator } from "../common/field-locator";
 
 /**
  * Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations.
@@ -39,5 +39,5 @@ export type Operand =
     | number
     | string
     | DateOperand
-    | { model: Model, path: string }
+    | FieldLocator
     | { operator: ArithmeticOperator, left: Operand, right: Operand };

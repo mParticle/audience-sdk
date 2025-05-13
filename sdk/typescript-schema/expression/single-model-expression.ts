@@ -1,6 +1,7 @@
 import { Operand } from "../operand/operand";
 import { LogicalOperator, LocationOperator, BinaryOperator } from "../common/operator";
 import { LocationOperand } from "../operand/location-operand";
+import { FieldLocator } from "../common/field-locator";
 
 /**
  * Represents an expression that operates within a single model context.
@@ -66,6 +67,6 @@ export type SingleModelExpression =
     |   // logical expression group
     { operator: LogicalOperator, expressions: SingleModelExpression[] }
     |   // location (left) expression
-    { operator: LocationOperator, left: LocationOperand, right: { path: string } }
+    { operator: LocationOperator, left: LocationOperand, right: Pick<FieldLocator, "path"> }
     |   // location (left) expression
-    { operator: LocationOperator, left: { path: string }, right: LocationOperand };
+    { operator: LocationOperator, left: Pick<FieldLocator, "path">, right: LocationOperand };
