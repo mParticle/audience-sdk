@@ -14,8 +14,7 @@
   "scripts": {
     "build": "tsc",
     "semantic-release": "semantic-release",
-    "gen-schema": "ts-json-schema-generator --path index.ts --out schema/audience-schema.json",
-    "gen-schema-minified": "ts-json-schema-generator --path index.ts --out schema/audience-schema.min.json --minify"
+    "gen-schema": "scripts/gen_schema_with_titles.sh"
   },
   "devDependencies": {
     "@semantic-release/changelog": "6.0.3",

@@ -782,10 +782,10 @@
       "type": "object"
     },
     "Models": {
-      "type": "array",
       "items": {
         "$ref": "#/definitions/Model"
-      }
+      },
+      "type": "array"
     },
     "Operand": {
       "anyOf": [
