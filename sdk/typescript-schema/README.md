@@ -22,7 +22,7 @@ yarn add @mparticle/audience-typescript-schema
 
 Before using or developing with this package, ensure you have the following prerequisites:
 
-- [Node.js](https://nodejs.org/) (version 14 or higher recommended)
+- [Node.js](https://nodejs.org/) (version 20 or higher recommended)
 - [yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/)
 - The [`jq`](https://stedolan.github.io/jq/) command-line JSON processor must be installed and available in your system's `PATH`.
 
