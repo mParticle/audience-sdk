@@ -1,3 +1,4 @@
+import { ModelPath } from "../common/field-locator";
 import { Expression } from "../expression/expression";
 
 /**
@@ -20,5 +21,5 @@ import { Expression } from "../expression/expression";
  *    }
  */
 export type Query = 
-    { model: string } 
+    { model: Pick<ModelPath, "model"> } 
     & { expression?: Expression};

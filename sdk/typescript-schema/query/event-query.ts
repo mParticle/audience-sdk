@@ -1,3 +1,4 @@
+import { ModelPath } from "../common/field-locator"
 import { CountExpression } from "../expression/count-expression"
 import { DateExpression } from "../expression/date-expression"
 import { LocationExpression } from "../expression/location-expression"
@@ -44,7 +45,7 @@ import { Query } from "./query"
  */
 export type EventQuery = 
     {
-        model: string,
+        model: Pick<ModelPath, "model">,
         event_type?: PathExpression,
         event_name?: PathExpression,
         attributes?: SingleModelExpression,
