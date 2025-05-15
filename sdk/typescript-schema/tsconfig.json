@@ -1,33 +1,36 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-      "target": "es2017",
-      "module": "esnext",
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "moduleResolution": "node",
-      "sourceMap": false,
-      "allowJs": true,
-      "baseUrl": "src",
-      "allowSyntheticDefaultImports": true,
-      "skipLibCheck": true,
-      "lib": [
-        "es2017", "ES2019.Object", "dom", "es2018.promise", "esnext.weakref"
-      ],
-      "noUnusedLocals": true,
-      "outDir": "dist",
-      "declaration": true,
-      "declarationDir": "dist",
-      "declarationMap": false,
-      "emitDeclarationOnly": true,
-    },
-    "include": [
-      "./**/*"
+  "compileOnSave": false,
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "esnext",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "allowJs": true,
+    "baseUrl": "src",
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "lib": [
+      "es2017",
+      "ES2019.Object",
+      "dom",
+      "es2018.promise",
+      "esnext.weakref"
     ],
-    "exclude": [
-      "node_modules",
-      "dist",
-      "scripts"
-    ]
-  }
-  
+    "noUnusedLocals": true,
+    "outDir": "dist",
+    "declaration": true,
+    "declarationDir": "dist",
+    "declarationMap": false,
+    "emitDeclarationOnly": true
+  },
+  "include": [
+    "./**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "scripts"
+  ]
+}
