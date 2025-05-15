@@ -18,6 +18,28 @@ npm install @mparticle/audience-typescript-schema
 yarn add @mparticle/audience-typescript-schema
 ```
 
+## Setup
+
+Before using or developing with this package, ensure you have the following prerequisites:
+
+- [Node.js](https://nodejs.org/) (version 20 or higher recommended)
+- [yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/)
+- The [`jq`](https://stedolan.github.io/jq/) command-line JSON processor must be installed and available in your system's `PATH`.
+
+To verify `jq` is installed, run:
+
+```bash
+jq --version
+```
+
+If you do not have `jq`, you can install it using [Homebrew](https://brew.sh/) on macOS:
+
+```bash
+brew install jq
+```
+
+Or see the [jq installation guide](https://stedolan.github.io/jq/download/) for other platforms.
+
 ## Usage
 
 ```typescript
