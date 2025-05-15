@@ -1,4 +1,3 @@
-import { Models } from "../common/model";
 import { Expression } from "../expression/expression";
 
 /**
@@ -21,5 +20,5 @@ import { Expression } from "../expression/expression";
  *    }
  */
 export type Query = 
-    { models: Models } 
+    { model: string } 
     & { expression?: Expression};

@@ -1,8 +1,7 @@
 import { Operand } from "../operand/operand";
 import { AggregationOperator, BinaryOperator, LocationOperator, LogicalOperator } from "../common/operator";
 import { LocationOperand } from "../operand/location-operand";
-import { Model } from "../common/model";
-import { FieldLocator } from "../common/field-locator";
+import { ModelPath } from "../common/field-locator";
 
 /**
  * Represents a complex expression that can evaluate to true, false, or noop.
@@ -107,21 +106,21 @@ import { FieldLocator } from "../common/field-locator";
  *    }
  */
 export type Expression =
-    // join expression
-    { model: Model, expression: Expression }
+        // join expression
+    { model: Pick<ModelPath, "model">, expression: Expression }
     |   // unary expression
-    { model?: Model, operator: "not", expression: Expression }
+    { model?: Pick<ModelPath, "model">, operator: "not", expression: Expression }
     |   // exists expression
-    { model?: Model, operator: "exists", operand: Operand }
+    { model?: Pick<ModelPath, "model">, operator: "exists", operand: Operand }
     |   // binary expression
-    { model?: Model, operator: BinaryOperator, left: Operand, right: Operand }
+    { model?: Pick<ModelPath, "model">, operator: BinaryOperator, left: Operand, right: Operand }
     |   // model aggregation (left) expression
-    { model: Model, operator: BinaryOperator, expression: Expression, left: ({ operator: AggregationOperator } & FieldLocator), right: Operand | ({ operator: AggregationOperator, expression: Expression } & FieldLocator) }
+    { model: Pick<ModelPath, "model">, operator: BinaryOperator, expression: Expression, left: ({ operator: AggregationOperator } & FieldLocator), right: Operand | ({ operator: AggregationOperator, expression: Expression } & FieldLocator) }
     |   // model aggregation (right) expression
-    { model: Model, operator: BinaryOperator, expression: Expression, left: Operand | ({ operator: AggregationOperator, expression: Expression } & FieldLocator), right: ({ operator: AggregationOperator } & FieldLocator) }
+    { model: Pick<ModelPath, "model">, operator: BinaryOperator, expression: Expression, left: Operand | ({ operator: AggregationOperator, expression: Expression } & FieldLocator), right: ({ operator: AggregationOperator } & FieldLocator) }
     |   // logical expression group
     { operator: LogicalOperator, expressions: Expression[] }
     |   // location (left) expression
-    { operator: LocationOperator, left: LocationOperand, right: FieldLocator }
+    { operator: LocationOperator, left: LocationOperand, right: ModelPath }
     |   // location (left) expression
-    { operator: LocationOperator, left: FieldLocator, right: LocationOperand };
+    { operator: LocationOperator, left: ModelPath, right: LocationOperand };

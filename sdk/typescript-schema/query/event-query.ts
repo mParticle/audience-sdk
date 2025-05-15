@@ -1,4 +1,3 @@
-import { Models } from "../common/model"
 import { CountExpression } from "../expression/count-expression"
 import { DateExpression } from "../expression/date-expression"
 import { LocationExpression } from "../expression/location-expression"
@@ -45,7 +44,7 @@ import { Query } from "./query"
  */
 export type EventQuery = 
     {
-        models: Models,
+        model: string,
         event_type?: PathExpression,
         event_name?: PathExpression,
         attributes?: SingleModelExpression,

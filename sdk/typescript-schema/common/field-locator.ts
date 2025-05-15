@@ -1,4 +1,4 @@
-export type FieldLocator = {
+export type ModelPath = {
     model: string,
     path: string
 }

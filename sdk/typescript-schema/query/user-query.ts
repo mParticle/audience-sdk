@@ -1,4 +1,4 @@
-import { Models } from "../common/model";
+import { ModelPath } from "../common/field-locator";
 import { SingleModelExpression } from "../expression/single-model-expression"
 import { Query } from "./query";
 
@@ -37,7 +37,7 @@ import { Query } from "./query";
  */
 export type UserQuery = 
     {
-        models: Models,
+        model: Pick<ModelPath, "model">,
         attributes: SingleModelExpression
     }
     & Query;
