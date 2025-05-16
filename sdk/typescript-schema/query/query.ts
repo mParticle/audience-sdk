@@ -1,4 +1,3 @@
-import { ModelPath } from "../common/field-locator";
 import { Expression } from "../expression/expression";
 
 /**

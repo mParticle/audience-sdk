@@ -1,4 +1,3 @@
-import { ModelPath } from "../common/field-locator";
 import { SingleModelExpression } from "../expression/single-model-expression"
 import { Query } from "./query";
 
