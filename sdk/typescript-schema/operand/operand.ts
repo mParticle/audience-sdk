@@ -1,6 +1,6 @@
 import { DateOperand } from "./date-operand";
 import { ArithmeticOperator } from "../common/operator";
-import { ModelPath } from "../common/field-locator";
+import { ModelPath } from "../common/model-path";
 
 /**
  * Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations.

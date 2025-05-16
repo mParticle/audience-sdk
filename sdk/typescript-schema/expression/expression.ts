@@ -1,7 +1,7 @@
 import { Operand } from "../operand/operand";
 import { AggregationOperator, BinaryOperator, LocationOperator, LogicalOperator } from "../common/operator";
 import { LocationOperand } from "../operand/location-operand";
-import { ModelPath } from "../common/field-locator";
+import { ModelPath } from "../common/model-path";
 
 /**
  * Represents a complex expression that can evaluate to true, false, or noop.

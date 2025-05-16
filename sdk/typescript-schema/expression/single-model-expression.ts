@@ -1,7 +1,7 @@
 import { Operand } from "../operand/operand";
 import { LogicalOperator, LocationOperator, BinaryOperator } from "../common/operator";
 import { LocationOperand } from "../operand/location-operand";
-import { ModelPath } from "../common/field-locator";
+import { ModelPath } from "../common/model-path";
 
 /**
  * Represents an expression that operates within a single model context.
