@@ -4,6 +4,7 @@ from mp_audience_sdk.models.audience_models import (
     AbsoluteDate,
     AbsoluteDateOperand,
     AudienceDefinition,
+    AudienceQuery,
     BinaryOperator,
     BinarySingleModelExpression,
     DateOperand,
@@ -51,16 +52,18 @@ def test_user_query():
     json_dict = json.loads(json_data)
     deserialized_obj = AudienceDefinition.model_validate(json_dict)
 
-    user_audience_query = UserAudienceQuery(
-        user=UserQuery(
-            model="user",
-            attributes=SingleModelExpression(
-                root=BinarySingleModelExpression(
-                    operator=BinaryOperator.greater_than_equal,
-                    left=Operand(root=ModelPath(model="user", path="product_id")),
-                    right=Operand(root=3),
-                )
-            ),
+    user_audience_query = AudienceQuery(
+        root=UserAudienceQuery(
+            user=UserQuery(
+                model="user",  # TODO: remove this
+                attributes=SingleModelExpression(
+                    root=BinarySingleModelExpression(
+                        operator=BinaryOperator.greater_than_equal,
+                        left=Operand(root=ModelPath(model="user", path="product_id")),
+                        right=Operand(root=3),
+                    )
+                ),
+            )
         )
     )
 
@@ -250,20 +253,22 @@ def test_user_query_with_single_model():
         )
     )
 
-    user_query = UserAudienceQuery(
-        user=UserQuery(
-            model="user",
-            attributes=SingleModelExpression(
-                root=LogicalSingleModelExpression(
-                    operator=LogicalOperator.and_,
-                    expressions=[
-                        color_or_expr,
-                        age_between_expr,
-                        absolute_date_expr,
-                        relative_date_expr,
-                    ],
-                )
-            ),
+    user_query = AudienceQuery(
+        root=UserAudienceQuery(
+            user=UserQuery(
+                model="user",  # TODO: remove this
+                attributes=SingleModelExpression(
+                    root=LogicalSingleModelExpression(
+                        operator=LogicalOperator.and_,
+                        expressions=[
+                            color_or_expr,
+                            age_between_expr,
+                            absolute_date_expr,
+                            relative_date_expr,
+                        ],
+                    )
+                ),
+            )
         )
     )
 
