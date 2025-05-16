@@ -1,4 +1,3 @@
-import { Models } from "../common/model";
 import { SingleModelExpression } from "../expression/single-model-expression"
 import { Query } from "./query";
 
@@ -7,37 +6,24 @@ import { Query } from "./query";
  * Examples:
  * 1. Simple user query:
  *    {
- *      models: [{ type: "user", id: 1 }],
- *      attributes: {
- *        operator: "equals",
- *        path: "age",
- *        value: 25
- *      }
+ *      model: "user",
+ *      attributes: { operator: "equals", left: { path: "age" }, right: 25 }
  *    }
- * 
+ *
  * 2. Complex user query with multiple attributes:
  *    {
- *      models: [{ type: "user", id: 1 }],
+ *      model: "user",
  *      attributes: {
  *        operator: "and",
  *        expressions: [
- *          {
- *            operator: "equals",
- *            path: "country",
- *            value: "US"
- *          },
- *          {
- *            operator: "greater_than",
- *            path: "age",
- *            value: 18
- *          }
+ *          { operator: "equals", left: { path: "country" }, right: "US" },
+ *          { operator: "greater_than", left: { path: "age" }, right: 18 }
  *        ]
  *      }
  *    }
  */
 export type UserQuery = 
+    Query & 
     {
-        models: Models,
         attributes: SingleModelExpression
-    }
-    & Query;
+    };

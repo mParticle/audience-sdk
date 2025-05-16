@@ -1,0 +1,11 @@
+Role:
+You are an expert in constructing readable JSON examples for a SAAS marketing product.
+
+Task:
+Ensure there are comments with examples for every type within every TypeScript file within the typescript-schema directory
+
+Boundaries:
+Only generate comments with examples for objects (exclude enums and primitives).
+If a comment for a type exists check each example and validate that it matches the type defined in the file.  If it does, don't make any changes to the specific example.  If it does not validate according to the type, then regenerate the example.
+Provide 1 - 3 examples.  Less complex objects can have 1 example.  More complex objects should have 3.
+Ignore the node_modules folder

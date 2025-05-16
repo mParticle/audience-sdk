@@ -25,11 +25,10 @@ $.definitions.Expression.anyOf[0]|JoinExpression
 $.definitions.Expression.anyOf[1]|UnaryExpression
 $.definitions.Expression.anyOf[2]|ExistsExpression
 $.definitions.Expression.anyOf[3]|BinaryExpression
-$.definitions.Expression.anyOf[4]|ModelAggregationLeftExpression
-$.definitions.Expression.anyOf[5]|ModelAggregationRightExpression
-$.definitions.Expression.anyOf[6]|LogicalExpression
-$.definitions.Expression.anyOf[7]|LocationLeftExpression
-$.definitions.Expression.anyOf[8]|LocationRightExpression
+$.definitions.Expression.anyOf[4]|ModelAggregationExpression
+$.definitions.Expression.anyOf[5]|LogicalExpression
+$.definitions.Expression.anyOf[6]|LocationLeftExpression
+$.definitions.Expression.anyOf[7]|LocationRightExpression
 $.definitions.Operand.anyOf[4]|PathOperand
 $.definitions.Operand.anyOf[5]|ArithmeticOperand
 $.definitions.PathExpression.anyOf[0]|BooleanPathExpression

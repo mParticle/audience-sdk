@@ -1,12 +1,12 @@
 import { Operand } from "../operand/operand";
 import { LogicalOperator, LocationOperator, BinaryOperator } from "../common/operator";
 import { LocationOperand } from "../operand/location-operand";
+import { ModelPath } from "../common/model-path";
 
 /**
  * Represents an expression that operates within a single model context.
  * Examples:
- * 
- * 1. Unary expression (operating on a single value):
+ * 1. Unary expression (NOT):
  *    {
  *      operator: "not",
  *      expression: {
@@ -15,31 +15,23 @@ import { LocationOperand } from "../operand/location-operand";
  *        right: "inactive"
  *      }
  *    }
- * 
+ *
  * 2. Binary expression (comparing two values):
  *    {
  *      operator: "greater_than",
  *      left: { path: "price" },
  *      right: 100
  *    }
- * 
- * 3. Logical expression group (combining multiple expressions):
+ *
+ * 3. Logical expression group (AND):
  *    {
  *      operator: "and",
  *      expressions: [
- *        {
- *          operator: "equals",
- *          left: { path: "country" },
- *          right: "US"
- *        },
- *        {
- *          operator: "greater_than",
- *          left: { path: "age" },
- *          right: 18
- *        }
+ *        { operator: "equals", left: { path: "country" }, right: "US" },
+ *        { operator: "greater_than", left: { path: "age" }, right: 18 }
  *      ]
  *    }
- * 
+ *
  * 4. Location expression (comparing locations):
  *    {
  *      operator: "within",
@@ -47,10 +39,7 @@ import { LocationOperand } from "../operand/location-operand";
  *        location: {
  *          latitude: 40.7128,
  *          longitude: -74.0060,
- *          distance: {
- *            value: 5,
- *            unit: "miles"
- *          }
+ *          distance: { value: 5, unit: "miles" }
  *        }
  *      },
  *      right: { path: "user.location" }
@@ -66,6 +55,6 @@ export type SingleModelExpression =
     |   // logical expression group
     { operator: LogicalOperator, expressions: SingleModelExpression[] }
     |   // location (left) expression
-    { operator: LocationOperator, left: LocationOperand, right: { path: string } }
+    { operator: LocationOperator, left: LocationOperand, right: Pick<ModelPath, "path"> }
     |   // location (left) expression
-    { operator: LocationOperator, left: { path: string }, right: LocationOperand };
+    { operator: LocationOperator, left: Pick<ModelPath, "path">, right: LocationOperand };

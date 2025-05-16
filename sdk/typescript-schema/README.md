@@ -69,6 +69,20 @@ yarn build
 npm run build
 ```
 
+### Updating the Schema
+
+Whenever you make changes to the schema definitions, you must regenerate the schema output by running:
+
+```bash
+npm run gen-schema
+```
+
+This ensures that all generated files are up to date with your changes.
+
+### Updating Title Paths in add_titles_to_schema.sh
+
+If you add, remove, or rename types or titles in the schema, you will need to update the relevant JSONPath mappings in [`scripts/add_titles_to_schema.sh`](./scripts/add_titles_to_schema.sh) to reflect these changes. This script relies on hardcoded paths to insert titles into the schema, so keeping these paths accurate is necessary for correct schema generation.
+
 ## License
 
 Apache License 2.0

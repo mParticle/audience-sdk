@@ -26,16 +26,10 @@ Located in `sdk/typescript`, this is a full-featured SDK that provides builders 
 
 ### Python SDK
 
-Install package directly from github (currently we don't publish it to PyPi)
+Command to install package tagged as `v0.1.0` directly from github
 
 ```sh
-pip install git+ssh://git@github.com/mParticle/audience-sdk.git#subdirectory=sdk/python
-```
-
-or from specific branch
-
-```sh
-pip install git+ssh://git@github.com/mParticle/audience-sdk.git@< branch name >#subdirectory=sdk/python
+pip install git+ssh://git@github.com/mParticle/audience-sdk.git@v0.1.0#subdirectory=sdk/python
 ```
 
 uninstall
@@ -49,7 +43,12 @@ update models
 1. `pip install -r sdk/python/requirements-dev.txt`
 2. `make generate-python-models`
 3. increment version in `sdk/python/pyproject.toml`
-
+4. Merge and push
+5. Tag new release
+    ```sh
+    git tag v0.1.0 -m "Python SDK 0.1.0"
+    git push v0.1.0
+    ```
 
 ## Getting Started
 

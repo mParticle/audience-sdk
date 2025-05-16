@@ -2,31 +2,20 @@ import { Operand } from "../operand/operand";
 import { BinaryOperator, LogicalOperator } from "../common/operator";
 
 /**
- * Represents an expression that evaluates to a count or count-based condition.
+ * Represents a count expression, which can be a number, a binary operation, or a logical group.
  * Examples:
- * 
- * 1. Simple count value:
+ * 1. Simple count:
  *    5
- * 
- * 2. Count with binary operator:
- *    {
- *      operator: "greater_than",
- *      operand: { path: "order_count" }
- *    }
- * 
- * 3. Logical combination of counts:
+ *
+ * 2. Binary count expression:
+ *    { operator: "greater_than", operand: { path: "event.count" } }
+ *
+ * 3. Logical group of count expressions:
  *    {
  *      operator: "and",
  *      expressions: [
- *        5,
- *        {
- *          operator: "greater_than",
- *          operand: { path: "order_count" }
- *        },
- *        {
- *          operator: "less_than",
- *          operand: 10
- *        }
+ *        1,
+ *        { operator: "greater_than", operand: { path: "event.count" } }
  *      ]
  *    }
  */

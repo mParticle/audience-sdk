@@ -1,17 +1,16 @@
 import { Query } from '@mparticle/audience-typescript-schema/query/query';
 import { Expression } from '@mparticle/audience-typescript-schema/expression/expression';
-import { Models, Model } from '@mparticle/audience-typescript-schema/common/model';
 
 export class QueryBuilder {
-    protected models: Models = [];
+    protected model?: string;
     protected expression?: Expression;
 
     /**
      * Sets the models for the query
      * @param models The model names, IDs, or model objects with type
      */
-    setModels(models: Model[]): this {
-        this.models = models;
+    setModel(model: string): this {
+        this.model = model;
         return this;
     }
 
@@ -28,12 +27,12 @@ export class QueryBuilder {
      * Builds and returns the query
      */
     build(): Query {
-        if (!this.models) {
+        if (!this.model) {
             throw new Error('Model is required for a general query');
         }
 
         return {
-            models: this.models,
+            model: this.model,
             ...(this.expression && { expression: this.expression })
         };
     }
