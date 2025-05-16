@@ -2,21 +2,12 @@ import { Expression } from '@mparticle/audience-typescript-schema/expression/exp
 import { Operand } from '@mparticle/audience-typescript-schema/operand/operand';
 import { BinaryOperator, LogicalOperator, LocationOperator, AggregationOperator } from '@mparticle/audience-typescript-schema/common/operator';
 import { LocationOperand } from '@mparticle/audience-typescript-schema/operand/location-operand';
-import { Model } from '@mparticle/audience-typescript-schema/common/model';
+import { ModelPath } from '@mparticle/audience-typescript-schema/common/model-path';
 
 /**
  * Factory class for creating different types of expressions
  */
 export class ExpressionFactory {
-    /**
-     * Creates a join expression
-     * @param model The model
-     * @param expression The expression to join
-     * @returns A join expression
-     */
-    static createJoin(model: Model, expression: Expression): Expression {
-        return { model, expression };
-    }
 
     /**
      * Creates a unary expression (NOT)
@@ -24,7 +15,7 @@ export class ExpressionFactory {
      * @param model Optional model
      * @returns A unary expression
      */
-    static createNot(expression: Expression, model?: Model): Expression {
+    static createNot(expression: Expression, model?: string): Expression {
         return { model, operator: 'not', expression };
     }
 
@@ -34,7 +25,7 @@ export class ExpressionFactory {
      * @param model Optional model
      * @returns An exists expression
      */
-    static createExists(operand: Operand, model?: Model): Expression {
+    static createExists(operand: Operand, model?: string): Expression {
         return { model, operator: 'exists', operand };
     }
 
@@ -50,26 +41,9 @@ export class ExpressionFactory {
         operator: BinaryOperator,
         left: Operand,
         right: Operand,
-        model?: Model
+        model?: string
     ): Expression {
         return { model, operator, left, right };
-    }
-
-    /**
-     * Creates a model aggregation expression
-     * @param operator The binary operator
-     * @param expression The expression to filter the model
-     * @param aggregation The aggregation to apply
-     * @param right The right operand
-     * @returns A model aggregation expression
-     */
-    static createModelAggregation(
-        operator: BinaryOperator,
-        expression: Expression,
-        aggregation: { operator: AggregationOperator, model: Model, path: string },
-        right: Operand | { model: string, operator: AggregationOperator, path: string, expression: Expression }
-    ): Expression {
-        return { operator, expression, left: aggregation, right };
     }
 
     /**
@@ -119,5 +93,22 @@ export class ExpressionFactory {
      */
     static createOr(expressions: Expression[]): Expression {
         return this.createLogical('or', expressions);
+    }
+
+    /**
+     * Creates an aggregate expression
+     * @param operator The aggregation operator
+     * @param group_by The group by field
+     * @param expression The model path to aggregate
+     * @param condition The condition expression
+     * @returns An aggregate expression
+     */
+    static createAggregate(
+        operator: AggregationOperator,
+        group_by: string,
+        expression: ModelPath,
+        condition: Expression
+    ): Expression {
+        return { operator, group_by, expression, condition };
     }
 } 

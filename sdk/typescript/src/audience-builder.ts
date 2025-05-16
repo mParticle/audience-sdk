@@ -47,8 +47,8 @@ export class AudienceBuilder {
         }
 
         return {
+            schema_version: VERSION,
             audience: {
-                version: VERSION,
                 operator: this.currentOperator,
                 queries: this.queries
             }

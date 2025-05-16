@@ -4,7 +4,6 @@ import { LocationOperand } from '@mparticle/audience-typescript-schema/operand/l
 import { ArithmeticOperator } from '@mparticle/audience-typescript-schema/common/operator';
 import { DateOperandFactory } from './date-operand-factory';
 import { LocationOperandFactory } from './location-operand-factory';
-import { Model } from '@mparticle/audience-typescript-schema/common/model';
 /**
  * Factory class for creating different types of operands
  */
@@ -15,7 +14,7 @@ export class OperandFactory {
      * @param path The path to reference
      * @returns A path operand
      */
-    static createModelPath(model: Model, path: string): Operand {
+    static createModelPath(model: string, path: string): Operand {
         return { model, path };
     }
 

@@ -15,8 +15,8 @@ import { UserQueryBuilder } from './query-builders/user-query-builder';
  */
 export function validateAudience(audience: Audience): boolean {
     try {
-        // Basic validation - ensure the audience has the required structure
-        if (!audience.audience || !audience.audience.operator || !audience.audience.queries) {
+        // Ensure the audience has the required structure
+        if (!audience.schema_version || !audience.audience || !audience.audience.operator || !audience.audience.queries) {
             return false;
         }
 

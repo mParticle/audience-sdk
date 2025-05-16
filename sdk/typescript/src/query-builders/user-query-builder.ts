@@ -37,7 +37,7 @@ export class UserQueryBuilder extends QueryBuilder {
      * Builds and returns the user query
      */
     build(): UserQuery {
-        if (!this.models) {
+        if (!this.model) {
             throw new Error('Model is required for a user query');
         }
 
@@ -46,7 +46,7 @@ export class UserQueryBuilder extends QueryBuilder {
         }
 
         return {
-            models: this.models,
+            model: this.model,
             attributes: this.attributes
         };
     }
