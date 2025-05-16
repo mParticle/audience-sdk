@@ -24,6 +24,5 @@ export * from './operand/date-operand';
 
 // Export common types
 export * from './common/location'; 
-export * from './common/model'; 
 export * from './common/operator'; 
 export * from './common/version'; 

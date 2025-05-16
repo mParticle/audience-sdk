@@ -11,46 +11,28 @@ import { Query } from "./query"
  * Examples:
  * 1. Simple event query:
  *    {
- *      models: [{ type: "event", id: 1 }],
+ *      model: "event",
  *      event_name: { path: "purchase" }
  *    }
- * 
+ *
  * 2. Complex event query with multiple conditions:
  *    {
- *      models: [
- *        { type: "event", id: 1 },
- *        { type: "transaction", id: 2 },
- *        { type: "session", id: 3 }
- *      ],
+ *      model: "event",
  *      event_type: { path: "commerce" },
  *      event_name: { path: "purchase" },
- *      attributes: {
- *        operator: "equals",
- *        path: "amount",
- *        value: 100
- *      },
- *      count: {
- *        operator: "greater_than",
- *        value: 5
- *      },
- *      date: {
- *        operator: "within",
- *        value: "30d"
- *      },
- *      location: {
- *        operator: "within",
- *        value: { lat: 40, lng: -74, radius: 5 }
- *      }
+ *      attributes: { operator: "equals", left: { path: "amount" }, right: 100 },
+ *      count: { operator: "greater_than", operand: { path: "event.count" } },
+ *      date: { operator: "greater_than", operand: { absolute: "2023-01-01T00:00:00Z" } },
+ *      location: { operator: "within", operand: { latitude: 40, longitude: -74, distance: { value: 5, unit: "miles" } } }
  *    }
  */
 export type EventQuery = 
+    Query & 
     {
-        model: Pick<ModelPath, "model">,
         event_type?: PathExpression,
         event_name?: PathExpression,
         attributes?: SingleModelExpression,
         count?: CountExpression,
         date?: DateExpression,
         location?: LocationExpression
-    } 
-    & Query;
+    };

@@ -25,10 +25,10 @@ export type DateUnit =
  * Examples:
  * 1. ISO 8601 date:
  *    { absolute: "2023-01-01T00:00:00Z" }
- * 
+ *
  * 2. Date only:
  *    { absolute: "2023-01-01" }
- * 
+ *
  * 3. Date with timezone:
  *    { absolute: "2023-01-01T00:00:00-05:00" }
  */
@@ -41,39 +41,13 @@ export type AbsoluteDate =
  * Represents a date/time relative to the current time.
  * Examples:
  * 1. 7 days ago:
- *    {
- *      relative: {
- *        offset: -7,
- *        unit: "day"
- *      }
- *    }
- * 
+ *    { relative: { offset: -7, unit: "day" } }
+ *
  * 2. Start of current month:
- *    {
- *      relative: {
- *        offset: 0,
- *        unit: "month",
- *        boundary: "start"
- *      }
- *    }
- * 
+ *    { relative: { offset: 0, unit: "month", boundary: "start" } }
+ *
  * 3. End of previous quarter:
- *    {
- *      relative: {
- *        offset: -1,
- *        unit: "quarter",
- *        boundary: "end"
- *      }
- *    }
- * 
- * 4. Middle of next year:
- *    {
- *      relative: {
- *        offset: 1,
- *        unit: "year",
- *        boundary: "middle"
- *      }
- *    }
+ *    { relative: { offset: -1, unit: "quarter", boundary: "end" } }
  */
 export type RelativeDate = 
 {
@@ -89,27 +63,12 @@ export type RelativeDate =
  * Examples:
  * 1. Absolute date:
  *    { date: { absolute: "2023-01-01T00:00:00Z" } }
- * 
+ *
  * 2. Relative date (30 days ago):
- *    { 
- *      date: { 
- *        relative: {
- *          offset: -30,
- *          unit: "day"
- *        }
- *      } 
- *    }
- * 
+ *    { date: { relative: { offset: -30, unit: "day" } } }
+ *
  * 3. Relative date (start of current month):
- *    { 
- *      date: { 
- *        relative: {
- *          offset: 0,
- *          unit: "month",
- *          boundary: "start"
- *        }
- *      } 
- *    }
+ *    { date: { relative: { offset: 0, unit: "month", boundary: "start" } } }
  */
 export type DateOperand = 
     { date: AbsoluteDate }

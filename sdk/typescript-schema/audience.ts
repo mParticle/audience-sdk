@@ -8,13 +8,13 @@ import { UserQuery } from "./query/user-query";
  * Represents a query that can be either a general query, an event query, or a user query.
  * Examples:
  * 1. General query:
- *    { query: { models: [{ type: "user", id: 1 }], expression: { ... } } }
- * 
+ *    { "query": { "model": "user", "expression": { "operator": "equals", "left": { "path": "age" }, "right": 30 } } }
+ *
  * 2. Event query:
- *    { event: { models: [{ type: "event", id: 1 }], event_name: { path: "purchase" }, attributes: { ... } } }
- * 
+ *    { "event": { "model": "event", "event_name": { "path": "purchase" } } }
+ *
  * 3. User query:
- *    { user: { models: [{ type: "user", id: 1 }], attributes: { ... } } }
+ *    { "user": { "model": "user", "attributes": { "operator": "equals", "left": { "path": "country" }, "right": "US" } } }
  */
 export type AudienceQuery = 
     { query: Query }
@@ -26,25 +26,40 @@ export type AudienceQuery =
  * Examples:
  * 1. Simple AND combination:
  *    {
- *      operator: "and",
- *      queries: [
- *        { query: { models: [{ type: "user", id: 1 }] } },
- *        { event: { models: [{ type: "event", id: 1 }], event_name: { path: "purchase" } } }
+ *      "operator": "and",
+ *      "queries": [
+ *        { "query": { "model": "user" } },
+ *        { "event": { "model": "event", "event_name": { "path": "purchase" } } }
  *      ]
  *    }
- * 
+ *
  * 2. Nested logical combinations:
  *    {
- *      operator: "or",
- *      queries: [
- *        { query: { models: [{ type: "user", id: 1 }] } },
+ *      "operator": "or",
+ *      "queries": [
+ *        { "query": { "model": "user" } },
  *        {
- *          operator: "and",
- *          queries: [
- *            { event: { models: [{ type: "event", id: 1 }] } },
- *            { user: { models: [{ type: "user", id: 1 }] } }
+ *          "operator": "and",
+ *          "queries": [
+ *            { "event": { "model": "event" } },
+ *            { "user": { "model": "user" } }
  *          ]
  *        }
+ *      ]
+ *    }
+ *
+ * 3. Deeply nested combination:
+ *    {
+ *      "operator": "and",
+ *      "queries": [
+ *        {
+ *          "operator": "or",
+ *          "queries": [
+ *            { "query": { "model": "user" } },
+ *            { "event": { "model": "event", "event_name": { "path": "signup" } } }
+ *          ]
+ *        },
+ *        { "user": { "model": "user", "attributes": { "operator": "equals", "left": { "path": "country" }, "right": "CA" } } }
  *      ]
  *    }
  */
@@ -56,19 +71,38 @@ export type LogicalAudienceQueries =
 
 /**
  * Represents a complete audience definition with a root logical query.
- * Example:
- * {
- *   audience: {
- *     operator: "and",
- *     queries: [
- *       { query: { models: [{ type: "user", id: 1 }] } },
- *       { event: { models: [{ type: "event", id: 1 }], event_name: { path: "purchase" } } }
- *     ]
- *   }
- * }
+ * Examples:
+ * 1. Simple audience:
+ *    {
+ *      "schema_version": "1.0.0",
+ *      "audience": {
+ *        "operator": "and",
+ *        "queries": [
+ *          { "query": { "model": "user" } },
+ *          { "event": { "model": "event", "event_name": { "path": "purchase" } } }
+ *        ]
+ *      }
+ *    }
+ *
+ * 2. Audience with nested logic:
+ *    {
+ *      "schema_version": "1.0.0",
+ *      "audience": {
+ *        "operator": "or",
+ *        "queries": [
+ *          { "user": { "model": "user", "attributes": { "operator": "equals", "left": { "path": "country" }, "right": "US" } } },
+ *          {
+ *            "operator": "and",
+ *            "queries": [
+ *              { "event": { "model": "event", "event_name": { "path": "signup" } } },
+ *              { "query": { "model": "user", "expression": { "operator": "greater_than", "left": { "path": "age" }, "right": 18 } } }
+ *            ]
+ *          }
+ *        ]
+ *      }
+ *    }
  */
 export type Audience = { 
-    audience: 
-        { version: Version }
-        & LogicalAudienceQueries
+    schema_version: Version,
+    audience: LogicalAudienceQueries
 }

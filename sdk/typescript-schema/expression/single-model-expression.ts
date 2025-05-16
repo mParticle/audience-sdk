@@ -6,8 +6,7 @@ import { ModelPath } from "../common/field-locator";
 /**
  * Represents an expression that operates within a single model context.
  * Examples:
- * 
- * 1. Unary expression (operating on a single value):
+ * 1. Unary expression (NOT):
  *    {
  *      operator: "not",
  *      expression: {
@@ -16,31 +15,23 @@ import { ModelPath } from "../common/field-locator";
  *        right: "inactive"
  *      }
  *    }
- * 
+ *
  * 2. Binary expression (comparing two values):
  *    {
  *      operator: "greater_than",
  *      left: { path: "price" },
  *      right: 100
  *    }
- * 
- * 3. Logical expression group (combining multiple expressions):
+ *
+ * 3. Logical expression group (AND):
  *    {
  *      operator: "and",
  *      expressions: [
- *        {
- *          operator: "equals",
- *          left: { path: "country" },
- *          right: "US"
- *        },
- *        {
- *          operator: "greater_than",
- *          left: { path: "age" },
- *          right: 18
- *        }
+ *        { operator: "equals", left: { path: "country" }, right: "US" },
+ *        { operator: "greater_than", left: { path: "age" }, right: 18 }
  *      ]
  *    }
- * 
+ *
  * 4. Location expression (comparing locations):
  *    {
  *      operator: "within",
@@ -48,10 +39,7 @@ import { ModelPath } from "../common/field-locator";
  *        location: {
  *          latitude: 40.7128,
  *          longitude: -74.0060,
- *          distance: {
- *            value: 5,
- *            unit: "miles"
- *          }
+ *          distance: { value: 5, unit: "miles" }
  *        }
  *      },
  *      right: { path: "user.location" }
