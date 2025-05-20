@@ -39,7 +39,7 @@
     },
     "Audience": {
       "additionalProperties": false,
-      "description": "Represents a complete audience definition with a root logical query. Examples: 1. Simple audience:    {      \"schema_version\": \"1.0.0\",      \"audience\": {        \"operator\": \"and\",        \"queries\": [          { \"query\": { \"model\": \"user\" } },          { \"event\": { \"model\": \"event\", \"event_name\": { \"path\": \"purchase\" } } }        ]      }    }\n\n2. Audience with nested logic:    {      \"schema_version\": \"1.0.0\",      \"audience\": {        \"operator\": \"or\",        \"queries\": [          { \"user\": { \"model\": \"user\", \"attributes\": { \"operator\": \"equals\", \"left\": { \"path\": \"country\" }, \"right\": \"US\" } } },          {            \"operator\": \"and\",            \"queries\": [              { \"event\": { \"model\": \"event\", \"event_name\": { \"path\": \"signup\" } } },              { \"query\": { \"model\": \"user\", \"expression\": { \"operator\": \"greater_than\", \"left\": { \"path\": \"age\" }, \"right\": 18 } } }            ]          }        ]      }    }",
+      "description": "Represents a complete audience definition with a root logical query. Examples: 1. Simple audience:    {      \"schema_version\": \"1.0.0\",      \"audience\": {        \"operator\": \"and\",        \"queries\": [          { \"query\": { \"model\": \"user\" } },          { \"query\": { \"model\": \"purchase\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"status\" }, \"right\": \"completed\" } } }        ]      }    }\n\n2. Audience with nested logic:    {      \"schema_version\": \"1.0.0\",      \"audience\": {        \"operator\": \"or\",        \"queries\": [          { \"query\": { \"model\": \"user\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"country\" }, \"right\": \"US\" } } },          {            \"operator\": \"and\",            \"queries\": [              { \"query\": { \"model\": \"signup\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"status\" }, \"right\": \"completed\" } } },              { \"query\": { \"model\": \"user\", \"expression\": { \"operator\": \"greater_than\", \"left\": { \"path\": \"age\" }, \"right\": 18 } } }            ]          }        ]      }    }",
       "properties": {
         "audience": {
           "$ref": "#/definitions/LogicalAudienceQueries",
@@ -57,47 +57,26 @@
       "title": "AudienceDefinition"
     },
     "AudienceQuery": {
+      "additionalProperties": false,
+      "description": "Represents a query that can be either a general query, an event query, or a user query. Examples: 1. General query:    { \"query\": { \"model\": \"user\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"age\" }, \"right\": 30 } } }",
+      "properties": {
+        "query": {
+          "$ref": "#/definitions/Query"
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "type": "object",
       "anyOf": [
+        null,
         {
-          "additionalProperties": false,
-          "properties": {
-            "query": {
-              "$ref": "#/definitions/Query"
-            }
-          },
-          "required": [
-            "query"
-          ],
-          "type": "object"
-        },
-        {
-          "additionalProperties": false,
-          "properties": {
-            "event": {
-              "$ref": "#/definitions/EventQuery"
-            }
-          },
-          "required": [
-            "event"
-          ],
-          "type": "object",
           "title": "EventAudienceQuery"
         },
         {
-          "additionalProperties": false,
-          "properties": {
-            "user": {
-              "$ref": "#/definitions/UserQuery"
-            }
-          },
-          "required": [
-            "user"
-          ],
-          "type": "object",
           "title": "UserAudienceQuery"
         }
-      ],
-      "description": "Represents a query that can be either a general query, an event query, or a user query. Examples: 1. General query:    { \"query\": { \"model\": \"user\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"age\" }, \"right\": 30 } } }\n\n2. Event query:    { \"event\": { \"model\": \"event\", \"event_name\": { \"path\": \"purchase\" } } }\n\n3. User query:    { \"user\": { \"model\": \"user\", \"attributes\": { \"operator\": \"equals\", \"left\": { \"path\": \"country\" }, \"right\": \"US\" } } }"
+      ]
     },
     "BinaryOperator": {
       "description": "Represents binary operators that compare two values. Examples:\n- \"equals\": { value1: 5, value2: 5 }\n- \"less_than\": { value1: 3, value2: 5 }\n- \"matches\": { value1: \"pattern\", value2: \"text\" }\n- \"contains\": { value1: \"string\", value2: \"substring\" }",
@@ -261,40 +240,6 @@
       ],
       "type": "string"
     },
-    "EventQuery": {
-      "additionalProperties": false,
-      "description": "Represents a query for event data, extending the base Query type with event-specific fields. Examples: 1. Simple event query:    {      model: \"event\",      event_name: { path: \"purchase\" }    }\n\n2. Complex event query with multiple conditions:    {      model: \"event\",      event_type: { path: \"commerce\" },      event_name: { path: \"purchase\" },      attributes: { operator: \"equals\", left: { path: \"amount\" }, right: 100 },      count: { operator: \"greater_than\", operand: { path: \"event.count\" } },      date: { operator: \"greater_than\", operand: { absolute: \"2023-01-01T00:00:00Z\" } },      location: { operator: \"within\", operand: { latitude: 40, longitude: -74, distance: { value: 5, unit: \"miles\" } } }    }",
-      "properties": {
-        "attributes": {
-          "$ref": "#/definitions/SingleModelExpression"
-        },
-        "count": {
-          "$ref": "#/definitions/CountExpression"
-        },
-        "date": {
-          "$ref": "#/definitions/DateExpression"
-        },
-        "event_name": {
-          "$ref": "#/definitions/PathExpression"
-        },
-        "event_type": {
-          "$ref": "#/definitions/PathExpression"
-        },
-        "expression": {
-          "$ref": "#/definitions/Expression"
-        },
-        "location": {
-          "$ref": "#/definitions/LocationExpression"
-        },
-        "model": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "model"
-      ],
-      "type": "object"
-    },
     "Expression": {
       "anyOf": [
         {
@@ -320,9 +265,6 @@
             "expression": {
               "$ref": "#/definitions/Expression"
             },
-            "model": {
-              "type": "string"
-            },
             "operator": {
               "const": "not",
               "type": "string"
@@ -338,9 +280,6 @@
         {
           "additionalProperties": false,
           "properties": {
-            "model": {
-              "type": "string"
-            },
             "operand": {
               "$ref": "#/definitions/Operand"
             },
@@ -361,9 +300,6 @@
           "properties": {
             "left": {
               "$ref": "#/definitions/Operand"
-            },
-            "model": {
-              "type": "string"
             },
             "operator": {
               "$ref": "#/definitions/BinaryOperator"
@@ -580,7 +516,7 @@
     },
     "LogicalAudienceQueries": {
       "additionalProperties": false,
-      "description": "Represents a logical combination of audience queries using AND/OR operators. Examples: 1. Simple AND combination:    {      \"operator\": \"and\",      \"queries\": [        { \"query\": { \"model\": \"user\" } },        { \"event\": { \"model\": \"event\", \"event_name\": { \"path\": \"purchase\" } } }      ]    }\n\n2. Nested logical combinations:    {      \"operator\": \"or\",      \"queries\": [        { \"query\": { \"model\": \"user\" } },        {          \"operator\": \"and\",          \"queries\": [            { \"event\": { \"model\": \"event\" } },            { \"user\": { \"model\": \"user\" } }          ]        }      ]    }\n\n3. Deeply nested combination:    {      \"operator\": \"and\",      \"queries\": [        {          \"operator\": \"or\",          \"queries\": [            { \"query\": { \"model\": \"user\" } },            { \"event\": { \"model\": \"event\", \"event_name\": { \"path\": \"signup\" } } }          ]        },        { \"user\": { \"model\": \"user\", \"attributes\": { \"operator\": \"equals\", \"left\": { \"path\": \"country\" }, \"right\": \"CA\" } } }      ]    }",
+      "description": "Represents a logical combination of audience queries using AND/OR operators. Examples: 1. Simple AND combination:    {      \"operator\": \"and\",      \"queries\": [        { \"query\": { \"model\": \"user\" } },        { \"query\": { \"model\": \"purchase\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"status\" }, \"right\": \"completed\" } } }      ]    }\n\n2. Nested logical combinations:    {      \"operator\": \"or\",      \"queries\": [        { \"query\": { \"model\": \"user\" } },        {          \"operator\": \"and\",          \"queries\": [            { \"query\": { \"model\": \"purchase\" } },            { \"query\": { \"model\": \"user\" } }          ]        }      ]    }\n\n3. Deeply nested combination:    {      \"operator\": \"and\",      \"queries\": [        {          \"operator\": \"or\",          \"queries\": [            { \"query\": { \"model\": \"user\" } },            { \"query\": { \"model\": \"signup\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"status\" }, \"right\": \"completed\" } } }          ]        },        { \"query\": { \"model\": \"user\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"country\" }, \"right\": \"CA\" } } }      ]    }",
       "properties": {
         "operator": {
           "$ref": "#/definitions/LogicalOperator"
@@ -922,26 +858,6 @@
         "exist"
       ],
       "type": "string"
-    },
-    "UserQuery": {
-      "additionalProperties": false,
-      "description": "Represents a query for user data, extending the base Query type with user-specific fields. Examples: 1. Simple user query:    {      model: \"user\",      attributes: { operator: \"equals\", left: { path: \"age\" }, right: 25 }    }\n\n2. Complex user query with multiple attributes:    {      model: \"user\",      attributes: {        operator: \"and\",        expressions: [          { operator: \"equals\", left: { path: \"country\" }, right: \"US\" },          { operator: \"greater_than\", left: { path: \"age\" }, right: 18 }        ]      }    }",
-      "properties": {
-        "attributes": {
-          "$ref": "#/definitions/SingleModelExpression"
-        },
-        "expression": {
-          "$ref": "#/definitions/Expression"
-        },
-        "model": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "attributes",
-        "model"
-      ],
-      "type": "object"
     },
     "Version": {
       "type": [
