@@ -24,6 +24,6 @@ import { Expression } from "../expression/expression";
  *      }
  *    }
  */
-export type Query = 
-    { model: string } 
-    & { expression?: Expression};
+export type Query =
+    { model: string }
+    & { expression?: Expression };

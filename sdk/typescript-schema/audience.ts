@@ -1,25 +1,15 @@
 import { LogicalOperator } from "./common/operator";
 import { Version } from "./common/version";
-import { EventQuery } from "./query/event-query";
 import { Query } from "./query/query";
-import { UserQuery } from "./query/user-query";
 
 /**
  * Represents a query that can be either a general query, an event query, or a user query.
  * Examples:
  * 1. General query:
  *    { "query": { "model": "user", "expression": { "operator": "equals", "left": { "path": "age" }, "right": 30 } } }
- *
- * 2. Event query:
- *    { "event": { "model": "event", "event_name": { "path": "purchase" } } }
- *
- * 3. User query:
- *    { "user": { "model": "user", "attributes": { "operator": "equals", "left": { "path": "country" }, "right": "US" } } }
  */
-export type AudienceQuery = 
+export type AudienceQuery =
     { query: Query }
-    | { event: EventQuery }
-    | { user: UserQuery };
 
 /**
  * Represents a logical combination of audience queries using AND/OR operators.
@@ -63,10 +53,10 @@ export type AudienceQuery =
  *      ]
  *    }
  */
-export type LogicalAudienceQueries = 
-    { 
-        operator: LogicalOperator, 
-        queries: (LogicalAudienceQueries | AudienceQuery)[] 
+export type LogicalAudienceQueries =
+    {
+        operator: LogicalOperator,
+        queries: (LogicalAudienceQueries | AudienceQuery)[]
     };
 
 /**
@@ -102,7 +92,7 @@ export type LogicalAudienceQueries =
  *      }
  *    }
  */
-export type Audience = { 
+export type Audience = {
     schema_version: Version,
     audience: LogicalAudienceQueries
 }
