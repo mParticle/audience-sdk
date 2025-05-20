@@ -19,7 +19,7 @@ export type AudienceQuery =
  *      "operator": "and",
  *      "queries": [
  *        { "query": { "model": "user" } },
- *        { "event": { "model": "event", "event_name": { "path": "purchase" } } }
+ *        { "query": { "model": "purchase", "expression": { "operator": "equals", "left": { "path": "status" }, "right": "completed" } } }
  *      ]
  *    }
  *
@@ -31,8 +31,8 @@ export type AudienceQuery =
  *        {
  *          "operator": "and",
  *          "queries": [
- *            { "event": { "model": "event" } },
- *            { "user": { "model": "user" } }
+ *            { "query": { "model": "purchase" } },
+ *            { "query": { "model": "user" } }
  *          ]
  *        }
  *      ]
@@ -46,10 +46,10 @@ export type AudienceQuery =
  *          "operator": "or",
  *          "queries": [
  *            { "query": { "model": "user" } },
- *            { "event": { "model": "event", "event_name": { "path": "signup" } } }
+ *            { "query": { "model": "signup", "expression": { "operator": "equals", "left": { "path": "status" }, "right": "completed" } } }
  *          ]
  *        },
- *        { "user": { "model": "user", "attributes": { "operator": "equals", "left": { "path": "country" }, "right": "CA" } } }
+ *        { "query": { "model": "user", "expression": { "operator": "equals", "left": { "path": "country" }, "right": "CA" } } }
  *      ]
  *    }
  */
@@ -69,7 +69,7 @@ export type LogicalAudienceQueries =
  *        "operator": "and",
  *        "queries": [
  *          { "query": { "model": "user" } },
- *          { "event": { "model": "event", "event_name": { "path": "purchase" } } }
+ *          { "query": { "model": "purchase", "expression": { "operator": "equals", "left": { "path": "status" }, "right": "completed" } } }
  *        ]
  *      }
  *    }
@@ -80,11 +80,11 @@ export type LogicalAudienceQueries =
  *      "audience": {
  *        "operator": "or",
  *        "queries": [
- *          { "user": { "model": "user", "attributes": { "operator": "equals", "left": { "path": "country" }, "right": "US" } } },
+ *          { "query": { "model": "user", "expression": { "operator": "equals", "left": { "path": "country" }, "right": "US" } } },
  *          {
  *            "operator": "and",
  *            "queries": [
- *              { "event": { "model": "event", "event_name": { "path": "signup" } } },
+ *              { "query": { "model": "signup", "expression": { "operator": "equals", "left": { "path": "status" }, "right": "completed" } } },
  *              { "query": { "model": "user", "expression": { "operator": "greater_than", "left": { "path": "age" }, "right": 18 } } }
  *            ]
  *          }
