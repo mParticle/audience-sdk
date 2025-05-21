@@ -17,8 +17,6 @@ JQ="jq"
 read -r -d '' MAPPINGS <<EOF
 $.definitions.Audience|AudienceDefinition
 $.definitions.Audience.properties.audience|Audience
-$.definitions.AudienceQuery.anyOf[1]|EventAudienceQuery
-$.definitions.AudienceQuery.anyOf[2]|UserAudienceQuery
 $.definitions.DateOperand.anyOf[0]|AbsoluteDateOperand
 $.definitions.DateOperand.anyOf[1]|RelativeDateOperand
 $.definitions.Expression.anyOf[0]|JoinExpression

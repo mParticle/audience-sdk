@@ -67,16 +67,7 @@
       "required": [
         "query"
       ],
-      "type": "object",
-      "anyOf": [
-        null,
-        {
-          "title": "EventAudienceQuery"
-        },
-        {
-          "title": "UserAudienceQuery"
-        }
-      ]
+      "type": "object"
     },
     "BinaryOperator": {
       "description": "Represents binary operators that compare two values. Examples:\n- \"equals\": { value1: 5, value2: 5 }\n- \"less_than\": { value1: 3, value2: 5 }\n- \"matches\": { value1: \"pattern\", value2: \"text\" }\n- \"contains\": { value1: \"string\", value2: \"substring\" }",
