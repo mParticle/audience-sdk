@@ -25,5 +25,4 @@ import { Expression } from "../expression/expression";
  *    }
  */
 export type Query =
-    { model: string }
-    & { expression?: Expression };
+    { expression?: Expression };

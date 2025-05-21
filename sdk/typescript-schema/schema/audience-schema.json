@@ -656,14 +656,8 @@
       "properties": {
         "expression": {
           "$ref": "#/definitions/Expression"
-        },
-        "model": {
-          "type": "string"
         }
       },
-      "required": [
-        "model"
-      ],
       "type": "object"
     },
     "RelativeDate": {
