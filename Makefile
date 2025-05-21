@@ -15,6 +15,7 @@ generate-python-models:
 		--field-constraints \
 		--snake-case-field \
 		--encoding utf-8
+	black $(PYTHON_OUTPUT_DIR)
 
 clean:
 	rm -rf $(PYTHON_OUTPUT_DIR)/*
