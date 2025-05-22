@@ -240,8 +240,8 @@
         {
           "additionalProperties": false,
           "properties": {
-            "expression": {
-              "$ref": "#/definitions/Expression"
+            "operand": {
+              "$ref": "#/definitions/Operand"
             },
             "operator": {
               "$ref": "#/definitions/UnaryOperator"
@@ -249,7 +249,7 @@
           },
           "required": [
             "operator",
-            "expression"
+            "operand"
           ],
           "type": "object",
           "title": "UnaryExpression"

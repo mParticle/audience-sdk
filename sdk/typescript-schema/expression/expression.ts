@@ -35,7 +35,7 @@ export type Expression =
     // join expression
     { model: string, expression: Expression }
     |   // unary expression
-    { operator: UnaryOperator, expression: Expression}
+    { operator: UnaryOperator, operand: Operand }
     |   // binary expression
     { operator: BinaryOperator, left: Operand, right: Operand }
     |   // model aggregation expression
