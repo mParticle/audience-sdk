@@ -3,27 +3,27 @@ import { Version } from "./common/version";
 import { Expression } from "./expression/expression";
 
 /**
- * Represents a logical combination of audience queries using AND/OR operators.
+ * Represents a logical combination of audience expressions using AND/OR operators.
  * Examples:
  * 1. Simple AND combination:
  *    {
  *      "operator": "and",
- *      "queries": [
- *        { "query": { "model": "user" } },
- *        { "query": { "model": "purchase", "expression": { "operator": "equals", "left": { "path": "status" }, "right": "completed" } } }
+ *      "expressions": [
+ *        { "model": "user", "expression": { "operator": "exists", "operand": { "path": "id" } } },
+ *        { "model": "purchase", "expression": { "operator": "equals", "left": { "path": "status" }, "right": "completed" } }
  *      ]
  *    }
  *
  * 2. Nested logical combinations:
  *    {
  *      "operator": "or",
- *      "queries": [
- *        { "query": { "model": "user" } },
+ *      "expressions": [
+ *        { "model": "user", "expression": { "operator": "exists", "operand": { "path": "id" } } },
  *        {
  *          "operator": "and",
- *          "queries": [
- *            { "query": { "model": "purchase" } },
- *            { "query": { "model": "user" } }
+ *          "expressions": [
+ *            { "model": "purchase", "expression": { "operator": "exists", "operand": { "path": "id" } } },
+ *            { "model": "user", "expression": { "operator": "exists", "operand": { "path": "email" } } }
  *          ]
  *        }
  *      ]
@@ -32,15 +32,15 @@ import { Expression } from "./expression/expression";
  * 3. Deeply nested combination:
  *    {
  *      "operator": "and",
- *      "queries": [
+ *      "expressions": [
  *        {
  *          "operator": "or",
- *          "queries": [
- *            { "query": { "model": "user" } },
- *            { "query": { "model": "signup", "expression": { "operator": "equals", "left": { "path": "status" }, "right": "completed" } } }
+ *          "expressions": [
+ *            { "model": "user", "expression": { "operator": "exists", "operand": { "path": "id" } } },
+ *            { "model": "signup", "expression": { "operator": "equals", "left": { "path": "status" }, "right": "completed" } }
  *          ]
  *        },
- *        { "query": { "model": "user", "expression": { "operator": "equals", "left": { "path": "country" }, "right": "CA" } } }
+ *        { "model": "user", "expression": { "operator": "equals", "left": { "path": "country" }, "right": "CA" } }
  *      ]
  *    }
  */
@@ -51,16 +51,16 @@ export type LogicalAudienceExpressions =
     };
 
 /**
- * Represents a complete audience definition with a root logical query.
+ * Represents a complete audience definition with a root logical expression.
  * Examples:
  * 1. Simple audience:
  *    {
  *      "schema_version": "1.0.0",
  *      "audience": {
  *        "operator": "and",
- *        "queries": [
- *          { "query": { "model": "user" } },
- *          { "query": { "model": "purchase", "expression": { "operator": "equals", "left": { "path": "status" }, "right": "completed" } } }
+ *        "expressions": [
+ *          { "model": "user", "expression": { "operator": "exists", "operand": { "path": "id" } } },
+ *          { "model": "purchase", "expression": { "operator": "equals", "left": { "path": "status" }, "right": "completed" } }
  *        ]
  *      }
  *    }
@@ -70,13 +70,13 @@ export type LogicalAudienceExpressions =
  *      "schema_version": "1.0.0",
  *      "audience": {
  *        "operator": "or",
- *        "queries": [
- *          { "query": { "model": "user", "expression": { "operator": "equals", "left": { "path": "country" }, "right": "US" } } },
+ *        "expressions": [
+ *          { "model": "user", "expression": { "operator": "equals", "left": { "path": "country" }, "right": "US" } },
  *          {
  *            "operator": "and",
- *            "queries": [
- *              { "query": { "model": "signup", "expression": { "operator": "equals", "left": { "path": "status" }, "right": "completed" } } },
- *              { "query": { "model": "user", "expression": { "operator": "greater_than", "left": { "path": "age" }, "right": 18 } } }
+ *            "expressions": [
+ *              { "model": "signup", "expression": { "operator": "equals", "left": { "path": "status" }, "right": "completed" } },
+ *              { "model": "user", "expression": { "operator": "greater_than", "left": { "path": "age" }, "right": 18 } }
  *            ]
  *          }
  *        ]
