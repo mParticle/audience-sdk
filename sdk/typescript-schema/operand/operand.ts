@@ -1,5 +1,4 @@
 import { DateOperand } from "./date-operand";
-import { ArithmeticOperator } from "../common/operator";
 import { ModelPath } from "../common/model-path";
 
 /**
@@ -35,5 +34,5 @@ export type Operand =
     | number
     | string
     | DateOperand
-    | ModelPath
-    | { operator: ArithmeticOperator, left: Operand, right: Operand };
+    | ModelPath;
+    // | { operator: ArithmeticOperator, left: Operand, right: Operand };

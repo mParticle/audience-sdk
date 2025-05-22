@@ -176,7 +176,9 @@ def test_user_query_with_single_model():
   "schema_version": "1.0"
 }
 """
-    deserialized_obj = AudienceDefinition.model_validate(json.loads(audience_definition_json))
+    deserialized_obj = AudienceDefinition.model_validate(
+        json.loads(audience_definition_json)
+    )
 
     color_or_expr = SingleModelExpression(
         root=LogicalSingleModelExpression(
@@ -234,7 +236,11 @@ def test_user_query_with_single_model():
             operator=BinaryOperator.equals,
             left=Operand(root=ModelPath(model="user", path="registration_date")),
             right=Operand(
-                root=DateOperand(root=AbsoluteDateOperand(date=AbsoluteDate(absolute="2024-01-15T00:00:00Z")))
+                root=DateOperand(
+                    root=AbsoluteDateOperand(
+                        date=AbsoluteDate(absolute="2024-01-15T00:00:00Z")
+                    )
+                )
             ),
         )
     )
@@ -246,7 +252,9 @@ def test_user_query_with_single_model():
             right=Operand(
                 root=DateOperand(
                     root=RelativeDateOperand(
-                        date=RelativeDate(relative=Relative(offset=-30, unit=DateUnit.day))
+                        date=RelativeDate(
+                            relative=Relative(offset=-30, unit=DateUnit.day)
+                        )
                     )
                 )
             ),

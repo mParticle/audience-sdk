@@ -4,9 +4,12 @@
  * - "not": Negates a boolean expression
  * - "exist": Checks if a value exists
  */
-export type UnaryOperator = 
-    "not" 
-    | "exist"
+export enum UnaryOperator {
+	Null = "null",
+	NotNull = "not_null",
+	Exists = "exists",
+	NotExists = "not_exists"
+}
 
 /**
  * Represents binary operators that compare two values.

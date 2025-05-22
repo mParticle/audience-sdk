@@ -1,6 +1,5 @@
 import { Operand } from "../operand/operand";
-import { AggregationOperator, BinaryOperator, LocationOperator, LogicalOperator } from "../common/operator";
-import { LocationOperand } from "../operand/location-operand";
+import { AggregationOperator, BinaryOperator, UnaryOperator } from "../common/operator";
 import { ModelPath } from "../common/model-path";
 
 /**
@@ -36,16 +35,14 @@ export type Expression =
     // join expression
     { model: string, expression: Expression }
     |   // unary expression
-    { operator: "not", expression: Expression }
-    |   // exists expression
-    { operator: "exists", operand: Operand }
+    { operator: UnaryOperator, expression: Expression}
     |   // binary expression
     { operator: BinaryOperator, left: Operand, right: Operand }
     |   // model aggregation expression
-    { operator: AggregationOperator, group_by: string, expression: ModelPath, condition: Expression }
-    |   // logical expression group
-    { operator: LogicalOperator, expressions: Expression[] }
-    |   // location (left) expression
-    { operator: LocationOperator, left: LocationOperand, right: ModelPath }
-    |   // location (left) expression
-    { operator: LocationOperator, left: ModelPath, right: LocationOperand };
+    { operator: AggregationOperator, group_by: string, expression: ModelPath, condition: Expression };
+// |   // logical expression group
+// { operator: LogicalOperator, expressions: Expression[] }
+// |   // location (left) expression
+// { operator: LocationOperator, left: LocationOperand, right: ModelPath }
+// |   // location (left) expression
+// { operator: LocationOperator, left: ModelPath, right: LocationOperand };
