@@ -298,7 +298,7 @@ The main builder for creating Audience objects.
 - `setCountBinary(operator: BinaryOperator, operand: Operand)`: Sets a binary operator count expression
 - `setCountLogical(operator: LogicalOperator, expressions: CountExpression[])`: Sets a logical combination of count expressions
 - `setAbsoluteDate(absoluteDate: string)`: Sets an absolute date
-- `setRelativeDate(offset: number, unit: DateUnit, boundary?: 'start' | 'end' | 'middle')`: Sets a relative date
+- `setRelativeDate(offset: number, unit: DateUnit, boundary?: 'start' | 'end')`: Sets a relative date
 - `setDateBinary(operator: BinaryOperator, operand: AbsoluteDate | RelativeDate)`: Sets a binary operator date expression
 - `setDateLogical(operator: LogicalOperator, expressions: DateExpression[])`: Sets a logical combination of date expressions
 - `setLocation(location: LocationExpression)`: Sets the location
@@ -330,7 +330,7 @@ The main builder for creating Audience objects.
 - `createDate(dateOperand: DateOperand)`: Creates a date operand
 - `createArithmetic(operator: ArithmeticOperator, left: Operand, right: Operand)`: Creates an arithmetic operand
 - `createAbsoluteDate(dateString: string)`: Creates an absolute date operand
-- `createRelativeDate(offset: number, unit: string, boundary?: 'start' | 'end' | 'middle')`: Creates a relative date operand
+- `createRelativeDate(offset: number, unit: string, boundary?: 'start' | 'end')`: Creates a relative date operand
 - `createLocationPoint(latitude: number, longitude: number)`: Creates a location operand with latitude and longitude
 - `createLocationWithMeters(latitude: number, longitude: number, meters: number)`: Creates a location operand with latitude, longitude, and distance in meters
 - `createLocationWithMiles(latitude: number, longitude: number, miles: number)`: Creates a location operand with latitude, longitude, and distance in miles

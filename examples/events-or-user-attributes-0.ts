@@ -1,6 +1,4 @@
 import { Audience } from "../../spec/audience";
-import { Expression } from "../../spec/expression/expression";
-import { SingleModelExpression } from "../../spec/expression/single-model-expression";
 
 const eventsOrUserAttributesAsSpecific: Audience = {
     audience: {

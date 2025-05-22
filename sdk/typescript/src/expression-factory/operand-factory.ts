@@ -65,7 +65,7 @@ export class OperandFactory {
     static createRelativeDate(
         offset: number,
         unit: string,
-        boundary?: 'start' | 'end' | 'middle'
+        boundary?: 'start' | 'end'
     ): DateOperand {
         return DateOperandFactory.createRelativeDate(offset, unit as any, boundary);
     }

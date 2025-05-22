@@ -33,14 +33,14 @@ import { ModelPath } from "../common/model-path";
  *    }
  */
 export type Expression =
-        // join expression
+    // join expression
     { model: string, expression: Expression }
     |   // unary expression
-    { model?: string, operator: "not", expression: Expression }
+    { operator: "not", expression: Expression }
     |   // exists expression
-    { model?: string, operator: "exists", operand: Operand }
+    { operator: "exists", operand: Operand }
     |   // binary expression
-    { model?: string, operator: BinaryOperator, left: Operand, right: Operand }
+    { operator: BinaryOperator, left: Operand, right: Operand }
     |   // model aggregation expression
     { operator: AggregationOperator, group_by: string, expression: ModelPath, condition: Expression }
     |   // logical expression group

@@ -17,8 +17,6 @@ JQ="jq"
 read -r -d '' MAPPINGS <<EOF
 $.definitions.Audience|AudienceDefinition
 $.definitions.Audience.properties.audience|Audience
-$.definitions.AudienceQuery.anyOf[1]|EventAudienceQuery
-$.definitions.AudienceQuery.anyOf[2]|UserAudienceQuery
 $.definitions.DateOperand.anyOf[0]|AbsoluteDateOperand
 $.definitions.DateOperand.anyOf[1]|RelativeDateOperand
 $.definitions.Expression.anyOf[0]|JoinExpression
@@ -36,12 +34,6 @@ $.definitions.PathExpression.anyOf[1]|NumberPathExpression
 $.definitions.PathExpression.anyOf[2]|StringPathExpression
 $.definitions.PathExpression.anyOf[3]|UnaryPathExpression
 $.definitions.PathExpression.anyOf[4]|BinaryPathExpression
-$.definitions.SingleModelExpression.anyOf[0]|NotSingleModelExpression
-$.definitions.SingleModelExpression.anyOf[1]|ExistsSingleModelExpression
-$.definitions.SingleModelExpression.anyOf[2]|BinarySingleModelExpression
-$.definitions.SingleModelExpression.anyOf[3]|LogicalSingleModelExpression
-$.definitions.SingleModelExpression.anyOf[4]|LocationSingleModelExpression
-$.definitions.SingleModelExpression.anyOf[5]|LocationRightSingleModelExpression
 EOF
 
 jq_script="."
