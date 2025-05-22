@@ -44,10 +44,10 @@ import { Expression } from "./expression/expression";
  *      ]
  *    }
  */
-export type LogicalAudienceExpressions =
+export type LogicalAudienceExpression =
     {
         operator: LogicalOperator,
-        expressions: (LogicalAudienceExpressions | Expression)[]
+        expressions: (LogicalAudienceExpression | Expression)[]
     };
 
 /**
@@ -85,5 +85,5 @@ export type LogicalAudienceExpressions =
  */
 export type Audience = {
     schema_version: Version,
-    audience: LogicalAudienceExpressions
+    audience: LogicalAudienceExpression
 }

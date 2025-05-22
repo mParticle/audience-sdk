@@ -1,9 +1,9 @@
-import { Audience, LogicalAudienceExpressions, Expression } from '@mparticle/audience-typescript-schema/audience';
+import { Audience, LogicalAudienceExpression, Expression } from '@mparticle/audience-typescript-schema/audience';
 import { LogicalOperator } from '@mparticle/audience-typescript-schema/common/operator';
 import { VERSION } from '@mparticle/audience-typescript-schema/version';
 
 export class AudienceBuilder {
-    private expressions: (LogicalAudienceExpressions | Expression)[] = [];
+    private expressions: (LogicalAudienceExpression | Expression)[] = [];
     private currentOperator: LogicalOperator = 'and';
 
     /**
@@ -33,7 +33,7 @@ export class AudienceBuilder {
      * Adds a nested logical expression to the audience
      * @param logicalExpression The logical expression to add
      */
-    addLogicalExpression(logicalExpression: LogicalAudienceExpressions): this {
+    addLogicalExpression(logicalExpression: LogicalAudienceExpression): this {
         this.expressions.push(logicalExpression);
         return this;
     }
@@ -64,7 +64,7 @@ export class AudienceBuilder {
 }
 
 export class LogicalExpressionBuilder {
-    private expressions: (LogicalAudienceExpressions | Expression)[] = [];
+    private expressions: (LogicalAudienceExpression | Expression)[] = [];
     private operator: LogicalOperator = 'and';
 
     /**
@@ -89,7 +89,7 @@ export class LogicalExpressionBuilder {
      * Adds a nested logical expression
      * @param logicalExpression The logical expression to add
      */
-    addLogicalExpression(logicalExpression: LogicalAudienceExpressions): this {
+    addLogicalExpression(logicalExpression: LogicalAudienceExpression): this {
         this.expressions.push(logicalExpression);
         return this;
     }
@@ -97,7 +97,7 @@ export class LogicalExpressionBuilder {
     /**
      * Builds and returns the logical query
      */
-    build(): LogicalAudienceExpressions {
+    build(): LogicalAudienceExpression {
         if (this.expressions.length === 0) {
             throw new Error('Cannot build a logical expression with no expressions');
         }
