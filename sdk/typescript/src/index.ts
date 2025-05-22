@@ -1,5 +1,5 @@
 import { AudienceBuilder } from './audience-builder';
-import { LogicalQueryBuilder } from './audience-builder';
+import { LogicalExpressionBuilder } from './audience-builder';
 import { QueryBuilder } from './query-builders/query-builder';
 import { Audience } from '@mparticle/audience-typescript-schema';
 /**
@@ -67,7 +67,6 @@ export { ExpressionFactory } from './expression-factory/expression-factory';
 export { LocationOperandFactory } from './expression-factory/location-operand-factory';
 export { OperandFactory } from './expression-factory/operand-factory';
 export { PathExpressionFactory } from './expression-factory/path-expression-factory';
-export { SingleModelExpressionFactory } from './expression-factory/single-model-expression-factory';
 
 export { QueryBuilder } from './query-builders/query-builder';
 

@@ -1,15 +1,15 @@
-import { Audience, AudienceQuery, LogicalAudienceQueries } from '@mparticle/audience-typescript-schema/audience';
+import { Audience, LogicalAudienceExpressions, Expression } from '@mparticle/audience-typescript-schema/audience';
 import { LogicalOperator } from '@mparticle/audience-typescript-schema/common/operator';
 import { VERSION } from '@mparticle/audience-typescript-schema/version';
 
 export class AudienceBuilder {
-    private queries: (LogicalAudienceQueries | AudienceQuery)[] = [];
+    private expressions: (LogicalAudienceExpressions | Expression)[] = [];
     private currentOperator: LogicalOperator = 'and';
 
     /**
      * Creates a new AudienceBuilder instance
      */
-    constructor() {}
+    constructor() { }
 
     /**
      * Sets the logical operator for combining queries
@@ -21,20 +21,20 @@ export class AudienceBuilder {
     }
 
     /**
-     * Adds a query to the audience
-     * @param query The query to add
+     * Adds an expression to the audience
+     * @param expression The expression to add
      */
-    addQuery(query: AudienceQuery): this {
-        this.queries.push(query);
+    addExpression(expression: Expression): this {
+        this.expressions.push(expression);
         return this;
     }
 
     /**
-     * Adds a nested logical query to the audience
-     * @param logicalQuery The logical query to add
+     * Adds a nested logical expression to the audience
+     * @param logicalExpression The logical expression to add
      */
-    addLogicalQuery(logicalQuery: LogicalAudienceQueries): this {
-        this.queries.push(logicalQuery);
+    addLogicalExpression(logicalExpression: LogicalAudienceExpressions): this {
+        this.expressions.push(logicalExpression);
         return this;
     }
 
@@ -42,15 +42,15 @@ export class AudienceBuilder {
      * Builds and returns the final Audience object
      */
     build(): Audience {
-        if (this.queries.length === 0) {
-            throw new Error('Cannot build an audience with no queries');
+        if (this.expressions.length === 0) {
+            throw new Error('Cannot build an audience with no expressions');
         }
 
         return {
             schema_version: VERSION,
             audience: {
                 operator: this.currentOperator,
-                queries: this.queries
+                expressions: this.expressions
             }
         };
     }
@@ -58,13 +58,13 @@ export class AudienceBuilder {
     /**
      * Creates a new logical query builder
      */
-    static createLogicalQuery(): LogicalQueryBuilder {
-        return new LogicalQueryBuilder();
+    static createLogicalExpression(): LogicalExpressionBuilder {
+        return new LogicalExpressionBuilder();
     }
 }
 
-export class LogicalQueryBuilder {
-    private queries: (LogicalAudienceQueries | AudienceQuery)[] = [];
+export class LogicalExpressionBuilder {
+    private expressions: (LogicalAudienceExpressions | Expression)[] = [];
     private operator: LogicalOperator = 'and';
 
     /**
@@ -77,34 +77,34 @@ export class LogicalQueryBuilder {
     }
 
     /**
-     * Adds a query to the logical query
-     * @param query The query to add
+     * Adds an expression to the logical expression
+     * @param expression The expression to add
      */
-    addQuery(query: AudienceQuery): this {
-        this.queries.push(query);
+    addExpression(expression: Expression): this {
+        this.expressions.push(expression);
         return this;
     }
 
     /**
-     * Adds a nested logical query
-     * @param logicalQuery The logical query to add
+     * Adds a nested logical expression
+     * @param logicalExpression The logical expression to add
      */
-    addLogicalQuery(logicalQuery: LogicalAudienceQueries): this {
-        this.queries.push(logicalQuery);
+    addLogicalExpression(logicalExpression: LogicalAudienceExpressions): this {
+        this.expressions.push(logicalExpression);
         return this;
     }
 
     /**
      * Builds and returns the logical query
      */
-    build(): LogicalAudienceQueries {
-        if (this.queries.length === 0) {
-            throw new Error('Cannot build a logical query with no queries');
+    build(): LogicalAudienceExpressions {
+        if (this.expressions.length === 0) {
+            throw new Error('Cannot build a logical expression with no expressions');
         }
 
         return {
             operator: this.operator,
-            queries: this.queries
+            expressions: this.expressions
         };
     }
 } 

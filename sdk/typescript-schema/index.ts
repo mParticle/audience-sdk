@@ -4,16 +4,12 @@ export { VERSION } from './version';
 // Export audience types
 export * from './audience';
 
-// Export query types
-export * from './query/query';
-
 // Export expression types
 export * from './expression/expression';
 export * from './expression/count-expression';
 export * from './expression/date-expression';
 export * from './expression/location-expression';
 export * from './expression/path-expression';
-export * from './expression/single-model-expression';
 
 // Export operand types
 export * from './operand/operand';

@@ -42,7 +42,7 @@
       "description": "Represents a complete audience definition with a root logical query. Examples: 1. Simple audience:    {      \"schema_version\": \"1.0.0\",      \"audience\": {        \"operator\": \"and\",        \"queries\": [          { \"query\": { \"model\": \"user\" } },          { \"query\": { \"model\": \"purchase\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"status\" }, \"right\": \"completed\" } } }        ]      }    }\n\n2. Audience with nested logic:    {      \"schema_version\": \"1.0.0\",      \"audience\": {        \"operator\": \"or\",        \"queries\": [          { \"query\": { \"model\": \"user\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"country\" }, \"right\": \"US\" } } },          {            \"operator\": \"and\",            \"queries\": [              { \"query\": { \"model\": \"signup\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"status\" }, \"right\": \"completed\" } } },              { \"query\": { \"model\": \"user\", \"expression\": { \"operator\": \"greater_than\", \"left\": { \"path\": \"age\" }, \"right\": 18 } } }            ]          }        ]      }    }",
       "properties": {
         "audience": {
-          "$ref": "#/definitions/LogicalAudienceQueries",
+          "$ref": "#/definitions/LogicalAudienceExpressions",
           "title": "Audience"
         },
         "schema_version": {
@@ -55,19 +55,6 @@
       ],
       "type": "object",
       "title": "AudienceDefinition"
-    },
-    "AudienceQuery": {
-      "additionalProperties": false,
-      "description": "Represents a query that can be either a general query, an event query, or a user query. Examples: 1. General query:    { \"query\": { \"model\": \"user\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"age\" }, \"right\": 30 } } }",
-      "properties": {
-        "query": {
-          "$ref": "#/definitions/Query"
-        }
-      },
-      "required": [
-        "query"
-      ],
-      "type": "object"
     },
     "BinaryOperator": {
       "description": "Represents binary operators that compare two values. Examples:\n- \"equals\": { value1: 5, value2: 5 }\n- \"less_than\": { value1: 3, value2: 5 }\n- \"matches\": { value1: \"pattern\", value2: \"text\" }\n- \"contains\": { value1: \"string\", value2: \"substring\" }",
@@ -505,30 +492,30 @@
       ],
       "type": "string"
     },
-    "LogicalAudienceQueries": {
+    "LogicalAudienceExpressions": {
       "additionalProperties": false,
       "description": "Represents a logical combination of audience queries using AND/OR operators. Examples: 1. Simple AND combination:    {      \"operator\": \"and\",      \"queries\": [        { \"query\": { \"model\": \"user\" } },        { \"query\": { \"model\": \"purchase\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"status\" }, \"right\": \"completed\" } } }      ]    }\n\n2. Nested logical combinations:    {      \"operator\": \"or\",      \"queries\": [        { \"query\": { \"model\": \"user\" } },        {          \"operator\": \"and\",          \"queries\": [            { \"query\": { \"model\": \"purchase\" } },            { \"query\": { \"model\": \"user\" } }          ]        }      ]    }\n\n3. Deeply nested combination:    {      \"operator\": \"and\",      \"queries\": [        {          \"operator\": \"or\",          \"queries\": [            { \"query\": { \"model\": \"user\" } },            { \"query\": { \"model\": \"signup\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"status\" }, \"right\": \"completed\" } } }          ]        },        { \"query\": { \"model\": \"user\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"country\" }, \"right\": \"CA\" } } }      ]    }",
       "properties": {
-        "operator": {
-          "$ref": "#/definitions/LogicalOperator"
-        },
-        "queries": {
+        "expressions": {
           "items": {
             "anyOf": [
               {
-                "$ref": "#/definitions/LogicalAudienceQueries"
+                "$ref": "#/definitions/LogicalAudienceExpressions"
               },
               {
-                "$ref": "#/definitions/AudienceQuery"
+                "$ref": "#/definitions/Expression"
               }
             ]
           },
           "type": "array"
+        },
+        "operator": {
+          "$ref": "#/definitions/LogicalOperator"
         }
       },
       "required": [
         "operator",
-        "queries"
+        "expressions"
       ],
       "type": "object"
     },
@@ -650,16 +637,6 @@
       ],
       "description": "Represents an expression that evaluates to a path or value. Examples: 1. Primitive values:    true    42    \"hello\"\n\n2. Unary expression (NOT):    {      operator: \"not\",      expression: { operator: \"equals\", operand: { path: \"status\" } }    }\n\n3. Binary expression (comparing a path to a value):    {      operator: \"equals\",      operand: { path: \"user.age\" }    }"
     },
-    "Query": {
-      "additionalProperties": false,
-      "description": "Represents a base query with a model and optional expression. Examples: 1. Simple query without expression:    { model: \"user\" }\n\n2. Query with expression:    {      model: \"user\",      expression: { operator: \"equals\", left: { path: \"age\" }, right: 25 }    }\n\n3. Query with multiple models and a logical expression:    {      model: \"user\",      expression: {        operator: \"and\",        expressions: [          { operator: \"equals\", left: { path: \"country\" }, right: \"US\" },          { operator: \"greater_than\", left: { path: \"age\" }, right: 18 }        ]      }    }",
-      "properties": {
-        "expression": {
-          "$ref": "#/definitions/Expression"
-        }
-      },
-      "type": "object"
-    },
     "RelativeDate": {
       "additionalProperties": false,
       "description": "Represents a date/time relative to the current time. Examples: 1. 7 days ago:    { relative: { offset: -7, unit: \"day\" } }\n\n2. Start of current month:    { relative: { offset: 0, unit: \"month\", boundary: \"start\" } }\n\n3. End of previous quarter:    { relative: { offset: -1, unit: \"quarter\", boundary: \"end\" } }",
@@ -670,8 +647,7 @@
             "boundary": {
               "enum": [
                 "start",
-                "end",
-                "middle"
+                "end"
               ],
               "type": "string"
             },
@@ -693,148 +669,6 @@
         "relative"
       ],
       "type": "object"
-    },
-    "SingleModelExpression": {
-      "anyOf": [
-        {
-          "additionalProperties": false,
-          "properties": {
-            "expression": {
-              "$ref": "#/definitions/SingleModelExpression"
-            },
-            "operator": {
-              "const": "not",
-              "type": "string"
-            }
-          },
-          "required": [
-            "operator",
-            "expression"
-          ],
-          "type": "object",
-          "title": "NotSingleModelExpression"
-        },
-        {
-          "additionalProperties": false,
-          "properties": {
-            "operand": {
-              "$ref": "#/definitions/Operand"
-            },
-            "operator": {
-              "const": "exists",
-              "type": "string"
-            }
-          },
-          "required": [
-            "operator",
-            "operand"
-          ],
-          "type": "object",
-          "title": "ExistsSingleModelExpression"
-        },
-        {
-          "additionalProperties": false,
-          "properties": {
-            "left": {
-              "$ref": "#/definitions/Operand"
-            },
-            "operator": {
-              "$ref": "#/definitions/BinaryOperator"
-            },
-            "right": {
-              "$ref": "#/definitions/Operand"
-            }
-          },
-          "required": [
-            "operator",
-            "left",
-            "right"
-          ],
-          "type": "object",
-          "title": "BinarySingleModelExpression"
-        },
-        {
-          "additionalProperties": false,
-          "properties": {
-            "expressions": {
-              "items": {
-                "$ref": "#/definitions/SingleModelExpression"
-              },
-              "type": "array"
-            },
-            "operator": {
-              "$ref": "#/definitions/LogicalOperator"
-            }
-          },
-          "required": [
-            "operator",
-            "expressions"
-          ],
-          "type": "object",
-          "title": "LogicalSingleModelExpression"
-        },
-        {
-          "additionalProperties": false,
-          "properties": {
-            "left": {
-              "$ref": "#/definitions/LocationOperand"
-            },
-            "operator": {
-              "$ref": "#/definitions/LocationOperator"
-            },
-            "right": {
-              "additionalProperties": false,
-              "properties": {
-                "path": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "path"
-              ],
-              "type": "object"
-            }
-          },
-          "required": [
-            "operator",
-            "left",
-            "right"
-          ],
-          "type": "object",
-          "title": "LocationSingleModelExpression"
-        },
-        {
-          "additionalProperties": false,
-          "properties": {
-            "left": {
-              "additionalProperties": false,
-              "properties": {
-                "path": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "path"
-              ],
-              "type": "object"
-            },
-            "operator": {
-              "$ref": "#/definitions/LocationOperator"
-            },
-            "right": {
-              "$ref": "#/definitions/LocationOperand"
-            }
-          },
-          "required": [
-            "operator",
-            "left",
-            "right"
-          ],
-          "type": "object",
-          "title": "LocationRightSingleModelExpression"
-        }
-      ],
-      "description": "Represents an expression that operates within a single model context. Examples: 1. Unary expression (NOT):    {      operator: \"not\",      expression: {        operator: \"equals\",        left: { path: \"status\" },        right: \"inactive\"      }    }\n\n2. Binary expression (comparing two values):    {      operator: \"greater_than\",      left: { path: \"price\" },      right: 100    }\n\n3. Logical expression group (AND):    {      operator: \"and\",      expressions: [        { operator: \"equals\", left: { path: \"country\" }, right: \"US\" },        { operator: \"greater_than\", left: { path: \"age\" }, right: 18 }      ]    }\n\n4. Location expression (comparing locations):    {      operator: \"within\",      left: {        location: {          latitude: 40.7128,          longitude: -74.0060,          distance: { value: 5, unit: \"miles\" }        }      },      right: { path: \"user.location\" }    }"
     },
     "UnaryOperator": {
       "description": "Represents unary operators that operate on a single value. Examples:\n- \"not\": Negates a boolean expression\n- \"exist\": Checks if a value exists",
