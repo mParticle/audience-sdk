@@ -4,73 +4,52 @@ from mp_audience_sdk.models.audience_models import (
     AbsoluteDate,
     AbsoluteDateOperand,
     AudienceDefinition,
-    AudienceQuery,
     BinaryOperator,
-    BinarySingleModelExpression,
     DateOperand,
     DateUnit,
-    LogicalAudienceQueries,
     LogicalOperator,
-    LogicalSingleModelExpression,
     ModelPath,
     Operand,
     Relative,
     RelativeDate,
     RelativeDateOperand,
-    SingleModelExpression,
-    UserAudienceQuery,
-    UserQuery,
     Version,
+    LogicalExpression,
+    BinaryExpression,
 )
-
+from pydantic import ValidationError
 
 def test_user_query():
     json_data = """
-    {
-      "audience": {
-        "operator": "and",
-        "queries": [
-          {
-            "user": {
-              "model": "user",
-              "attributes": {
-                "operator": "greater_than_equal",
-                "left": {
-                  "model": "user",
-                  "path": "product_id"
-                },
-                "right": 3
-              }
-            }
-          }
-        ]
-      },
-      "schema_version": "1.0"
-    }
+{
+  "audience": {
+    "operator": "and",
+    "expressions": [
+      {
+        "operator": "greater_than_equal",
+        "left": {
+          "model": "user",
+          "path": "product_id"
+        },
+        "right": 3
+      }
+    ]
+  },
+  "schema_version": "1.0"
+}
     """
 
     json_dict = json.loads(json_data)
     deserialized_obj = AudienceDefinition.model_validate(json_dict)
 
-    user_audience_query = AudienceQuery(
-        root=UserAudienceQuery(
-            user=UserQuery(
-                model="user",  # TODO: remove this
-                attributes=SingleModelExpression(
-                    root=BinarySingleModelExpression(
-                        operator=BinaryOperator.greater_than_equal,
-                        left=Operand(root=ModelPath(model="user", path="product_id")),
-                        right=Operand(root=3),
-                    )
-                ),
-            )
-        )
-    )
-
     audience_defintion = AudienceDefinition(
-        audience=LogicalAudienceQueries(
+        audience=LogicalExpression(
             operator=LogicalOperator.and_,
-            queries=[user_audience_query],
+            expressions=[BinaryExpression(
+                operator="greater_than_equal",
+                left=ModelPath(model="user", path="product_id"),
+                right=3
+            )],
         ),
         schema_version=Version("1.0"),
     )
@@ -81,12 +60,10 @@ def test_user_query():
 def test_user_query_with_single_model():
     audience_definition_json = """
 {
-  "audience": {
-    "operator": "and",
-    "queries": [
-      {
-        "user": {
-            "attributes": {
+    "audience": {
+        "operator": "and",
+        "expressions": [
+            {
                 "operator": "and",
                 "expressions": [
                     {
@@ -167,123 +144,85 @@ def test_user_query_with_single_model():
                         }
                     }
                 ]
-            },
-            "model": "user"
-        }
-      }
-    ]
-  },
-  "schema_version": "1.0"
+            }
+        ]
+    },
+    "schema_version": "1.0"
 }
 """
     deserialized_obj = AudienceDefinition.model_validate(
         json.loads(audience_definition_json)
     )
 
-    color_or_expr = SingleModelExpression(
-        root=LogicalSingleModelExpression(
-            operator=LogicalOperator.or_,
-            expressions=[
-                SingleModelExpression(
-                    root=BinarySingleModelExpression(
-                        operator=BinaryOperator.equals,
-                        left=Operand(root=ModelPath(model="user", path="color")),
-                        right=Operand(root="blue"),
-                    )
-                ),
-                SingleModelExpression(
-                    root=BinarySingleModelExpression(
-                        operator=BinaryOperator.equals,
-                        left=Operand(root=ModelPath(model="user", path="color")),
-                        right=Operand(root="yellow"),
-                    )
-                ),
-                SingleModelExpression(
-                    root=BinarySingleModelExpression(
-                        operator=BinaryOperator.equals,
-                        left=Operand(root=ModelPath(model="user", path="color")),
-                        right=Operand(root="green"),
-                    )
-                ),
-            ],
-        )
-    )
-
-    age_between_expr = SingleModelExpression(
-        root=LogicalSingleModelExpression(
-            operator=LogicalOperator.and_,
-            expressions=[
-                SingleModelExpression(
-                    root=BinarySingleModelExpression(
-                        operator=BinaryOperator.greater_than_equal,
-                        left=Operand(root=ModelPath(model="user", path="age")),
-                        right=Operand(root=20.0),
-                    )
-                ),
-                SingleModelExpression(
-                    root=BinarySingleModelExpression(
-                        operator=BinaryOperator.less_than_equal,
-                        left=Operand(root=ModelPath(model="user", path="age")),
-                        right=Operand(root=40.0),
-                    )
-                ),
-            ],
-        )
-    )
-
-    absolute_date_expr = SingleModelExpression(
-        root=BinarySingleModelExpression(
-            operator=BinaryOperator.equals,
-            left=Operand(root=ModelPath(model="user", path="registration_date")),
-            right=Operand(
-                root=DateOperand(
-                    root=AbsoluteDateOperand(
-                        date=AbsoluteDate(absolute="2024-01-15T00:00:00Z")
-                    )
-                )
+    color_or_expr = LogicalExpression(
+        operator=LogicalOperator.or_,
+        expressions=[
+            BinaryExpression(
+                operator=BinaryOperator.equals,
+                left=ModelPath(model="user", path="color"),
+                right="blue",
             ),
-        )
-    )
-
-    relative_date_expr = SingleModelExpression(
-        root=BinarySingleModelExpression(
-            operator=BinaryOperator.greater_than_equal,
-            left=Operand(root=ModelPath(model="user", path="last_seen_date")),
-            right=Operand(
-                root=DateOperand(
-                    root=RelativeDateOperand(
-                        date=RelativeDate(
-                            relative=Relative(offset=-30, unit=DateUnit.day)
-                        )
-                    )
-                )
+            BinaryExpression(
+                operator=BinaryOperator.equals,
+                left=ModelPath(model="user", path="color"),
+                right="yellow",
             ),
-        )
+            BinaryExpression(
+                operator=BinaryOperator.equals,
+                left=ModelPath(model="user", path="color"),
+                right="green"
+            ),
+        ],
     )
 
-    user_query = AudienceQuery(
-        root=UserAudienceQuery(
-            user=UserQuery(
-                model="user",  # TODO: remove this
-                attributes=SingleModelExpression(
-                    root=LogicalSingleModelExpression(
-                        operator=LogicalOperator.and_,
-                        expressions=[
-                            color_or_expr,
-                            age_between_expr,
-                            absolute_date_expr,
-                            relative_date_expr,
-                        ],
-                    )
-                ),
+    age_between_expr = LogicalExpression(
+        operator=LogicalOperator.and_,
+        expressions=[
+            BinaryExpression(
+                operator=BinaryOperator.greater_than_equal,
+                left=ModelPath(model="user", path="age"),
+                right=20.0,
+            ),
+            BinaryExpression(
+                operator=BinaryOperator.less_than_equal,
+                left=ModelPath(model="user", path="age"),
+                right=40.0,
+            ),
+        ],
+    )
+
+    absolute_date_expr = BinaryExpression(
+        operator=BinaryOperator.equals,
+        left=ModelPath(model="user", path="registration_date"),
+        right=AbsoluteDateOperand(
+            date=AbsoluteDate(absolute="2024-01-15T00:00:00Z")
+        ),
+    )
+
+    relative_date_expr = BinaryExpression(
+        operator=BinaryOperator.greater_than_equal,
+        left=ModelPath(model="user", path="last_seen_date"),
+        right=RelativeDateOperand(
+            date=RelativeDate(
+                relative=Relative(offset=-30, unit=DateUnit.day)
             )
         )
     )
 
+    user_query = LogicalExpression(
+        operator=LogicalOperator.and_,
+        expressions=[
+            color_or_expr,
+            age_between_expr,
+            absolute_date_expr,
+            relative_date_expr,
+        ],
+    )
+
     audience_defintion = AudienceDefinition(
-        audience=LogicalAudienceQueries(
+        audience=LogicalExpression(
             operator=LogicalOperator.and_,
-            queries=[user_query],
+            expressions=[user_query],
         ),
         schema_version=Version("1.0"),
     )
