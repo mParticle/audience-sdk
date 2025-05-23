@@ -21,14 +21,8 @@ $.definitions.DateOperand.anyOf[0]|AbsoluteDateOperand
 $.definitions.DateOperand.anyOf[1]|RelativeDateOperand
 $.definitions.Expression.anyOf[0]|JoinExpression
 $.definitions.Expression.anyOf[1]|UnaryExpression
-$.definitions.Expression.anyOf[2]|ExistsExpression
-$.definitions.Expression.anyOf[3]|BinaryExpression
-$.definitions.Expression.anyOf[4]|ModelAggregationExpression
-$.definitions.Expression.anyOf[5]|LogicalExpression
-$.definitions.Expression.anyOf[6]|LocationLeftExpression
-$.definitions.Expression.anyOf[7]|LocationRightExpression
-$.definitions.Operand.anyOf[4]|PathOperand
-$.definitions.Operand.anyOf[5]|ArithmeticOperand
+$.definitions.Expression.anyOf[2]|BinaryExpression
+$.definitions.Expression.anyOf[3]|ModelAggregationExpression
 $.definitions.PathExpression.anyOf[0]|BooleanPathExpression
 $.definitions.PathExpression.anyOf[1]|NumberPathExpression
 $.definitions.PathExpression.anyOf[2]|StringPathExpression

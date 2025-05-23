@@ -1,8 +1,17 @@
-.PHONY: generate-models
+.PHONY: build build-typescript generate-python-models
 
 PYTHON_OUTPUT_DIR := sdk/python/mp_audience_sdk/models
 SCHEMA_FILE := schema/audience-definition-schema.json
 PYTHON_OUTPUT_FILE := $(PYTHON_OUTPUT_DIR)/audience_models.py
+TYPESCRIPT_SCHEMA_DIR := sdk/typescript-schema
+
+build: build-typescript generate-python-models
+
+build-typescript:
+	cd $(TYPESCRIPT_SCHEMA_DIR) && \
+	yarn install && \
+	yarn build && \
+	yarn gen-schema
 
 generate-python-models:
 	mkdir -p $(PYTHON_OUTPUT_DIR)
