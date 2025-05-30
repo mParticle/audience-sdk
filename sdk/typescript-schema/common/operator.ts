@@ -21,12 +21,18 @@ export enum UnaryOperator {
  */
 export type BinaryOperator = 
     "equals"
+	| "not_equals"
 	| "less_than"
 	| "less_than_equal"
 	| "greater_than"
 	| "greater_than_equal"
 	| "matches"
 	| "contains"
+	| "not_contains"
+	| "starts_with"
+	| "not_starts_with"
+	| "ends_with"
+	| "not_ends_with"
 
 /**
  * Represents operators that work with lists of values.
