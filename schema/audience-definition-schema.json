@@ -60,12 +60,18 @@
       "description": "Represents binary operators that compare two values. Examples:\n- \"equals\": { value1: 5, value2: 5 }\n- \"less_than\": { value1: 3, value2: 5 }\n- \"matches\": { value1: \"pattern\", value2: \"text\" }\n- \"contains\": { value1: \"string\", value2: \"substring\" }",
       "enum": [
         "equals",
+        "not_equals",
         "less_than",
         "less_than_equal",
         "greater_than",
         "greater_than_equal",
         "matches",
-        "contains"
+        "contains",
+        "not_contains",
+        "starts_with",
+        "not_starts_with",
+        "ends_with",
+        "not_ends_with"
       ],
       "type": "string"
     },
