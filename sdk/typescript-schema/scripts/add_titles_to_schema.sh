@@ -22,12 +22,13 @@ $.definitions.DateOperand.anyOf[1]|RelativeDateOperand
 $.definitions.Expression.anyOf[0]|JoinExpression
 $.definitions.Expression.anyOf[1]|UnaryExpression
 $.definitions.Expression.anyOf[2]|BinaryExpression
-$.definitions.Expression.anyOf[3]|ModelAggregationExpression
+$.definitions.Expression.anyOf[3]|LogicalExpression
 $.definitions.PathExpression.anyOf[0]|BooleanPathExpression
 $.definitions.PathExpression.anyOf[1]|NumberPathExpression
 $.definitions.PathExpression.anyOf[2]|StringPathExpression
 $.definitions.PathExpression.anyOf[3]|UnaryPathExpression
 $.definitions.PathExpression.anyOf[4]|BinaryPathExpression
+$.definitions.Operand.anyOf[5]|ModelAggregationOperand
 EOF
 
 jq_script="."

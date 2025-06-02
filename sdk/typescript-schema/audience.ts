@@ -1,4 +1,3 @@
-import { LogicalOperator } from "./common/operator";
 import { Version } from "./common/version";
 import { Expression } from "./expression/expression";
 
@@ -44,11 +43,6 @@ import { Expression } from "./expression/expression";
  *      ]
  *    }
  */
-export type LogicalExpression =
-    {
-        operator: LogicalOperator,
-        expressions: (LogicalExpression | Expression)[]
-    };
 
 /**
  * Represents a complete audience definition with a root logical expression.
@@ -85,5 +79,5 @@ export type LogicalExpression =
  */
 export type Audience = {
     schema_version: Version,
-    audience: LogicalExpression
+    audience: Expression
 }
