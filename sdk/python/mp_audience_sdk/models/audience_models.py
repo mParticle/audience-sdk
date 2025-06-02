@@ -225,9 +225,9 @@ class BinaryExpression(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
     )
-    left: Operand
+    left: Expression
     operator: BinaryOperator
-    right: Operand
+    right: Expression
 
 
 class AudienceDefinition(BaseModel):
@@ -261,9 +261,7 @@ class DateExpression2(BaseModel):
     operator: LogicalOperator
 
 
-class DateExpression(
-    RootModel[Union[AbsoluteDate, RelativeDate, DateExpression1, DateExpression2]]
-):
+class DateExpression(RootModel[Union[AbsoluteDate, RelativeDate, DateExpression1, DateExpression2]]):
     root: Union[AbsoluteDate, RelativeDate, DateExpression1, DateExpression2] = Field(
         ...,
         description='Represents an expression that evaluates to a date or date-based condition. Examples: 1. Absolute date:    { absolute: "2023-01-01T00:00:00Z" }\n\n2. Relative date:    { relative: { offset: -30, unit: "day" } }\n\n3. Date with binary operator:    { operator: "greater_than", operand: { absolute: "2023-01-01T00:00:00Z" } }\n\n4. Logical combination of dates:    {      operator: "and",      expressions: [        { absolute: "2023-01-01T00:00:00Z" },        { operator: "less_than", operand: { relative: { offset: 0, unit: "month", boundary: "end" } } }      ]    }',
@@ -288,6 +286,14 @@ class ModelAggregationExpression(BaseModel):
     operator: AggregationOperator
 
 
+class LogicalExpression(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    expressions: List[Expression]
+    operator: LogicalOperator
+
+
 class Expression(
     RootModel[
         Union[
@@ -295,11 +301,18 @@ class Expression(
             UnaryExpression,
             BinaryExpression,
             ModelAggregationExpression,
+            LogicalExpression,
+            Operand,
         ]
     ]
 ):
     root: Union[
-        JoinExpression, UnaryExpression, BinaryExpression, ModelAggregationExpression
+        JoinExpression,
+        UnaryExpression,
+        BinaryExpression,
+        ModelAggregationExpression,
+        LogicalExpression,
+        Operand,
     ] = Field(
         ...,
         description='Represents a complex expression that can evaluate to true, false, or noop. Examples: 1. Join expression (combining expressions from different models):    {      "model": "user",      "expression": {        "operator": "equals",        "left": { "path": "age" },        "right": 18      }    }\n\n2. Logical expression (AND):    {      "operator": "and",      "expressions": [        { "operator": "equals", "left": { "path": "country" }, "right": "US" },        { "operator": "greater_than", "left": { "path": "age" }, "right": 18 }      ]    }\n\n3. Location expression:    {      "operator": "within",      "left": { "location": { "latitude": 37.7749, "longitude": -122.4194, "distance": { "value": 10, "unit": "miles" } } },      "right": { "model": "user", "path": "location" }    }',
@@ -314,21 +327,11 @@ class LocationExpression2(BaseModel):
     operator: LogicalOperator
 
 
-class LocationExpression(
-    RootModel[Union[Location, LocationExpression1, LocationExpression2]]
-):
+class LocationExpression(RootModel[Union[Location, LocationExpression1, LocationExpression2]]):
     root: Union[Location, LocationExpression1, LocationExpression2] = Field(
         ...,
         description='Represents an expression that evaluates to a location or location-based condition. Examples: 1. Simple location:    { latitude: 40.7128, longitude: -74.0060, distance: { value: 5, unit: "miles" } }\n\n2. Location with operator:    { operator: "within", operand: { latitude: 40.7128, longitude: -74.0060, distance: { value: 5, unit: "miles" } } }\n\n3. Logical combination of locations:    {      operator: "or",      expressions: [        { latitude: 40.7128, longitude: -74.0060, distance: { value: 5, unit: "miles" } },        { operator: "within", operand: { latitude: 34.0522, longitude: -118.2437, distance: { value: 10, unit: "miles" } } }      ]    }',
     )
-
-
-class LogicalExpression(BaseModel):
-    model_config = ConfigDict(
-        extra="forbid",
-    )
-    expressions: List[Union[LogicalExpression, Expression]]
-    operator: LogicalOperator
 
 
 class UnaryPathExpression(BaseModel):
@@ -339,9 +342,7 @@ class UnaryPathExpression(BaseModel):
     operator: UnaryOperator
 
 
-class PathExpression(
-    RootModel[Union[bool, float, str, UnaryPathExpression, BinaryPathExpression]]
-):
+class PathExpression(RootModel[Union[bool, float, str, UnaryPathExpression, BinaryPathExpression]]):
     root: Union[bool, float, str, UnaryPathExpression, BinaryPathExpression] = Field(
         ...,
         description='Represents an expression that evaluates to a path or value. Examples: 1. Primitive values:    true    42    "hello"\n\n2. Unary expression (NOT):    {      operator: "not",      expression: { operator: "equals", operand: { path: "status" } }    }\n\n3. Binary expression (comparing a path to a value):    {      operator: "equals",      operand: { path: "user.age" }    }',

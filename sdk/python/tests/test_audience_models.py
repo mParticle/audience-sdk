@@ -3,21 +3,21 @@ import json
 from mp_audience_sdk.models.audience_models import (
     AbsoluteDate,
     AbsoluteDateOperand,
+    AggregationOperator,
     AudienceDefinition,
+    BinaryExpression,
     BinaryOperator,
-    DateOperand,
     DateUnit,
+    LogicalExpression,
     LogicalOperator,
+    ModelAggregationExpression,
     ModelPath,
-    Operand,
     Relative,
     RelativeDate,
     RelativeDateOperand,
     Version,
-    LogicalExpression,
-    BinaryExpression,
 )
-from pydantic import ValidationError
+
 
 def test_user_query():
     json_data = """
@@ -45,11 +45,13 @@ def test_user_query():
     audience_defintion = AudienceDefinition(
         audience=LogicalExpression(
             operator=LogicalOperator.and_,
-            expressions=[BinaryExpression(
-                operator="greater_than_equal",
-                left=ModelPath(model="user", path="product_id"),
-                right=3
-            )],
+            expressions=[
+                BinaryExpression(
+                    operator=BinaryOperator.greater_than_equal,
+                    left=ModelPath(model="user", path="product_id"),
+                    right=3,
+                )
+            ],
         ),
         schema_version=Version("1.0"),
     )
@@ -150,9 +152,7 @@ def test_user_query_with_single_model():
     "schema_version": "1.0"
 }
 """
-    deserialized_obj = AudienceDefinition.model_validate(
-        json.loads(audience_definition_json)
-    )
+    deserialized_obj = AudienceDefinition.model_validate(json.loads(audience_definition_json))
 
     color_or_expr = LogicalExpression(
         operator=LogicalOperator.or_,
@@ -168,9 +168,7 @@ def test_user_query_with_single_model():
                 right="yellow",
             ),
             BinaryExpression(
-                operator=BinaryOperator.equals,
-                left=ModelPath(model="user", path="color"),
-                right="green"
+                operator=BinaryOperator.equals, left=ModelPath(model="user", path="color"), right="green"
             ),
         ],
     )
@@ -194,19 +192,13 @@ def test_user_query_with_single_model():
     absolute_date_expr = BinaryExpression(
         operator=BinaryOperator.equals,
         left=ModelPath(model="user", path="registration_date"),
-        right=AbsoluteDateOperand(
-            date=AbsoluteDate(absolute="2024-01-15T00:00:00Z")
-        ),
+        right=AbsoluteDateOperand(date=AbsoluteDate(absolute="2024-01-15T00:00:00Z")),
     )
 
     relative_date_expr = BinaryExpression(
         operator=BinaryOperator.greater_than_equal,
         left=ModelPath(model="user", path="last_seen_date"),
-        right=RelativeDateOperand(
-            date=RelativeDate(
-                relative=Relative(offset=-30, unit=DateUnit.day)
-            )
-        )
+        right=RelativeDateOperand(date=RelativeDate(relative=Relative(offset=-30, unit=DateUnit.day))),
     )
 
     user_query = LogicalExpression(
@@ -223,6 +215,62 @@ def test_user_query_with_single_model():
         audience=LogicalExpression(
             operator=LogicalOperator.and_,
             expressions=[user_query],
+        ),
+        schema_version=Version("1.0"),
+    )
+
+    assert deserialized_obj == audience_defintion
+
+
+def test_user_query_with_aggregate():
+    audience_definition_json = """
+{
+    "audience": {
+        "operator": "and",
+        "expressions": [
+            {
+                "operator": "greater_than_equal",
+                "left": {
+                    "operator": "min",
+                    "group_by": "user",
+                    "expression": {
+                        "model": "order",
+                        "path": "total"
+                    },
+                    "condition": {
+                        "operator": "greater_than",
+                        "left": {
+                            "model": "order",
+                            "path": "item_count"
+                        },
+                        "right": 2
+                    }
+                },
+                "right": 100
+            }
+        ]
+    },
+    "schema_version": "1.0"
+}
+"""
+
+    deserialized_obj = AudienceDefinition.model_validate(json.loads(audience_definition_json))
+
+    aggregate_expr = ModelAggregationExpression(
+        operator=AggregationOperator.min,
+        group_by="user",
+        expression=ModelPath(model="order", path="total"),
+        condition=BinaryExpression(
+            left=ModelPath(model="order", path="item_count"), operator=BinaryOperator.greater_than, right=2
+        ),
+    )
+
+    audience_defintion = AudienceDefinition(
+        audience=LogicalExpression(
+            operator=LogicalOperator.and_,
+            expressions=[
+                BinaryExpression(operator=BinaryOperator.greater_than_equal, left=aggregate_expr, right=100)
+            ],
         ),
         schema_version=Version("1.0"),
     )
