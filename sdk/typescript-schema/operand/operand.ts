@@ -1,5 +1,7 @@
 import { DateOperand } from "./date-operand";
 import { ModelPath } from "../common/model-path";
+import { AggregationOperator } from "../common/operator";
+import { Expression } from "../expression/expression";
 
 /**
  * Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations.
@@ -34,5 +36,7 @@ export type Operand =
     | number
     | string
     | DateOperand
-    | ModelPath;
+    | ModelPath
+    // model aggregation operand
+    | { operator: AggregationOperator, group_by: string, operand: Operand, condition: Expression };
     // | { operator: ArithmeticOperator, left: Operand, right: Operand };

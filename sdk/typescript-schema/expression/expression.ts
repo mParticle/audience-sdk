@@ -1,6 +1,5 @@
 import { Operand } from "../operand/operand";
-import { AggregationOperator, BinaryOperator, UnaryOperator } from "../common/operator";
-import { ModelPath } from "../common/model-path";
+import { BinaryOperator, LogicalOperator, UnaryOperator } from "../common/operator";
 
 /**
  * Represents a complex expression that can evaluate to true, false, or noop.
@@ -38,10 +37,8 @@ export type Expression =
     { operator: UnaryOperator, operand: Operand }
     |   // binary expression
     { operator: BinaryOperator, left: Operand, right: Operand }
-    |   // model aggregation expression
-    { operator: AggregationOperator, group_by: string, expression: ModelPath, condition: Expression };
-// |   // logical expression group
-// { operator: LogicalOperator, expressions: Expression[] }
+    |   // logical expression group
+    { operator: LogicalOperator, expressions: Expression[] }
 // |   // location (left) expression
 // { operator: LocationOperator, left: LocationOperand, right: ModelPath }
 // |   // location (left) expression
