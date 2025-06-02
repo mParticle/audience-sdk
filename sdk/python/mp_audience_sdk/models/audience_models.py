@@ -281,7 +281,7 @@ class ModelAggregationExpression(BaseModel):
         extra="forbid",
     )
     condition: Expression
-    expression: ModelPath
+    expression: Expression
     group_by: str
     operator: AggregationOperator
 
