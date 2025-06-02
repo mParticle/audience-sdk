@@ -1,11 +1,11 @@
-.PHONY: build build-typescript generate-python-models
+.PHONY: build build-typescript generate-python-models test
 
 PYTHON_OUTPUT_DIR := sdk/python/mp_audience_sdk/models
 SCHEMA_FILE := schema/audience-definition-schema.json
 PYTHON_OUTPUT_FILE := $(PYTHON_OUTPUT_DIR)/audience_models.py
 TYPESCRIPT_SCHEMA_DIR := sdk/typescript-schema
 
-build: build-typescript generate-python-models
+build: build-typescript generate-python-models test
 
 build-typescript:
 	cd $(TYPESCRIPT_SCHEMA_DIR) && \
@@ -25,6 +25,9 @@ generate-python-models:
 		--snake-case-field \
 		--encoding utf-8
 	black $(PYTHON_OUTPUT_DIR)
+
+test:
+	python -m pytest sdk/python/tests/ -v
 
 clean:
 	rm -rf $(PYTHON_OUTPUT_DIR)/*
