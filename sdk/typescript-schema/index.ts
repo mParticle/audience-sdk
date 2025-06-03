@@ -19,4 +19,7 @@ export * from './operand/date-operand';
 // Export common types
 export * from './common/location';
 export * from './common/operator';
-export * from './common/version'; 
+export * from './common/version';
+
+// Export type guards
+export * from './guards'; 
