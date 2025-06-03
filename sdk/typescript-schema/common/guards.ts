@@ -1,5 +1,5 @@
-import { Audience } from "./audience";
-import { Expression } from "./expression/expression";
+import { Audience } from "../audience";
+import { Expression } from "../expression/expression";
 
 /**
  * Type guard that validates if any object is a valid Audience

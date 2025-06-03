@@ -22,4 +22,4 @@ export * from './common/operator';
 export * from './common/version';
 
 // Export type guards
-export * from './guards'; 
+export * from './common/guards'; 
