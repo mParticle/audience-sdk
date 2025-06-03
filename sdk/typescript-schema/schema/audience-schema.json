@@ -457,10 +457,10 @@
         {
           "additionalProperties": false,
           "properties": {
-            "condition": {
+            "expression": {
               "$ref": "#/definitions/Expression"
             },
-            "group_by": {
+            "group_by_model": {
               "type": "string"
             },
             "operand": {
@@ -472,9 +472,9 @@
           },
           "required": [
             "operator",
-            "group_by",
+            "group_by_model",
             "operand",
-            "condition"
+            "expression"
           ],
           "type": "object",
           "title": "ModelAggregationOperand"

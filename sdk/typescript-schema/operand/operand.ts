@@ -37,6 +37,5 @@ export type Operand =
     | string
     | DateOperand
     | ModelPath
-    // model aggregation operand
-    | { operator: AggregationOperator, group_by: string, operand: Operand, condition: Expression };
+    | { operator: AggregationOperator, group_by_model: string, operand: Operand, expression: Expression };
     // | { operator: ArithmeticOperator, left: Operand, right: Operand };
