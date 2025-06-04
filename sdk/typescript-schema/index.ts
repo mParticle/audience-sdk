@@ -20,6 +20,3 @@ export * from './operand/date-operand';
 export * from './common/location';
 export * from './common/operator';
 export * from './common/version';
-
-// Export type guards
-export * from './common/guards'; 
