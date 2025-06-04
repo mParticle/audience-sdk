@@ -14,7 +14,9 @@
   "scripts": {
     "build": "tsc",
     "semantic-release": "semantic-release",
-    "gen-schema": "scripts/gen_schema_with_titles.sh"
+    "gen-schema": "scripts/gen_schema_with_titles.sh",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "devDependencies": {
     "@semantic-release/changelog": "6.0.3",
@@ -22,7 +24,10 @@
     "@semantic-release/git": "10.0.1",
     "@semantic-release/github": "9.2.6",
     "@semantic-release/npm": "11.0.2",
+    "@types/jest": "29.5.12",
+    "jest": "29.7.0",
     "semantic-release": "23.0.2",
+    "ts-jest": "29.1.2",
     "ts-json-schema-generator": "2.4.0",
     "typescript": "5.0.4"
   },
