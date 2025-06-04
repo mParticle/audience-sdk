@@ -1,5 +1,5 @@
 import { Version } from "./common/version";
-import { Condition } from "./expression/condition";
+import { Condition } from "./condition/condition";
 
 /**
  * Represents a logical combination of audience expressions using AND/OR operators.

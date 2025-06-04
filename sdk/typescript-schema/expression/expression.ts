@@ -1,7 +1,7 @@
 import { DateExpression } from "./date-expression";
 import { ModelPath } from "../common/model-path";
 import { AggregationOperator } from "../common/operator";
-import { Condition } from "../expression/condition";
+import { Condition } from "../condition/condition";
 
 /**
  * Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations.

@@ -1,5 +1,5 @@
 import { BinaryOperator, LogicalOperator, UnaryOperator } from "../common/operator";
-import { Expression } from "../operand/expression";
+import { Expression } from "../expression/expression";
 
 /**
  * Represents a complex expression that can evaluate to true, false, or noop.
