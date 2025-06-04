@@ -1,7 +1,7 @@
-import { DateOperand } from "./date-operand";
+import { DateExpression } from "./date-expression";
 import { ModelPath } from "../common/model-path";
 import { AggregationOperator } from "../common/operator";
-import { Expression } from "../expression/expression";
+import { Condition } from "../expression/condition";
 
 /**
  * Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations.
@@ -31,11 +31,12 @@ import { Expression } from "../expression/expression";
  * 5. Date operand:
  *    { date: { absolute: "2023-01-01T00:00:00Z" } }
  */
-export type Operand =
+export type Expression =
     boolean
     | number
     | string
-    | DateOperand
+    | DateExpression
     | ModelPath
-    | { operator: AggregationOperator, group_by_model: string, operand: Operand, expression: Expression };
+    // model aggregation expression
+    | { operator: AggregationOperator, group_by_model: string, expression: Expression, condition: Condition };
     // | { operator: ArithmeticOperator, left: Operand, right: Operand };

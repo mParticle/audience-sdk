@@ -70,6 +70,6 @@ export type RelativeDate =
  * 3. Relative date (start of current month):
  *    { date: { relative: { offset: 0, unit: "month", boundary: "start" } } }
  */
-export type DateOperand =
+export type DateExpression =
     { date: AbsoluteDate }
     | { date: RelativeDate }

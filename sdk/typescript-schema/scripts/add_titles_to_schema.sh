@@ -17,18 +17,13 @@ JQ="jq"
 read -r -d '' MAPPINGS <<EOF
 $.definitions.Audience|AudienceDefinition
 $.definitions.Audience.properties.audience|Audience
-$.definitions.DateOperand.anyOf[0]|AbsoluteDateOperand
-$.definitions.DateOperand.anyOf[1]|RelativeDateOperand
-$.definitions.Expression.anyOf[0]|JoinExpression
-$.definitions.Expression.anyOf[1]|UnaryExpression
-$.definitions.Expression.anyOf[2]|BinaryExpression
-$.definitions.Expression.anyOf[3]|LogicalExpression
-$.definitions.PathExpression.anyOf[0]|BooleanPathExpression
-$.definitions.PathExpression.anyOf[1]|NumberPathExpression
-$.definitions.PathExpression.anyOf[2]|StringPathExpression
-$.definitions.PathExpression.anyOf[3]|UnaryPathExpression
-$.definitions.PathExpression.anyOf[4]|BinaryPathExpression
-$.definitions.Operand.anyOf[5]|ModelAggregationOperand
+$.definitions.DateExpression.anyOf[0]|AbsoluteDateExpression
+$.definitions.DateExpression.anyOf[1]|RelativeDateExpression
+$.definitions.Condition.anyOf[0]|JoinCondition
+$.definitions.Condition.anyOf[1]|UnaryCondition
+$.definitions.Condition.anyOf[2]|BinaryCondition
+$.definitions.Condition.anyOf[3]|LogicalCondition
+$.definitions.Expression.anyOf[5]|ModelAggregationExpression
 EOF
 
 jq_script="."

@@ -1,5 +1,5 @@
-import { Operand } from "../operand/operand";
 import { BinaryOperator, LogicalOperator, UnaryOperator } from "../common/operator";
+import { Expression } from "../operand/expression";
 
 /**
  * Represents a complex expression that can evaluate to true, false, or noop.
@@ -30,15 +30,15 @@ import { BinaryOperator, LogicalOperator, UnaryOperator } from "../common/operat
  *      "right": { "model": "user", "path": "location" }
  *    }
  */
-export type Expression =
+export type Condition =
     // join expression
     { model: string, expression: Expression }
     |   // unary expression
-    { operator: UnaryOperator, operand: Operand }
+    { operator: UnaryOperator, operand: Expression|Expression[] }
     |   // binary expression
-    { operator: BinaryOperator, left: Operand, right: Operand }
+    { operator: BinaryOperator, left: Expression|Expression[], right: Expression|Expression[] }
     |   // logical expression group
-    { operator: LogicalOperator, expressions: Expression[] }
+    { operator: LogicalOperator, conditions: Condition[] }
 // |   // location (left) expression
 // { operator: LocationOperator, left: LocationOperand, right: ModelPath }
 // |   // location (left) expression
