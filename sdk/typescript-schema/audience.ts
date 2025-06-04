@@ -1,5 +1,5 @@
 import { Version } from "./common/version";
-import { Expression } from "./expression/expression";
+import { Condition } from "./condition/condition";
 
 /**
  * Represents a logical combination of audience expressions using AND/OR operators.
@@ -79,5 +79,5 @@ import { Expression } from "./expression/expression";
  */
 export type Audience = {
     schema_version: Version,
-    audience: Expression
+    audience: Condition
 }

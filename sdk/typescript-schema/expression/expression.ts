@@ -1,45 +1,42 @@
-import { Operand } from "../operand/operand";
-import { BinaryOperator, LogicalOperator, UnaryOperator } from "../common/operator";
+import { DateExpression } from "./date-expression";
+import { ModelPath } from "../common/model-path";
+import { AggregationOperator } from "../common/operator";
+import { Condition } from "../condition/condition";
 
 /**
- * Represents a complex expression that can evaluate to true, false, or noop.
+ * Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations.
  * Examples:
- * 1. Join expression (combining expressions from different models):
+ * 1. Primitive values:
+ *    true
+ *    42
+ *    "hello"
+ *
+ * 2. Path reference:
+ *    { path: "user.age" }
+ *
+ * 3. Arithmetic operation:
  *    {
- *      "model": "user",
- *      "expression": {
- *        "operator": "equals",
- *        "left": { "path": "age" },
- *        "right": 18
- *      }
+ *      operator: "plus",
+ *      left: { path: "price" },
+ *      right: { path: "tax" }
  *    }
  *
- * 2. Logical expression (AND):
+ * 4. Nested arithmetic operation:
  *    {
- *      "operator": "and",
- *      "expressions": [
- *        { "operator": "equals", "left": { "path": "country" }, "right": "US" },
- *        { "operator": "greater_than", "left": { "path": "age" }, "right": 18 }
- *      ]
+ *      operator: "multiply",
+ *      left: { operator: "plus", left: { path: "base_price" }, right: { path: "shipping" } },
+ *      right: 1.1
  *    }
  *
- * 3. Location expression:
- *    {
- *      "operator": "within",
- *      "left": { "location": { "latitude": 37.7749, "longitude": -122.4194, "distance": { "value": 10, "unit": "miles" } } },
- *      "right": { "model": "user", "path": "location" }
- *    }
+ * 5. Date operand:
+ *    { date: { absolute: "2023-01-01T00:00:00Z" } }
  */
 export type Expression =
-    // join expression
-    { model: string, expression: Expression }
-    |   // unary expression
-    { operator: UnaryOperator, operand: Operand }
-    |   // binary expression
-    { operator: BinaryOperator, left: Operand, right: Operand }
-    |   // logical expression group
-    { operator: LogicalOperator, expressions: Expression[] }
-// |   // location (left) expression
-// { operator: LocationOperator, left: LocationOperand, right: ModelPath }
-// |   // location (left) expression
-// { operator: LocationOperator, left: ModelPath, right: LocationOperand };
+    boolean
+    | number
+    | string
+    | DateExpression
+    | ModelPath
+    // model aggregation expression
+    | { operator: AggregationOperator, group_by_model: string, operand: Expression, condition: Condition };
+    // | { operator: ArithmeticOperator, left: Operand, right: Operand };

@@ -42,7 +42,7 @@
       "description": "Represents a complete audience definition with a root logical expression. Examples: 1. Simple audience:    {      \"schema_version\": \"1.0.0\",      \"audience\": {        \"operator\": \"and\",        \"expressions\": [          { \"model\": \"user\", \"expression\": { \"operator\": \"exists\", \"operand\": { \"path\": \"id\" } } },          { \"model\": \"purchase\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"status\" }, \"right\": \"completed\" } }        ]      }    }\n\n2. Audience with nested logic:    {      \"schema_version\": \"1.0.0\",      \"audience\": {        \"operator\": \"or\",        \"expressions\": [          { \"model\": \"user\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"country\" }, \"right\": \"US\" } },          {            \"operator\": \"and\",            \"expressions\": [              { \"model\": \"signup\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"status\" }, \"right\": \"completed\" } },              { \"model\": \"user\", \"expression\": { \"operator\": \"greater_than\", \"left\": { \"path\": \"age\" }, \"right\": 18 } }            ]          }        ]      }    }",
       "properties": {
         "audience": {
-          "$ref": "#/definitions/Expression",
+          "$ref": "#/definitions/Condition",
           "title": "Audience"
         },
         "schema_version": {
@@ -75,56 +75,24 @@
       ],
       "type": "string"
     },
-    "CountExpression": {
+    "Condition": {
       "anyOf": [
-        {
-          "type": "number"
-        },
         {
           "additionalProperties": false,
           "properties": {
-            "operand": {
-              "$ref": "#/definitions/Operand"
+            "expression": {
+              "$ref": "#/definitions/Expression"
             },
-            "operator": {
-              "$ref": "#/definitions/BinaryOperator"
+            "model": {
+              "type": "string"
             }
           },
           "required": [
-            "operator",
-            "operand"
+            "model",
+            "expression"
           ],
-          "type": "object"
-        },
-        {
-          "additionalProperties": false,
-          "properties": {
-            "expressions": {
-              "items": {
-                "$ref": "#/definitions/CountExpression"
-              },
-              "type": "array"
-            },
-            "operator": {
-              "$ref": "#/definitions/LogicalOperator"
-            }
-          },
-          "required": [
-            "operator",
-            "expressions"
-          ],
-          "type": "object"
-        }
-      ],
-      "description": "Represents a count expression, which can be a number, a binary operation, or a logical group. Examples: 1. Simple count:    5\n\n2. Binary count expression:    { operator: \"greater_than\", operand: { path: \"event.count\" } }\n\n3. Logical group of count expressions:    {      operator: \"and\",      expressions: [        1,        { operator: \"greater_than\", operand: { path: \"event.count\" } }      ]    }"
-    },
-    "DateExpression": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/AbsoluteDate"
-        },
-        {
-          "$ref": "#/definitions/RelativeDate"
+          "type": "object",
+          "title": "JoinCondition"
         },
         {
           "additionalProperties": false,
@@ -132,29 +100,74 @@
             "operand": {
               "anyOf": [
                 {
-                  "$ref": "#/definitions/AbsoluteDate"
+                  "$ref": "#/definitions/Expression"
                 },
                 {
-                  "$ref": "#/definitions/RelativeDate"
+                  "items": {
+                    "$ref": "#/definitions/Expression"
+                  },
+                  "type": "array"
                 }
               ]
             },
             "operator": {
-              "$ref": "#/definitions/BinaryOperator"
+              "$ref": "#/definitions/UnaryOperator"
             }
           },
           "required": [
             "operator",
             "operand"
           ],
-          "type": "object"
+          "type": "object",
+          "title": "UnaryCondition"
         },
         {
           "additionalProperties": false,
           "properties": {
-            "expressions": {
+            "left": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/Expression"
+                },
+                {
+                  "items": {
+                    "$ref": "#/definitions/Expression"
+                  },
+                  "type": "array"
+                }
+              ]
+            },
+            "operator": {
+              "$ref": "#/definitions/BinaryOperator"
+            },
+            "right": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/Expression"
+                },
+                {
+                  "items": {
+                    "$ref": "#/definitions/Expression"
+                  },
+                  "type": "array"
+                }
+              ]
+            }
+          },
+          "required": [
+            "operator",
+            "left",
+            "right"
+          ],
+          "type": "object",
+          "title": "BinaryCondition"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "conditions": {
               "items": {
-                "$ref": "#/definitions/DateExpression"
+                "$ref": "#/definitions/Condition"
               },
               "type": "array"
             },
@@ -164,14 +177,15 @@
           },
           "required": [
             "operator",
-            "expressions"
+            "conditions"
           ],
-          "type": "object"
+          "type": "object",
+          "title": "LogicalCondition"
         }
       ],
-      "description": "Represents an expression that evaluates to a date or date-based condition. Examples: 1. Absolute date:    { absolute: \"2023-01-01T00:00:00Z\" }\n\n2. Relative date:    { relative: { offset: -30, unit: \"day\" } }\n\n3. Date with binary operator:    { operator: \"greater_than\", operand: { absolute: \"2023-01-01T00:00:00Z\" } }\n\n4. Logical combination of dates:    {      operator: \"and\",      expressions: [        { absolute: \"2023-01-01T00:00:00Z\" },        { operator: \"less_than\", operand: { relative: { offset: 0, unit: \"month\", boundary: \"end\" } } }      ]    }"
+      "description": "Represents a complex expression that can evaluate to true, false, or noop. Examples: 1. Join expression (combining expressions from different models):    {      \"model\": \"user\",      \"expression\": {        \"operator\": \"equals\",        \"left\": { \"path\": \"age\" },        \"right\": 18      }    }\n\n2. Logical expression (AND):    {      \"operator\": \"and\",      \"expressions\": [        { \"operator\": \"equals\", \"left\": { \"path\": \"country\" }, \"right\": \"US\" },        { \"operator\": \"greater_than\", \"left\": { \"path\": \"age\" }, \"right\": 18 }      ]    }\n\n3. Location expression:    {      \"operator\": \"within\",      \"left\": { \"location\": { \"latitude\": 37.7749, \"longitude\": -122.4194, \"distance\": { \"value\": 10, \"unit\": \"miles\" } } },      \"right\": { \"model\": \"user\", \"path\": \"location\" }    }"
     },
-    "DateOperand": {
+    "DateExpression": {
       "anyOf": [
         {
           "additionalProperties": false,
@@ -184,7 +198,7 @@
             "date"
           ],
           "type": "object",
-          "title": "AbsoluteDateOperand"
+          "title": "AbsoluteDateExpression"
         },
         {
           "additionalProperties": false,
@@ -197,7 +211,7 @@
             "date"
           ],
           "type": "object",
-          "title": "RelativeDateOperand"
+          "title": "RelativeDateExpression"
         }
       ],
       "description": "Represents a date value that can be either absolute or relative. Examples: 1. Absolute date:    { date: { absolute: \"2023-01-01T00:00:00Z\" } }\n\n2. Relative date (30 days ago):    { date: { relative: { offset: -30, unit: \"day\" } } }\n\n3. Relative date (start of current month):    { date: { relative: { offset: 0, unit: \"month\", boundary: \"start\" } } }"
@@ -227,82 +241,47 @@
     "Expression": {
       "anyOf": [
         {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/DateExpression"
+        },
+        {
+          "$ref": "#/definitions/ModelPath"
+        },
+        {
           "additionalProperties": false,
           "properties": {
-            "expression": {
+            "condition": {
+              "$ref": "#/definitions/Condition"
+            },
+            "group_by_model": {
+              "type": "string"
+            },
+            "operand": {
               "$ref": "#/definitions/Expression"
             },
-            "model": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "model",
-            "expression"
-          ],
-          "type": "object",
-          "title": "JoinExpression"
-        },
-        {
-          "additionalProperties": false,
-          "properties": {
-            "operand": {
-              "$ref": "#/definitions/Operand"
-            },
             "operator": {
-              "$ref": "#/definitions/UnaryOperator"
+              "$ref": "#/definitions/AggregationOperator"
             }
           },
           "required": [
             "operator",
-            "operand"
+            "group_by_model",
+            "operand",
+            "condition"
           ],
           "type": "object",
-          "title": "UnaryExpression"
-        },
-        {
-          "additionalProperties": false,
-          "properties": {
-            "left": {
-              "$ref": "#/definitions/Operand"
-            },
-            "operator": {
-              "$ref": "#/definitions/BinaryOperator"
-            },
-            "right": {
-              "$ref": "#/definitions/Operand"
-            }
-          },
-          "required": [
-            "operator",
-            "left",
-            "right"
-          ],
-          "type": "object",
-          "title": "BinaryExpression"
-        },
-        {
-          "additionalProperties": false,
-          "properties": {
-            "expressions": {
-              "items": {
-                "$ref": "#/definitions/Expression"
-              },
-              "type": "array"
-            },
-            "operator": {
-              "$ref": "#/definitions/LogicalOperator"
-            }
-          },
-          "required": [
-            "operator",
-            "expressions"
-          ],
-          "type": "object",
-          "title": "LogicalExpression"
+          "title": "ModelAggregationExpression"
         }
       ],
-      "description": "Represents a complex expression that can evaluate to true, false, or noop. Examples: 1. Join expression (combining expressions from different models):    {      \"model\": \"user\",      \"expression\": {        \"operator\": \"equals\",        \"left\": { \"path\": \"age\" },        \"right\": 18      }    }\n\n2. Logical expression (AND):    {      \"operator\": \"and\",      \"expressions\": [        { \"operator\": \"equals\", \"left\": { \"path\": \"country\" }, \"right\": \"US\" },        { \"operator\": \"greater_than\", \"left\": { \"path\": \"age\" }, \"right\": 18 }      ]    }\n\n3. Location expression:    {      \"operator\": \"within\",      \"left\": { \"location\": { \"latitude\": 37.7749, \"longitude\": -122.4194, \"distance\": { \"value\": 10, \"unit\": \"miles\" } } },      \"right\": { \"model\": \"user\", \"path\": \"location\" }    }"
+      "description": "Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations. Examples: 1. Primitive values:    true    42    \"hello\"\n\n2. Path reference:    { path: \"user.age\" }\n\n3. Arithmetic operation:    {      operator: \"plus\",      left: { path: \"price\" },      right: { path: \"tax\" }    }\n\n4. Nested arithmetic operation:    {      operator: \"multiply\",      left: { operator: \"plus\", left: { path: \"base_price\" }, right: { path: \"shipping\" } },      right: 1.1    }\n\n5. Date operand:    { date: { absolute: \"2023-01-01T00:00:00Z\" } }"
     },
     "ListOperator": {
       "description": "Represents operators that work with lists of values. Examples:\n- \"contains\": { list: [1, 2, 3], value: 2 }\n- \"between\": { list: [1, 10], value: 5 }\n- \"match_any\": { list: [\"a\", \"b\"], value: \"a\" }\n- \"in\": { list: [1, 2, 3], value: 2 }",
@@ -348,62 +327,6 @@
       ],
       "type": "object"
     },
-    "LocationExpression": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/Location"
-        },
-        {
-          "additionalProperties": false,
-          "properties": {
-            "operand": {
-              "$ref": "#/definitions/Location"
-            },
-            "operator": {
-              "$ref": "#/definitions/LocationOperator"
-            }
-          },
-          "required": [
-            "operator",
-            "operand"
-          ],
-          "type": "object"
-        },
-        {
-          "additionalProperties": false,
-          "properties": {
-            "expressions": {
-              "items": {
-                "$ref": "#/definitions/LocationExpression"
-              },
-              "type": "array"
-            },
-            "operator": {
-              "$ref": "#/definitions/LogicalOperator"
-            }
-          },
-          "required": [
-            "operator",
-            "expressions"
-          ],
-          "type": "object"
-        }
-      ],
-      "description": "Represents an expression that evaluates to a location or location-based condition. Examples: 1. Simple location:    { latitude: 40.7128, longitude: -74.0060, distance: { value: 5, unit: \"miles\" } }\n\n2. Location with operator:    { operator: \"within\", operand: { latitude: 40.7128, longitude: -74.0060, distance: { value: 5, unit: \"miles\" } } }\n\n3. Logical combination of locations:    {      operator: \"or\",      expressions: [        { latitude: 40.7128, longitude: -74.0060, distance: { value: 5, unit: \"miles\" } },        { operator: \"within\", operand: { latitude: 34.0522, longitude: -118.2437, distance: { value: 10, unit: \"miles\" } } }      ]    }"
-    },
-    "LocationOperand": {
-      "additionalProperties": false,
-      "description": "Represents a location value that can be used in location-based expressions. Examples: 1. Simple location (latitude/longitude only):    { location: { latitude: 40.7128, longitude: -74.0060 } }\n\n2. Location with distance in miles:    { location: { latitude: 40.7128, longitude: -74.0060, distance: { value: 5, unit: \"miles\" } } }\n\n3. Location with distance in meters:    { location: { latitude: 40.7128, longitude: -74.0060, distance: { value: 1000, unit: \"meters\" } } }",
-      "properties": {
-        "location": {
-          "$ref": "#/definitions/Location"
-        }
-      },
-      "required": [
-        "location"
-      ],
-      "type": "object"
-    },
     "LocationOperator": {
       "description": "Represents operators for location-based comparisons. Examples:\n- \"within\": { location1: { lat: 40, lng: -74 }, location2: { lat: 40, lng: -74 }, radius: 5 }\n- \"equals\": { location1: { lat: 40, lng: -74 }, location2: { lat: 40, lng: -74 } }",
       "enum": [
@@ -436,102 +359,6 @@
         "path"
       ],
       "type": "object"
-    },
-    "Operand": {
-      "anyOf": [
-        {
-          "type": "boolean"
-        },
-        {
-          "type": "number"
-        },
-        {
-          "type": "string"
-        },
-        {
-          "$ref": "#/definitions/DateOperand"
-        },
-        {
-          "$ref": "#/definitions/ModelPath"
-        },
-        {
-          "additionalProperties": false,
-          "properties": {
-            "expression": {
-              "$ref": "#/definitions/Expression"
-            },
-            "group_by_model": {
-              "type": "string"
-            },
-            "operand": {
-              "$ref": "#/definitions/Operand"
-            },
-            "operator": {
-              "$ref": "#/definitions/AggregationOperator"
-            }
-          },
-          "required": [
-            "operator",
-            "group_by_model",
-            "operand",
-            "expression"
-          ],
-          "type": "object",
-          "title": "ModelAggregationOperand"
-        }
-      ],
-      "description": "Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations. Examples: 1. Primitive values:    true    42    \"hello\"\n\n2. Path reference:    { path: \"user.age\" }\n\n3. Arithmetic operation:    {      operator: \"plus\",      left: { path: \"price\" },      right: { path: \"tax\" }    }\n\n4. Nested arithmetic operation:    {      operator: \"multiply\",      left: { operator: \"plus\", left: { path: \"base_price\" }, right: { path: \"shipping\" } },      right: 1.1    }\n\n5. Date operand:    { date: { absolute: \"2023-01-01T00:00:00Z\" } }"
-    },
-    "PathExpression": {
-      "anyOf": [
-        {
-          "type": "boolean",
-          "title": "BooleanPathExpression"
-        },
-        {
-          "type": "number",
-          "title": "NumberPathExpression"
-        },
-        {
-          "type": "string",
-          "title": "StringPathExpression"
-        },
-        {
-          "additionalProperties": false,
-          "properties": {
-            "expression": {
-              "$ref": "#/definitions/PathExpression"
-            },
-            "operator": {
-              "$ref": "#/definitions/UnaryOperator"
-            }
-          },
-          "required": [
-            "operator",
-            "expression"
-          ],
-          "type": "object",
-          "title": "UnaryPathExpression"
-        },
-        {
-          "additionalProperties": false,
-          "properties": {
-            "operand": {
-              "$ref": "#/definitions/Operand"
-            },
-            "operator": {
-              "$ref": "#/definitions/BinaryOperator"
-            }
-          },
-          "required": [
-            "operator",
-            "operand"
-          ],
-          "type": "object",
-          "title": "BinaryPathExpression"
-        }
-      ],
-      "description": "Represents an expression that evaluates to a path or value. Examples: 1. Primitive values:    true    42    \"hello\"\n\n2. Unary expression (NOT):    {      operator: \"not\",      expression: { operator: \"equals\", operand: { path: \"status\" } }    }\n\n3. Binary expression (comparing a path to a value):    {      operator: \"equals\",      operand: { path: \"user.age\" }    }"
     },
     "RelativeDate": {
       "additionalProperties": false,

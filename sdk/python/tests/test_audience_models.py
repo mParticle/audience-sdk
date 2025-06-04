@@ -1,23 +1,9 @@
 # type: ignore
 import json
 
-from mp_audience_sdk.models.audience_models import (
-    AbsoluteDate,
-    AbsoluteDateOperand,
-    AggregationOperator,
-    AudienceDefinition,
-    BinaryExpression,
-    BinaryOperator,
-    DateUnit,
-    LogicalExpression,
-    LogicalOperator,
-    ModelAggregationOperand,
-    ModelPath,
-    Relative,
-    RelativeDate,
-    RelativeDateOperand,
-    Version,
-)
+from mp_audience_sdk.models.audience_models import AudienceDefinition, BinaryCondition, BinaryOperator, ModelPath, \
+    Version, LogicalCondition, LogicalOperator, AbsoluteDateExpression, AbsoluteDate, RelativeDateExpression, \
+    RelativeDate, Relative, DateUnit, AggregationOperator, ModelAggregationExpression
 
 
 def test_user_query():
@@ -39,7 +25,7 @@ def test_user_query():
     deserialized_obj = AudienceDefinition.model_validate(json_dict)
 
     audience_defintion = AudienceDefinition(
-        audience=BinaryExpression(
+        audience=BinaryCondition(
             operator=BinaryOperator.greater_than_equal,
             left=ModelPath(model="user", path="product_id"),
             right=3,
@@ -55,13 +41,13 @@ def test_user_query_with_single_model():
 {
     "audience": {
         "operator": "and",
-        "expressions": [
+        "conditions": [
             {
                 "operator": "and",
-                "expressions": [
+                "conditions": [
                     {
                         "operator": "or",
-                        "expressions": [
+                        "conditions": [
                             {
                                 "operator": "equals",
                                 "left": {
@@ -90,7 +76,7 @@ def test_user_query_with_single_model():
                     },
                     {
                         "operator": "and",
-                        "expressions": [
+                        "conditions": [
                             {
                                 "operator": "greater_than_equal",
                                 "left": {
@@ -145,34 +131,34 @@ def test_user_query_with_single_model():
 """
     deserialized_obj = AudienceDefinition.model_validate(json.loads(audience_definition_json))
 
-    color_or_expr = LogicalExpression(
+    color_or_expr = LogicalCondition(
         operator=LogicalOperator.or_,
-        expressions=[
-            BinaryExpression(
+        conditions=[
+            BinaryCondition(
                 operator=BinaryOperator.equals,
                 left=ModelPath(model="user", path="color"),
                 right="blue",
             ),
-            BinaryExpression(
+            BinaryCondition(
                 operator=BinaryOperator.equals,
                 left=ModelPath(model="user", path="color"),
                 right="yellow",
             ),
-            BinaryExpression(
+            BinaryCondition(
                 operator=BinaryOperator.equals, left=ModelPath(model="user", path="color"), right="green"
             ),
         ],
     )
 
-    age_between_expr = LogicalExpression(
+    age_between_expr = LogicalCondition(
         operator=LogicalOperator.and_,
-        expressions=[
-            BinaryExpression(
+        conditions=[
+            BinaryCondition(
                 operator=BinaryOperator.greater_than_equal,
                 left=ModelPath(model="user", path="age"),
                 right=20.0,
             ),
-            BinaryExpression(
+            BinaryCondition(
                 operator=BinaryOperator.less_than_equal,
                 left=ModelPath(model="user", path="age"),
                 right=40.0,
@@ -180,21 +166,21 @@ def test_user_query_with_single_model():
         ],
     )
 
-    absolute_date_expr = BinaryExpression(
+    absolute_date_expr = BinaryCondition(
         operator=BinaryOperator.equals,
         left=ModelPath(model="user", path="registration_date"),
-        right=AbsoluteDateOperand(date=AbsoluteDate(absolute="2024-01-15T00:00:00Z")),
+        right=AbsoluteDateExpression(date=AbsoluteDate(absolute="2024-01-15T00:00:00Z")),
     )
 
-    relative_date_expr = BinaryExpression(
+    relative_date_expr = BinaryCondition(
         operator=BinaryOperator.greater_than_equal,
         left=ModelPath(model="user", path="last_seen_date"),
-        right=RelativeDateOperand(date=RelativeDate(relative=Relative(offset=-30, unit=DateUnit.day))),
+        right=RelativeDateExpression(date=RelativeDate(relative=Relative(offset=-30, unit=DateUnit.day))),
     )
 
-    user_query = LogicalExpression(
+    user_query = LogicalCondition(
         operator=LogicalOperator.and_,
-        expressions=[
+        conditions=[
             color_or_expr,
             age_between_expr,
             absolute_date_expr,
@@ -203,9 +189,9 @@ def test_user_query_with_single_model():
     )
 
     audience_defintion = AudienceDefinition(
-        audience=LogicalExpression(
+        audience=LogicalCondition(
             operator=LogicalOperator.and_,
-            expressions=[user_query],
+            conditions=[user_query],
         ),
         schema_version=Version("1.0"),
     )
@@ -225,7 +211,7 @@ def test_user_query_with_aggregate():
                 "model": "order",
                 "path": "total"
             },
-            "expression": {
+            "condition": {
                 "operator": "greater_than",
                 "left": {
                     "model": "order",
@@ -242,17 +228,17 @@ def test_user_query_with_aggregate():
 
     deserialized_obj = AudienceDefinition.model_validate(json.loads(audience_definition_json))
 
-    aggregate_expr = ModelAggregationOperand(
+    aggregate_expr = ModelAggregationExpression(
         operator=AggregationOperator.min,
         group_by_model="user",
         operand=ModelPath(model="order", path="total"),
-        expression=BinaryExpression(
+        condition=BinaryCondition(
             left=ModelPath(model="order", path="item_count"), operator=BinaryOperator.greater_than, right=2
         ),
     )
 
     audience_defintion = AudienceDefinition(
-        audience=BinaryExpression(operator=BinaryOperator.greater_than_equal, left=aggregate_expr, right=100),
+        audience=BinaryCondition(operator=BinaryOperator.greater_than_equal, left=aggregate_expr, right=100),
         schema_version=Version("1.0"),
     )
 
