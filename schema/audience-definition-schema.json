@@ -580,6 +580,24 @@
       "type": [
         "string"
       ]
+    },
+    "isValidAudienceObject": {
+      "$comment": "(obj: any) => obj is Audience",
+      "properties": {
+        "namedArgs": {
+          "additionalProperties": false,
+          "properties": {
+            "obj": {
+              "description": "Any object to validate"
+            }
+          },
+          "required": [
+            "obj"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
   }
 }
