@@ -261,11 +261,11 @@
             "condition": {
               "$ref": "#/definitions/Condition"
             },
-            "expression": {
-              "$ref": "#/definitions/Expression"
-            },
             "group_by_model": {
               "type": "string"
+            },
+            "operand": {
+              "$ref": "#/definitions/Expression"
             },
             "operator": {
               "$ref": "#/definitions/AggregationOperator"
@@ -274,7 +274,7 @@
           "required": [
             "operator",
             "group_by_model",
-            "expression",
+            "operand",
             "condition"
           ],
           "type": "object",

@@ -38,5 +38,5 @@ export type Expression =
     | DateExpression
     | ModelPath
     // model aggregation expression
-    | { operator: AggregationOperator, group_by_model: string, expression: Expression, condition: Condition };
+    | { operator: AggregationOperator, group_by_model: string, operand: Expression, condition: Condition };
     // | { operator: ArithmeticOperator, left: Operand, right: Operand };
