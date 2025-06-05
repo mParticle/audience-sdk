@@ -229,6 +229,12 @@
         {
           "additionalProperties": false,
           "properties": {
+            "conditions": {
+              "items": {
+                "$ref": "#/definitions/Expression"
+              },
+              "type": "array"
+            },
             "operand": {
               "$ref": "#/definitions/Operand"
             },
@@ -246,6 +252,12 @@
         {
           "additionalProperties": false,
           "properties": {
+            "conditions": {
+              "items": {
+                "$ref": "#/definitions/Expression"
+              },
+              "type": "array"
+            },
             "left": {
               "$ref": "#/definitions/Operand"
             },
