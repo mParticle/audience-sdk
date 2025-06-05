@@ -31,9 +31,9 @@ import { BinaryOperator, LogicalOperator, UnaryOperator } from "../common/operat
  *    }
  */
 export type Expression =
-    // unary expression
-    { operator: UnaryOperator, operand: Operand }
+    |   // unary expression
+    { operator: UnaryOperator, operand: Operand, conditions?: Expression[] }
     |   // binary expression
-    { operator: BinaryOperator, left: Operand, right: Operand }
+    { operator: BinaryOperator, left: Operand, right: Operand, conditions?: Expression[] }
     |   // logical expression group
     { operator: LogicalOperator, expressions: Expression[] }
