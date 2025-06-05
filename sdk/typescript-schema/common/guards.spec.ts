@@ -75,22 +75,6 @@ describe('Guard Functions', () => {
                 expect(isValidAudienceObject(validAudience)).toBe(true);
             });
 
-            it('should validate a valid audience with join expression', () => {
-                const validAudience: Audience = {
-                    schema_version: '1.0.0',
-                    audience: {
-                        model: 'user',
-                        expression: {
-                            operator: 'equals',
-                            left: { model: 'user', path: 'age' },
-                            right: 25
-                        }
-                    }
-                };
-
-                expect(isValidAudienceObject(validAudience)).toBe(true);
-            });
-
             it('should validate a complex nested audience', () => {
                 const validAudience: Audience = {
                     schema_version: '1.0.0',
@@ -98,11 +82,8 @@ describe('Guard Functions', () => {
                         operator: 'and',
                         expressions: [
                             {
-                                model: 'user',
-                                expression: {
-                                    operator: UnaryOperator.Exists,
-                                    operand: { model: 'user', path: 'id' }
-                                }
+                                operator: UnaryOperator.Exists,
+                                operand: { model: 'user', path: 'id' }
                             },
                             {
                                 operator: 'or',

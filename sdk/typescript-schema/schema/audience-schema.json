@@ -229,23 +229,6 @@
         {
           "additionalProperties": false,
           "properties": {
-            "expression": {
-              "$ref": "#/definitions/Expression"
-            },
-            "model": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "model",
-            "expression"
-          ],
-          "type": "object",
-          "title": "JoinExpression"
-        },
-        {
-          "additionalProperties": false,
-          "properties": {
             "operand": {
               "$ref": "#/definitions/Operand"
             },
