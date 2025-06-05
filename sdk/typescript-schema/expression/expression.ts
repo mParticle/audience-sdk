@@ -30,10 +30,17 @@ import { BinaryOperator, LogicalOperator, UnaryOperator } from "../common/operat
  *      "right": { "model": "user", "path": "location" }
  *    }
  */
+
+// This type is duplicative to the equivalent in Expression. This is to avoid circular references
+export type LogicalExpression = {
+    operator: LogicalOperator,
+    expressions: (LogicalExpression | Expression)[]
+};
+
 export type Expression =
     // unary expression
     { operator: UnaryOperator, operand: Operand }
     |   // binary expression
     { operator: BinaryOperator, left: Operand, right: Operand }
     |   // logical expression group
-    { operator: LogicalOperator, expressions: Expression[] }
+    LogicalExpression
