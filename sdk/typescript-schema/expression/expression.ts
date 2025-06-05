@@ -31,15 +31,9 @@ import { BinaryOperator, LogicalOperator, UnaryOperator } from "../common/operat
  *    }
  */
 export type Expression =
-    // join expression
-    { model: string, expression: Expression }
-    |   // unary expression
+    // unary expression
     { operator: UnaryOperator, operand: Operand }
     |   // binary expression
     { operator: BinaryOperator, left: Operand, right: Operand }
     |   // logical expression group
     { operator: LogicalOperator, expressions: Expression[] }
-// |   // location (left) expression
-// { operator: LocationOperator, left: LocationOperand, right: ModelPath }
-// |   // location (left) expression
-// { operator: LocationOperator, left: ModelPath, right: LocationOperand };

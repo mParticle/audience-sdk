@@ -19,10 +19,9 @@ $.definitions.Audience|AudienceDefinition
 $.definitions.Audience.properties.audience|Audience
 $.definitions.DateOperand.anyOf[0]|AbsoluteDateOperand
 $.definitions.DateOperand.anyOf[1]|RelativeDateOperand
-$.definitions.Expression.anyOf[0]|JoinExpression
-$.definitions.Expression.anyOf[1]|UnaryExpression
-$.definitions.Expression.anyOf[2]|BinaryExpression
-$.definitions.Expression.anyOf[3]|LogicalExpression
+$.definitions.Expression.anyOf[0]|UnaryExpression
+$.definitions.Expression.anyOf[1]|BinaryExpression
+$.definitions.Expression.anyOf[2]|LogicalExpression
 $.definitions.PathExpression.anyOf[0]|BooleanPathExpression
 $.definitions.PathExpression.anyOf[1]|NumberPathExpression
 $.definitions.PathExpression.anyOf[2]|StringPathExpression
