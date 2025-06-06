@@ -225,7 +225,7 @@ def test_user_query_with_aggregate():
                 "model": "order",
                 "path": "total"
             },
-            "expression": {
+            "condition": {
                 "operator": "greater_than",
                 "left": {
                     "model": "order",
@@ -246,7 +246,7 @@ def test_user_query_with_aggregate():
         operator=AggregationOperator.min,
         group_by_model="user",
         operand=ModelPath(model="order", path="total"),
-        expression=BinaryExpression(
+        condition=BinaryExpression(
             left=ModelPath(model="order", path="item_count"), operator=BinaryOperator.greater_than, right=2
         ),
     )
