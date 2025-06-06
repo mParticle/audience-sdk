@@ -1,3 +1,5 @@
+## [1.2.1](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.2.0...audience-typescript-schema@1.2.1) (2025-06-06)
+
 # [1.2.0](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.1.13...audience-typescript-schema@1.2.0) (2025-06-04)
 
 
