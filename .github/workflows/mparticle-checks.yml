@@ -1,0 +1,9 @@
+name: mParticle Checks
+
+on:
+  pull_request:
+
+jobs:
+  pr-title-check:
+    name: PR Title Check
+    uses: mParticle/mparticle-workflows/.github/workflows/pr-title-check.yml@stable
