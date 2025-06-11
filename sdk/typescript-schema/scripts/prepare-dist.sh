@@ -12,6 +12,6 @@ if [ -d "dist" ]; then
     VERSION=$(node -p "require('./package.json').version")
     echo "export const VERSION = '$VERSION';" > version.ts
 
-    # Compile version.ts to JavaScript and move to dist directory
-    npx tsc version.ts --outDir dist --module amd --outFile dist/index.js --skipLibCheck
+    # Compile version.ts to JavaScript and declaration files
+    npx tsc version.ts --outDir dist --module amd --declaration --skipLibCheck
 fi
