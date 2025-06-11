@@ -1,4 +1,4 @@
-import { DateOperand } from "./date-operand";
+import { DateOperand, DateRangeOperand } from "./date-operand";
 import { ModelPath } from "../common/model-path";
 import { AggregationOperator } from "../common/operator";
 import { Expression } from "../expression/expression";
@@ -30,6 +30,25 @@ import { Expression } from "../expression/expression";
  *
  * 5. Date operand:
  *    { date: { absolute: "2023-01-01T00:00:00Z" } }
+ * 
+ * 6. Aggregation operand with recency
+ *    {
+ *      operator: "count",
+ *      group_by_model: "purchase_event",
+ *      operand: { path: "total" },
+ *      recency: { relative: { offset: -7, unit: "day" } } // purchases in the last 7 days
+ *    }
+ *
+ * 7. Aggregation operand with date range recency
+ *    {
+ *      operator: "sum",
+ *      group_by_model: "purchase_event", 
+ *      operand: { path: "amount" },
+ *      recency: {
+ *        from: { relative: { offset: -30, unit: "day" } },
+ *        to: { relative: { offset: -7, unit: "day" } }
+ *      } // purchases between 30 and 7 days ago
+ *    }
  */
 export type Operand =
     boolean
@@ -37,5 +56,11 @@ export type Operand =
     | string
     | DateOperand
     | ModelPath
-    | { operator: AggregationOperator, group_by_model: string, operand: Operand, condition?: Expression };
-    // | { operator: ArithmeticOperator, left: Operand, right: Operand };
+    | {
+        operator: AggregationOperator,
+        group_by_model: string,
+        operand: Operand,
+        recency?: DateOperand | DateRangeOperand,
+        condition?: Expression
+    };
+// | { operator: ArithmeticOperator, left: Operand, right: Operand };

@@ -73,3 +73,35 @@ export type RelativeDate =
 export type DateOperand =
     { date: AbsoluteDate }
     | { date: RelativeDate }
+
+/**
+ * Represents a recency filter for aggregation operands, supporting both single dates and date ranges.
+ * Examples:
+ * 1. Within the last 7 days:
+ *    { relative: { offset: -7, unit: "day" } }
+ *
+ * 2. At most 3 months ago:
+ *    { relative: { offset: -3, unit: "month" } }
+ *
+ * 3. Between 30 days ago and 7 days ago:
+ *    { 
+ *      from: { relative: { offset: -30, unit: "day" } },
+ *      to: { relative: { offset: -7, unit: "day" } }
+ *    }
+ *
+ * 4. Between start of last month and end of last month:
+ *    {
+ *      from: { relative: { offset: -1, unit: "month", boundary: "start" } },
+ *      to: { relative: { offset: -1, unit: "month", boundary: "end" } }
+ *    }
+ *
+ * 5. Mixed absolute and relative dates:
+ *    {
+ *      from: { absolute: "2023-01-01T00:00:00Z" },
+ *      to: { relative: { offset: -30, unit: "day" } }
+ *    }
+ */
+export type DateRangeOperand = {
+    from: RelativeDate | AbsoluteDate,
+    to: RelativeDate | AbsoluteDate
+};
