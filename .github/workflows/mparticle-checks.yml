@@ -12,6 +12,3 @@ jobs:
     uses: mparticle/mparticle-workflows/.github/workflows/security-checks.yml@stable
     with:
       base_branch: 'main'
-  pr-check-hadcoded-secrets:
-    name: "Hardcoded Secrets Checks"
-    uses: mParticle/mparticle-workflows/.github/workflows/security-hardcoded-secrets.yml@main
