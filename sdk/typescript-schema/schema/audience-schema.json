@@ -202,6 +202,37 @@
       ],
       "description": "Represents a date value that can be either absolute or relative. Examples: 1. Absolute date:    { date: { absolute: \"2023-01-01T00:00:00Z\" } }\n\n2. Relative date (30 days ago):    { date: { relative: { offset: -30, unit: \"day\" } } }\n\n3. Relative date (start of current month):    { date: { relative: { offset: 0, unit: \"month\", boundary: \"start\" } } }"
     },
+    "DateRangeOperand": {
+      "additionalProperties": false,
+      "description": "Represents a recency filter for aggregation operands, supporting both single dates and date ranges. Examples: 1. Within the last 7 days:    { relative: { offset: -7, unit: \"day\" } }\n\n2. At most 3 months ago:    { relative: { offset: -3, unit: \"month\" } }\n\n3. Between 30 days ago and 7 days ago:    {       from: { relative: { offset: -30, unit: \"day\" } },      to: { relative: { offset: -7, unit: \"day\" } }    }\n\n4. Between start of last month and end of last month:    {      from: { relative: { offset: -1, unit: \"month\", boundary: \"start\" } },      to: { relative: { offset: -1, unit: \"month\", boundary: \"end\" } }    }\n\n5. Mixed absolute and relative dates:    {      from: { absolute: \"2023-01-01T00:00:00Z\" },      to: { relative: { offset: -30, unit: \"day\" } }    }",
+      "properties": {
+        "from": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/RelativeDate"
+            },
+            {
+              "$ref": "#/definitions/AbsoluteDate"
+            }
+          ]
+        },
+        "to": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/RelativeDate"
+            },
+            {
+              "$ref": "#/definitions/AbsoluteDate"
+            }
+          ]
+        }
+      },
+      "required": [
+        "from",
+        "to"
+      ],
+      "type": "object"
+    },
     "DateUnit": {
       "description": "Represents units of time that can be used in relative date calculations. Examples:\n- 'second': 1 second\n- 'minute': 60 seconds\n- 'hour': 60 minutes\n- 'day': 24 hours\n- 'week': 7 days\n- 'month': ~30 days\n- 'quarter': 3 months\n- 'year': 12 months",
       "enum": [
@@ -451,6 +482,16 @@
             },
             "operator": {
               "$ref": "#/definitions/AggregationOperator"
+            },
+            "recency": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/DateOperand"
+                },
+                {
+                  "$ref": "#/definitions/DateRangeOperand"
+                }
+              ]
             }
           },
           "required": [
@@ -462,7 +503,7 @@
           "title": "ModelAggregationOperand"
         }
       ],
-      "description": "Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations. Examples: 1. Primitive values:    true    42    \"hello\"\n\n2. Path reference:    { path: \"user.age\" }\n\n3. Arithmetic operation:    {      operator: \"plus\",      left: { path: \"price\" },      right: { path: \"tax\" }    }\n\n4. Nested arithmetic operation:    {      operator: \"multiply\",      left: { operator: \"plus\", left: { path: \"base_price\" }, right: { path: \"shipping\" } },      right: 1.1    }\n\n5. Date operand:    { date: { absolute: \"2023-01-01T00:00:00Z\" } }"
+      "description": "Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations. Examples: 1. Primitive values:    true    42    \"hello\"\n\n2. Path reference:    { path: \"user.age\" }\n\n3. Arithmetic operation:    {      operator: \"plus\",      left: { path: \"price\" },      right: { path: \"tax\" }    }\n\n4. Nested arithmetic operation:    {      operator: \"multiply\",      left: { operator: \"plus\", left: { path: \"base_price\" }, right: { path: \"shipping\" } },      right: 1.1    }\n\n5. Date operand:    { date: { absolute: \"2023-01-01T00:00:00Z\" } }\n\n6. Aggregation operand with recency    {      operator: \"count\",      group_by_model: \"purchase_event\",      operand: { path: \"total\" },      recency: { relative: { offset: -7, unit: \"day\" } } // purchases in the last 7 days    }\n\n7. Aggregation operand with date range recency    {      operator: \"sum\",      group_by_model: \"purchase_event\",       operand: { path: \"amount\" },      recency: {        from: { relative: { offset: -30, unit: \"day\" } },        to: { relative: { offset: -7, unit: \"day\" } }      } // purchases between 30 and 7 days ago    }"
     },
     "PathExpression": {
       "anyOf": [
