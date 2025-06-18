@@ -50,6 +50,14 @@ export type ListOperator =
 	| "in"
 
 /**
+ * Represents operators that work with audiences.
+ * Examples:
+ * - "in": { audience: 12345, model: "users" }
+ */
+export type AudienceOperator =
+	"in"
+	
+/**
  * Represents mathematical operators for numeric calculations.
  * Examples:
  * - "plus": { value1: 5, value2: 3 } // result: 8

@@ -14,3 +14,7 @@ export type ModelPath = {
     model: string,
     path: string
 }
+
+export type Model = {
+    model: string
+}
