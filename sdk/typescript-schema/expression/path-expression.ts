@@ -1,5 +1,5 @@
 import { Operand } from "../operand/operand";
-import { UnaryOperator, BinaryOperator } from "../common/operator";
+import { UnaryBoolOperator, BinaryBoolOperator } from "../common/operator";
 
 /**
  * Represents an expression that evaluates to a path or value.
@@ -21,11 +21,11 @@ import { UnaryOperator, BinaryOperator } from "../common/operator";
  *      operand: { path: "user.age" }
  *    }
  */
-export type PathExpression = 
+export type PathExpression =
     boolean
     | number
     | string
     |   // unary expression 
-    { operator: UnaryOperator, expression: PathExpression }
+    { operator: UnaryBoolOperator, expression: PathExpression }
     |   // binary expression
-    { operator: BinaryOperator, operand: Operand };
+    { operator: BinaryBoolOperator, operand: Operand };

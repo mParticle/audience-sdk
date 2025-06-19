@@ -1,5 +1,5 @@
 import { Operand } from "../operand/operand";
-import { BinaryOperator, LogicalOperator } from "../common/operator";
+import { BinaryBoolOperator, LogicalBoolOperator } from "../common/operator";
 
 /**
  * Represents a count expression, which can be a number, a binary operation, or a logical group.
@@ -19,9 +19,9 @@ import { BinaryOperator, LogicalOperator } from "../common/operator";
  *      ]
  *    }
  */
-export type CountExpression = 
+export type CountExpression =
     number
-    | 
-    { operator: BinaryOperator, operand: Operand }
+    |
+    { operator: BinaryBoolOperator, operand: Operand }
     |   // logical expression group
-    { operator: LogicalOperator, expressions: CountExpression[] }
+    { operator: LogicalBoolOperator, expressions: CountExpression[] }

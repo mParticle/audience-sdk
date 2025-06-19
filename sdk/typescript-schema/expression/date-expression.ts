@@ -1,4 +1,4 @@
-import { BinaryOperator, LogicalOperator } from "../common/operator";
+import { BinaryBoolOperator, LogicalBoolOperator } from "../common/operator";
 import { AbsoluteDate, RelativeDate } from "../operand/date-operand";
 
 /**
@@ -26,6 +26,6 @@ export type DateExpression =
     AbsoluteDate
     | RelativeDate
     |
-    { operator: BinaryOperator, operand: AbsoluteDate | RelativeDate }
+    { operator: BinaryBoolOperator, operand: AbsoluteDate | RelativeDate }
     |   // logical expression group
-    { operator: LogicalOperator, expressions: DateExpression[] }
+    { operator: LogicalBoolOperator, expressions: DateExpression[] }

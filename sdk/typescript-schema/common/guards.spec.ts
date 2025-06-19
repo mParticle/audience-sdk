@@ -1,6 +1,6 @@
 import { isValidAudienceObject } from './guards';
 import { Audience } from '../audience';
-import { UnaryOperator } from './operator';
+import { UnaryBoolOperator } from './operator';
 
 describe('Guard Functions', () => {
     describe('isValidAudienceObject', () => {
@@ -9,7 +9,7 @@ describe('Guard Functions', () => {
                 const validAudience: Audience = {
                     schema_version: '1.0.0',
                     audience: {
-                        operator: UnaryOperator.Exists,
+                        operator: UnaryBoolOperator.Exists,
                         operand: { model: 'user', path: 'id' }
                     }
                 };
@@ -37,7 +37,7 @@ describe('Guard Functions', () => {
                         operator: 'and',
                         expressions: [
                             {
-                                operator: UnaryOperator.Exists,
+                                operator: UnaryBoolOperator.Exists,
                                 operand: { model: 'user', path: 'id' }
                             },
                             {
@@ -82,7 +82,7 @@ describe('Guard Functions', () => {
                         operator: 'and',
                         expressions: [
                             {
-                                operator: UnaryOperator.Exists,
+                                operator: UnaryBoolOperator.Exists,
                                 operand: { model: 'user', path: 'id' }
                             },
                             {
@@ -111,7 +111,7 @@ describe('Guard Functions', () => {
                 const validAudience: Audience = {
                     schema_version: '1.0.0-beta.1',
                     audience: {
-                        operator: UnaryOperator.Exists,
+                        operator: UnaryBoolOperator.Exists,
                         operand: { model: 'user', path: 'id' }
                     }
                 };

@@ -4,7 +4,7 @@
  * - "not": Negates a boolean expression
  * - "exist": Checks if a value exists
  */
-export enum UnaryOperator {
+export enum UnaryBoolOperator {
 	Null = "null",
 	NotNull = "not_null",
 	Exists = "exists",
@@ -19,8 +19,8 @@ export enum UnaryOperator {
  * - "matches": { value1: "pattern", value2: "text" }
  * - "contains": { value1: "string", value2: "substring" }
  */
-export type BinaryOperator = 
-    "equals"
+export type BinaryBoolOperator =
+	"equals"
 	| "not_equals"
 	| "less_than"
 	| "less_than_equal"
@@ -42,8 +42,8 @@ export type BinaryOperator =
  * - "match_any": { list: ["a", "b"], value: "a" }
  * - "in": { list: [1, 2, 3], value: 2 }
  */
-export type ListOperator = 
-    "contains"
+export type ListBoolOperator =
+	"contains"
 	| "between"
 	| "match_any"
 	| "match_all"
@@ -56,11 +56,11 @@ export type ListOperator =
  * - "multiply": { value1: 4, value2: 2 } // result: 8
  * - "mod": { value1: 10, value2: 3 } // result: 1
  */
-export type ArithmeticOperator =
-    "plus" 
-	| "minus" 
-	| "multiply" 
-	| "divide" 
+export type ArithmeticNumberOperator =
+	"plus"
+	| "minus"
+	| "multiply"
+	| "divide"
 	| "mod"
 
 /**
@@ -71,13 +71,13 @@ export type ArithmeticOperator =
  * - "avg": [1, 2, 3] // result: 2
  * - "count": [1, 2, 3] // result: 3
  */
-export type AggregationOperator =
-    "min"
-    | "max"
-    | "sum"
-    | "avg"
-    | "list"
-    | "count"
+export type AggregationNumberOperator =
+	"min"
+	| "max"
+	| "sum"
+	| "avg"
+	| "list"
+	| "count"
 
 /**
  * Represents operators for location-based comparisons.
@@ -85,9 +85,9 @@ export type AggregationOperator =
  * - "within": { location1: { lat: 40, lng: -74 }, location2: { lat: 40, lng: -74 }, radius: 5 }
  * - "equals": { location1: { lat: 40, lng: -74 }, location2: { lat: 40, lng: -74 } }
  */
-export type LocationOperator = 
-    "within"
-    | "equals"
+export type LocationBoolOperator =
+	"within"
+	| "equals"
 
 /**
  * Represents logical operators for combining multiple conditions.
@@ -95,6 +95,6 @@ export type LocationOperator =
  * - "and": { condition1: true, condition2: true } // result: true
  * - "or": { condition1: true, condition2: false } // result: true
  */
-export type LogicalOperator = 
-    "and"
-    | "or"
+export type LogicalBoolOperator =
+	"and"
+	| "or"

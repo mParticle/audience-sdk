@@ -1,5 +1,5 @@
 import { Location } from "../common/location";
-import { LocationOperator, LogicalOperator } from "../common/operator";
+import { LocationBoolOperator, LogicalBoolOperator } from "../common/operator";
 
 /**
  * Represents an expression that evaluates to a location or location-based condition.
@@ -22,6 +22,6 @@ import { LocationOperator, LogicalOperator } from "../common/operator";
 export type LocationExpression =
     Location
     | // location (left) expression
-    { operator: LocationOperator, operand: Location }
+    { operator: LocationBoolOperator, operand: Location }
     |   // logical expression group
-    { operator: LogicalOperator, expressions: LocationExpression[] }
+    { operator: LogicalBoolOperator, expressions: LocationExpression[] }

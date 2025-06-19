@@ -1,5 +1,5 @@
 import { Operand } from "../operand/operand";
-import { BinaryOperator, LogicalOperator, UnaryOperator } from "../common/operator";
+import { BinaryBoolOperator, LogicalBoolOperator, UnaryBoolOperator } from "../common/operator";
 
 /**
  * Represents a complex expression that can evaluate to true, false, or noop.
@@ -32,8 +32,8 @@ import { BinaryOperator, LogicalOperator, UnaryOperator } from "../common/operat
  */
 export type Expression =
     // unary expression
-    { operator: UnaryOperator, operand: Operand }
+    { operator: UnaryBoolOperator, operand: Operand }
     |   // binary expression
-    { operator: BinaryOperator, left: Operand, right: Operand }
+    { operator: BinaryBoolOperator, left: Operand, right: Operand }
     |   // logical expression group
-    { operator: LogicalOperator, expressions: Expression[] }
+    { operator: LogicalBoolOperator, expressions: Expression[] }
