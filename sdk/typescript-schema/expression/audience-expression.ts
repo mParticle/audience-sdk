@@ -1,5 +1,5 @@
 import { AudienceOperand } from "../operand/audience-operand";
-import { Model } from "../common/model-path";
+import { ModelOperand } from "../operand/model-operand";
 import { AudienceOperator } from "../common/operator";
 
 
@@ -12,4 +12,4 @@ import { AudienceOperator } from "../common/operator";
  *    }
  */
 export type AudienceExpression =
-    { operator: AudienceOperator, left: Model, right: AudienceOperand }
+    { operator: AudienceOperator, left: ModelOperand, right: AudienceOperand }
