@@ -58,18 +58,6 @@ export type RelativeDate =
         }
     };
 
-/**
- * Represents a date value that can be either absolute or relative.
- * Examples:
- * 1. Absolute date:
- *    { date: { absolute: "2023-01-01T00:00:00Z" } }
- *
- * 2. Relative date (30 days ago):
- *    { date: { relative: { offset: -30, unit: "day" } } }
- *
- * 3. Relative date (start of current month):
- *    { date: { relative: { offset: 0, unit: "month", boundary: "start" } } }
- */
-export type DateOperand =
-    { date: AbsoluteDate }
-    | { date: RelativeDate }
+export type DateLiteral =
+    AbsoluteDate
+    | RelativeDate

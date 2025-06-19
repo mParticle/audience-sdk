@@ -1,5 +1,6 @@
 import { Location } from "../common/location";
 import { LocationBoolOperator, LogicalBoolOperator } from "../common/operator";
+import { ModelPath } from "../literal/model-path";
 
 /**
  * Represents an expression that evaluates to a location or location-based condition.
@@ -21,7 +22,4 @@ import { LocationBoolOperator, LogicalBoolOperator } from "../common/operator";
  */
 export type LocationExpression =
     Location
-    | // location (left) expression
-    { operator: LocationBoolOperator, operand: Location }
-    |   // logical expression group
-    { operator: LogicalBoolOperator, expressions: LocationExpression[] }
+    | ModelPath

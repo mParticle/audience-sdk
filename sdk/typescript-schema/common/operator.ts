@@ -19,13 +19,17 @@ export enum UnaryBoolOperator {
  * - "matches": { value1: "pattern", value2: "text" }
  * - "contains": { value1: "string", value2: "substring" }
  */
-export type BinaryBoolOperator =
+export type NumberBoolOperator =
 	"equals"
 	| "not_equals"
 	| "less_than"
 	| "less_than_equal"
 	| "greater_than"
 	| "greater_than_equal"
+
+export type StringBoolOperator =
+	"equals"
+	| "not_equals"
 	| "matches"
 	| "contains"
 	| "not_contains"
@@ -56,7 +60,7 @@ export type ListBoolOperator =
  * - "multiply": { value1: 4, value2: 2 } // result: 8
  * - "mod": { value1: 10, value2: 3 } // result: 1
  */
-export type ArithmeticNumberOperator =
+export type BinaryNumberOperator =
 	"plus"
 	| "minus"
 	| "multiply"

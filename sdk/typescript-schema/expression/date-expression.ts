@@ -1,5 +1,6 @@
 import { BinaryBoolOperator, LogicalBoolOperator } from "../common/operator";
-import { AbsoluteDate, RelativeDate } from "../operand/date-operand";
+import { AbsoluteDate, RelativeDate } from "../literal/date";
+import { ModelPath } from "../literal/model-path";
 
 /**
  * Represents an expression that evaluates to a date or date-based condition.
@@ -25,7 +26,4 @@ import { AbsoluteDate, RelativeDate } from "../operand/date-operand";
 export type DateExpression =
     AbsoluteDate
     | RelativeDate
-    |
-    { operator: BinaryBoolOperator, operand: AbsoluteDate | RelativeDate }
-    |   // logical expression group
-    { operator: LogicalBoolOperator, expressions: DateExpression[] }
+    | ModelPath

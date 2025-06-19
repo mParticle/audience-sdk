@@ -1,5 +1,10 @@
-import { Operand } from "../operand/operand";
+import { Operand } from "../literal/literal";
 import { BinaryBoolOperator, LogicalBoolOperator, UnaryBoolOperator } from "../common/operator";
+import { BooleanExpression } from "./boolean-expression";
+import { DateExpression } from "./date-expression";
+import { NumberExpression } from "./number-expression";
+import { LocationExpression } from "./location-expression";
+import { ModelPath } from "../literal/model-path";
 
 /**
  * Represents a complex expression that can evaluate to true, false, or noop.
@@ -31,9 +36,8 @@ import { BinaryBoolOperator, LogicalBoolOperator, UnaryBoolOperator } from "../c
  *    }
  */
 export type Expression =
-    // unary expression
-    { operator: UnaryBoolOperator, operand: Operand }
-    |   // binary expression
-    { operator: BinaryBoolOperator, left: Operand, right: Operand }
-    |   // logical expression group
-    { operator: LogicalBoolOperator, expressions: Expression[] }
+    BooleanExpression
+    | DateExpression
+    | NumberExpression
+    | LocationExpression
+    | ModelPath
