@@ -19,8 +19,8 @@ export enum UnaryOperator {
  * - "matches": { value1: "pattern", value2: "text" }
  * - "contains": { value1: "string", value2: "substring" }
  */
-export type BinaryOperator = 
-    "equals"
+export type BinaryOperator =
+	"equals"
 	| "not_equals"
 	| "less_than"
 	| "less_than_equal"
@@ -42,12 +42,13 @@ export type BinaryOperator =
  * - "match_any": { list: ["a", "b"], value: "a" }
  * - "in": { list: [1, 2, 3], value: 2 }
  */
-export type ListOperator = 
-    "contains"
+export type ListOperator =
+	"contains"
 	| "between"
 	| "match_any"
 	| "match_all"
 	| "in"
+	| "not_in"
 
 /**
  * Represents operators that work with audiences.
@@ -56,7 +57,8 @@ export type ListOperator =
  */
 export type AudienceOperator =
 	"in"
-	
+	| "not_in"
+
 /**
  * Represents mathematical operators for numeric calculations.
  * Examples:
@@ -65,10 +67,10 @@ export type AudienceOperator =
  * - "mod": { value1: 10, value2: 3 } // result: 1
  */
 export type ArithmeticOperator =
-    "plus" 
-	| "minus" 
-	| "multiply" 
-	| "divide" 
+	"plus"
+	| "minus"
+	| "multiply"
+	| "divide"
 	| "mod"
 
 /**
@@ -80,12 +82,12 @@ export type ArithmeticOperator =
  * - "count": [1, 2, 3] // result: 3
  */
 export type AggregationOperator =
-    "min"
-    | "max"
-    | "sum"
-    | "avg"
-    | "list"
-    | "count"
+	"min"
+	| "max"
+	| "sum"
+	| "avg"
+	| "list"
+	| "count"
 
 /**
  * Represents operators for location-based comparisons.
@@ -93,9 +95,9 @@ export type AggregationOperator =
  * - "within": { location1: { lat: 40, lng: -74 }, location2: { lat: 40, lng: -74 }, radius: 5 }
  * - "equals": { location1: { lat: 40, lng: -74 }, location2: { lat: 40, lng: -74 } }
  */
-export type LocationOperator = 
-    "within"
-    | "equals"
+export type LocationOperator =
+	"within"
+	| "equals"
 
 /**
  * Represents logical operators for combining multiple conditions.
@@ -103,6 +105,6 @@ export type LocationOperator =
  * - "and": { condition1: true, condition2: true } // result: true
  * - "or": { condition1: true, condition2: false } // result: true
  */
-export type LogicalOperator = 
-    "and"
-    | "or"
+export type LogicalOperator =
+	"and"
+	| "or"
