@@ -2,6 +2,8 @@ import { DateOperand } from "./date-operand";
 import { ModelPath } from "../common/model-path";
 import { AggregationOperator } from "../common/operator";
 import { Expression } from "../expression/expression";
+import { AudienceOperand } from "./audience-operand";
+import { ModelOperand } from "./model-operand";
 
 /**
  * Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations.
@@ -37,5 +39,7 @@ export type Operand =
     | string
     | DateOperand
     | ModelPath
+    | ModelOperand
+    | AudienceOperand
     | { operator: AggregationOperator, group_by_model: string, operand: Operand, condition?: Expression };
-    // | { operator: ArithmeticOperator, left: Operand, right: Operand };
+// | { operator: ArithmeticOperator, left: Operand, right: Operand };

@@ -56,6 +56,27 @@
       "type": "object",
       "title": "AudienceDefinition"
     },
+    "AudienceOperand": {
+      "additionalProperties": false,
+      "description": "Represents an audience. Audience is identified by it's ID. Example:    { \"audience\": 12345 }",
+      "properties": {
+        "audience": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "audience"
+      ],
+      "type": "object"
+    },
+    "AudienceOperator": {
+      "description": "Represents operators that work with audiences. Examples:\n- \"in\": { audience: 12345, model: \"users\" }",
+      "enum": [
+        "in",
+        "not_in"
+      ],
+      "type": "string"
+    },
     "BinaryOperator": {
       "description": "Represents binary operators that compare two values. Examples:\n- \"equals\": { value1: 5, value2: 5 }\n- \"less_than\": { value1: 3, value2: 5 }\n- \"matches\": { value1: \"pattern\", value2: \"text\" }\n- \"contains\": { value1: \"string\", value2: \"substring\" }",
       "enum": [
@@ -294,7 +315,8 @@
         "between",
         "match_any",
         "match_all",
-        "in"
+        "in",
+        "not_in"
       ],
       "type": "string"
     },
@@ -403,6 +425,18 @@
       ],
       "type": "string"
     },
+    "ModelOperand": {
+      "additionalProperties": false,
+      "properties": {
+        "model": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "model"
+      ],
+      "type": "object"
+    },
     "ModelPath": {
       "additionalProperties": false,
       "description": "Represents a model path reference within a data model. Examples: 1. Simple model path:    { \"model\": \"user\", \"path\": \"email\" }\n\n2. Nested model path:    { \"model\": \"order\", \"path\": \"items.productId\" }\n\n3. Deeply nested model path:    { \"model\": \"event\", \"path\": \"attributes.purchase.amount\" }",
@@ -436,6 +470,12 @@
         },
         {
           "$ref": "#/definitions/ModelPath"
+        },
+        {
+          "$ref": "#/definitions/ModelOperand"
+        },
+        {
+          "$ref": "#/definitions/AudienceOperand"
         },
         {
           "additionalProperties": false,
