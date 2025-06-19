@@ -1,9 +1,8 @@
 import { Version } from "./common/version";
-import { Expression } from "./expression/expression";
+import { BooleanExpression } from "./expression/boolean-expression";
 
 /**
- * @title AudienceDefinition
- * @description Represents a logical combination of audience expressions using AND/OR operators.
+ * Represents a logical combination of audience expressions using AND/OR operators.
  * Examples:
  * 1. Simple AND combination:
  *    {
@@ -46,7 +45,8 @@ import { Expression } from "./expression/expression";
  */
 
 /**
- * Represents a complete audience definition with a root logical expression.
+ * @title AudienceDefinition
+ * @description Represents a complete audience definition with a root logical expression.
  * Examples:
  * 1. Simple audience:
  *    {
@@ -78,10 +78,10 @@ import { Expression } from "./expression/expression";
  *      }
  *    }
  */
-export interface Audience {
+export type Audience = {
     schema_version: Version,
     /**
      * @title Audience
      */
-    audience: Expression
+    audience: BooleanExpression
 }
