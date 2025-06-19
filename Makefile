@@ -23,7 +23,9 @@ generate-python-models:
 		--output-model-type pydantic_v2.BaseModel \
 		--field-constraints \
 		--snake-case-field \
-		--encoding utf-8
+		--encoding utf-8 \
+		--collapse-root-models \
+		--use-union-operator
 	black $(PYTHON_OUTPUT_DIR)
 
 test:

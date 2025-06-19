@@ -17,7 +17,6 @@ from mp_audience_sdk.models.audience_models import (
     DateLiteralExpression,
     StringBoolExpression,
     StringBoolOperator,
-    Version,
 )
 
 
@@ -45,7 +44,7 @@ def test_user_query():
             left=ModelPath(model="user", path="product_id"),
             right=3,
         ),
-        schema_version=Version("1.0"),
+        schema_version="1.0",
     )
 
     assert audience_defintion == deserialized_obj
@@ -214,7 +213,7 @@ def test_user_query_with_single_model():
             operator=LogicalBoolOperator.and_,
             expressions=[user_query],
         ),
-        schema_version=Version("1.0"),
+        schema_version="1.0",
     )
 
     assert deserialized_obj == audience_defintion
@@ -266,7 +265,7 @@ def test_user_query_with_aggregate():
         audience=NumberBoolExpression(
             operator=NumberBoolOperator.greater_than_equal, left=aggregate_expr, right=100
         ),
-        schema_version=Version("1.0"),
+        schema_version="1.0",
     )
 
     assert deserialized_obj == audience_defintion
