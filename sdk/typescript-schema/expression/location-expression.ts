@@ -1,5 +1,4 @@
-import { Location } from "../common/location";
-import { LocationBoolOperator, LogicalBoolOperator } from "../common/operator";
+import { Location } from "../literal/location";
 import { ModelPath } from "../literal/model-path";
 
 /**

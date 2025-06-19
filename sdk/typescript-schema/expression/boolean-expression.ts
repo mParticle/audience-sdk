@@ -1,7 +1,6 @@
-import { ListBoolOperator, LocationBoolOperator, LogicalBoolOperator, NumberBoolOperator, StringBoolOperator } from "../common/operator";
+import { LocationBoolOperator, LogicalBoolOperator, NumberBoolOperator, StringBoolOperator, UnaryBoolOperator } from "../common/operator";
 import { ModelPath } from "../literal/model-path";
 import { DateExpression } from "./date-expression";
-import { Expression } from "./expression";
 import { LocationExpression } from "./location-expression";
 import { NumberExpression } from "./number-expression";
 import { StringExpression } from "./string-expression";
@@ -9,6 +8,7 @@ import { StringExpression } from "./string-expression";
 export type BooleanExpression =
     boolean
     | ModelPath
+    | { operator: UnaryBoolOperator, operand: ModelPath }
     | { operator: NumberBoolOperator, left: NumberExpression, right: NumberExpression }
     | { operator: StringBoolOperator, left: StringExpression, right: StringExpression }
     | { operator: LocationBoolOperator, left: LocationExpression, right: LocationExpression }

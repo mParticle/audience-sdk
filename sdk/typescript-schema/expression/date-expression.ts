@@ -1,4 +1,3 @@
-import { BinaryBoolOperator, LogicalBoolOperator } from "../common/operator";
 import { AbsoluteDate, RelativeDate } from "../literal/date";
 import { ModelPath } from "../literal/model-path";
 

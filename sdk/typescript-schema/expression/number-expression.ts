@@ -1,5 +1,4 @@
-import { Operand } from "../literal/literal";
-import { AggregationNumberOperator, BinaryBoolOperator, BinaryNumberOperator, LogicalBoolOperator } from "../common/operator";
+import { AggregationNumberOperator, BinaryNumberOperator } from "../common/operator";
 import { BooleanExpression } from "./boolean-expression";
 import { ModelPath } from "../literal/model-path";
 
