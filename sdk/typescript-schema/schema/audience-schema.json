@@ -70,8 +70,11 @@
       "type": "object"
     },
     "AudienceOperator": {
-      "const": "in",
       "description": "Represents operators that work with audiences. Examples:\n- \"in\": { audience: 12345, model: \"users\" }",
+      "enum": [
+        "in",
+        "not_in"
+      ],
       "type": "string"
     },
     "BinaryOperator": {
@@ -312,7 +315,8 @@
         "between",
         "match_any",
         "match_all",
-        "in"
+        "in",
+        "not_in"
       ],
       "type": "string"
     },
