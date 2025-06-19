@@ -213,10 +213,7 @@
     "DateExpression": {
       "anyOf": [
         {
-          "$ref": "#/definitions/AbsoluteDate"
-        },
-        {
-          "$ref": "#/definitions/RelativeDate"
+          "$ref": "#/definitions/DateLiteralExpression"
         },
         {
           "$ref": "#/definitions/ModelPath"
@@ -235,6 +232,26 @@
         }
       ],
       "title": "DateLiteral"
+    },
+    "DateLiteralExpression": {
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/AbsoluteDate"
+            },
+            {
+              "$ref": "#/definitions/RelativeDate"
+            }
+          ]
+        }
+      },
+      "required": [
+        "date"
+      ],
+      "title": "DateLiteralExpression",
+      "type": "object"
     },
     "DateUnit": {
       "description": "Represents units of time that can be used in relative date calculations.\nExamples:\n- 'second': 1 second\n- 'minute': 60 seconds\n- 'hour': 60 minutes\n- 'day': 24 hours\n- 'week': 7 days\n- 'month': ~30 days\n- 'quarter': 3 months\n- 'year': 12 months",

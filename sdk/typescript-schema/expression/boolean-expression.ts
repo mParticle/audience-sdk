@@ -9,37 +9,37 @@ import { StringExpression } from "./string-expression";
 /**
  * @title UnaryBoolExpression
  */
-type UnaryBoolExpression = { operator: UnaryBoolOperator, operand: Expression }
+export type UnaryBoolExpression = { operator: UnaryBoolOperator, operand: Expression }
 
 /**
  * @title NumberBoolExpression
  */
-type NumberBoolExpression = { operator: NumberBoolOperator, left: NumberExpression, right: NumberExpression }
+export type NumberBoolExpression = { operator: NumberBoolOperator, left: NumberExpression, right: NumberExpression }
 
 /**
  * @title StringBoolExpression
  */
-type StringBoolExpression = { operator: StringBoolOperator, left: StringExpression, right: StringExpression }
+export type StringBoolExpression = { operator: StringBoolOperator, left: StringExpression, right: StringExpression }
 
 /**
  * @title DateBoolExpression
  */
-type DateBoolExpression = { operator: NumberBoolOperator, left: DateExpression, right: DateExpression }
+export type DateBoolExpression = { operator: NumberBoolOperator, left: DateExpression, right: DateExpression }
 
 /**
  * @title LogicalBoolExpression
  */
-type LogicalBoolExpression = { operator: LogicalBoolOperator, left: BooleanExpression, right: BooleanExpression }
+export type LogicalBoolExpression = { operator: LogicalBoolOperator, left: BooleanExpression, right: BooleanExpression }
 
 /**
  * @title LogicalManyBoolExpression
  */
-type LogicalManyBoolExpression = { operator: LogicalBoolOperator, expressions: BooleanExpression[] }
+export type LogicalManyBoolExpression = { operator: LogicalBoolOperator, expressions: BooleanExpression[] }
 
 /**
  * @title LocationBooleanExpression
  */
-type LocationBooleanExpression = { operator: LocationBoolOperator, left: LocationExpression, right: LocationExpression }
+export type LocationBooleanExpression = { operator: LocationBoolOperator, left: LocationExpression, right: LocationExpression }
 
 /**
  * @title BooleanExpression

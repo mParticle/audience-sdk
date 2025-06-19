@@ -5,12 +5,12 @@ import { ModelPath } from "../literal/model-path";
 /**
  * @title BinaryNumberExpression
  */
-type BinaryNumberExpression = { operator: BinaryNumberOperator, left: NumberExpression, right: NumberExpression }
+export type BinaryNumberExpression = { operator: BinaryNumberOperator, left: NumberExpression, right: NumberExpression }
 
 /**
  * @title AggregateNumberExpression
  */
-type AggregateNumberExpression = { operator: AggregationNumberOperator, group_by_model: string, operand: NumberExpression, condition?: BooleanExpression }
+export type AggregateNumberExpression = { operator: AggregationNumberOperator, group_by_model: string, operand: NumberExpression, condition?: BooleanExpression }
 
 /**
  * @title NumberExpression

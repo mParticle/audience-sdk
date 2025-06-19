@@ -2,6 +2,11 @@ import { AbsoluteDate, RelativeDate } from "../literal/date";
 import { ModelPath } from "../literal/model-path";
 
 /**
+ * @title DateLiteralExpression
+ */
+export type DateLiteralExpression = { date: AbsoluteDate | RelativeDate }
+
+/**
  * @title BooleanExpression
  * @description Represents an expression that evaluates to a date or date-based condition.
  * Examples:
@@ -24,6 +29,5 @@ import { ModelPath } from "../literal/model-path";
  *    }
  */
 export type DateExpression =
-    AbsoluteDate
-    | RelativeDate
+    DateLiteralExpression
     | ModelPath
