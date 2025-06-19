@@ -2,7 +2,8 @@ import { Version } from "./common/version";
 import { Expression } from "./expression/expression";
 
 /**
- * Represents a logical combination of audience expressions using AND/OR operators.
+ * @title AudienceDefinition
+ * @description Represents a logical combination of audience expressions using AND/OR operators.
  * Examples:
  * 1. Simple AND combination:
  *    {
@@ -77,7 +78,10 @@ import { Expression } from "./expression/expression";
  *      }
  *    }
  */
-export type Audience = {
+export interface Audience {
     schema_version: Version,
+    /**
+     * @title Audience
+     */
     audience: Expression
 }

@@ -1,8 +1,10 @@
 import { DateLiteral } from "./date";
 import { ModelPath } from "./model-path";
+import { Location } from "./location";
 
 /**
- * Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations.
+ * @title Literal
+ * @description Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations.
  * Examples:
  * 1. Primitive values:
  *    true

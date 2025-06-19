@@ -2,7 +2,8 @@ import { AbsoluteDate, RelativeDate } from "../literal/date";
 import { ModelPath } from "../literal/model-path";
 
 /**
- * Represents an expression that evaluates to a date or date-based condition.
+ * @title BooleanExpression
+ * @description Represents an expression that evaluates to a date or date-based condition.
  * Examples:
  * 1. Absolute date:
  *    { absolute: "2023-01-01T00:00:00Z" }

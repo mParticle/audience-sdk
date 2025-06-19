@@ -3,7 +3,18 @@ import { BooleanExpression } from "./boolean-expression";
 import { ModelPath } from "../literal/model-path";
 
 /**
- * Represents a count expression, which can be a number, a binary operation, or a logical group.
+ * @title BinaryNumberExpression
+ */
+type BinaryNumberExpression = { operator: BinaryNumberOperator, left: NumberExpression, right: NumberExpression }
+
+/**
+ * @title AggregateNumberExpression
+ */
+type AggregateNumberExpression = { operator: AggregationNumberOperator, group_by_model: string, operand: NumberExpression, condition?: BooleanExpression }
+
+/**
+ * @title NumberExpression
+ * @description Represents a count expression, which can be a number, a binary operation, or a logical group.
  * Examples:
  * 1. Simple count:
  *    5
@@ -23,5 +34,5 @@ import { ModelPath } from "../literal/model-path";
 export type NumberExpression =
     number
     | ModelPath
-    | { operator: BinaryNumberOperator, left: NumberExpression, right: NumberExpression }
-    | { operator: AggregationNumberOperator, group_by_model: string, operand: NumberExpression, condition?: BooleanExpression }
+    | BinaryNumberExpression
+    | AggregateNumberExpression

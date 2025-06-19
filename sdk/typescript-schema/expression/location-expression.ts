@@ -2,7 +2,8 @@ import { Location } from "../literal/location";
 import { ModelPath } from "../literal/model-path";
 
 /**
- * Represents an expression that evaluates to a location or location-based condition.
+ * @title LocationExpression
+ * @description Represents an expression that evaluates to a location or location-based condition.
  * Examples:
  * 1. Simple location:
  *    { latitude: 40.7128, longitude: -74.0060, distance: { value: 5, unit: "miles" } }

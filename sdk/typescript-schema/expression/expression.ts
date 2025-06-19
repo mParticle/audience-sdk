@@ -5,7 +5,8 @@ import { LocationExpression } from "./location-expression";
 import { ModelPath } from "../literal/model-path";
 
 /**
- * Represents a complex expression that can evaluate to true, false, or noop.
+ * @title Expression
+ * @description Represents a complex expression that can evaluate to true, false, or noop.
  * Examples:
  * 1. Join expression (combining expressions from different models):
  *    {

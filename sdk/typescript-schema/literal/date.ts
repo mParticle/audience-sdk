@@ -1,5 +1,6 @@
 /**
- * Represents units of time that can be used in relative date calculations.
+ * @title DateUnit
+ * @description Represents units of time that can be used in relative date calculations.
  * Examples:
  * - 'second': 1 second
  * - 'minute': 60 seconds
@@ -21,7 +22,8 @@ export type DateUnit =
     | 'year';
 
 /**
- * Represents an absolute date/time value.
+ * @title AbsoluteDate
+ * @description Represents an absolute date/time value.
  * Examples:
  * 1. ISO 8601 date:
  *    { absolute: "2023-01-01T00:00:00Z" }
@@ -38,7 +40,8 @@ export type AbsoluteDate =
     };
 
 /**
- * Represents a date/time relative to the current time.
+ * @title RelativeDate
+ * @description Represents a date/time relative to the current time.
  * Examples:
  * 1. 7 days ago:
  *    { relative: { offset: -7, unit: "day" } }
@@ -57,7 +60,9 @@ export type RelativeDate =
             boundary?: "start" | "end"
         }
     };
-
+/**
+ * @title DateLiteral
+ */
 export type DateLiteral =
     AbsoluteDate
     | RelativeDate
