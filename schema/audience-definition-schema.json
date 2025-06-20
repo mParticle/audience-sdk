@@ -58,10 +58,10 @@
     },
     "AudienceOperand": {
       "additionalProperties": false,
-      "description": "Represents an audience. Audience is identified by it's ID. Example:    { \"audience\": 12345 }",
+      "description": "Represents an audience. Audience is identified by a string ID. Example:    { \"audience\": \"12345\" }",
       "properties": {
         "audience": {
-          "type": "number"
+          "type": "string"
         }
       },
       "required": [

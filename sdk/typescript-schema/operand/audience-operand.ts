@@ -1,8 +1,8 @@
 /**
- * Represents an audience. Audience is identified by it's ID.
+ * Represents an audience. Audience is identified by a string ID.
  * Example:
- *    { "audience": 12345 }
+ *    { "audience": "12345" }
  */
 export type AudienceOperand = {
-    audience: number
+    audience: string
 }
