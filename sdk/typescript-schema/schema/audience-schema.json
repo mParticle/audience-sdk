@@ -92,7 +92,9 @@
         "starts_with",
         "not_starts_with",
         "ends_with",
-        "not_ends_with"
+        "not_ends_with",
+        "in",
+        "not_in"
       ],
       "type": "string"
     },
