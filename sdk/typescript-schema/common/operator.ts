@@ -33,6 +33,8 @@ export type BinaryOperator =
 	| "not_starts_with"
 	| "ends_with"
 	| "not_ends_with"
+	| "in"
+	| "not_in"
 
 /**
  * Represents operators that work with lists of values.
