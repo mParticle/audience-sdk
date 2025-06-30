@@ -4,6 +4,7 @@ PYTHON_OUTPUT_DIR := sdk/python/mp_audience_sdk/models
 SCHEMA_FILE := schema/audience-definition-schema.json
 PYTHON_OUTPUT_FILE := $(PYTHON_OUTPUT_DIR)/audience_models.py
 TYPESCRIPT_SCHEMA_DIR := sdk/typescript-schema
+PYTHON_FIX_TYPE_FILE := sdk/python/fixup_types.py
 
 build: build-typescript generate-python-models test
 
@@ -24,8 +25,8 @@ generate-python-models:
 		--field-constraints \
 		--snake-case-field \
 		--encoding utf-8 \
-		--collapse-root-models \
 		--use-union-operator
+	python $(PYTHON_FIX_TYPE_FILE) $(PYTHON_OUTPUT_FILE)
 	black $(PYTHON_OUTPUT_DIR)
 
 test:
