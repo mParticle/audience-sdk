@@ -15,3 +15,11 @@ export type ModelPath = {
     model: string,
     path: string
 }
+
+/**
+ * @title ModelReference
+ * @description Represents a model reference within a data model
+ */
+export type ModelReference = {
+    model: string
+}

@@ -1,5 +1,5 @@
 import { AggregationNumberOperator, BinaryNumberOperator } from "../common/operator";
-import { BooleanExpression } from "./boolean-expression";
+import { BoolExpression } from "./boolean-expression";
 import { ModelPath } from "../literal/model-path";
 
 /**
@@ -10,7 +10,7 @@ export type BinaryNumberExpression = { operator: BinaryNumberOperator, left: Num
 /**
  * @title AggregateNumberExpression
  */
-export type AggregateNumberExpression = { operator: AggregationNumberOperator, group_by_model: string, operand: NumberExpression, condition?: BooleanExpression }
+export type AggregateNumberExpression = { operator: AggregationNumberOperator, group_by_model: string, operand: NumberExpression, condition?: BoolExpression }
 
 /**
  * @title NumberExpression

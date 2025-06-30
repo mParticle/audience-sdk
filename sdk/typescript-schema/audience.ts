@@ -1,5 +1,5 @@
 import { Version } from "./common/version";
-import { BooleanExpression } from "./expression/boolean-expression";
+import { BoolExpression } from "./expression/boolean-expression";
 
 /**
  * Represents a logical combination of audience expressions using AND/OR operators.
@@ -83,5 +83,5 @@ export type Audience = {
     /**
      * @title Audience
      */
-    audience: BooleanExpression
+    audience: BoolExpression
 }

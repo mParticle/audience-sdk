@@ -19,7 +19,7 @@
       "additionalProperties": false,
       "properties": {
         "condition": {
-          "$ref": "#/definitions/BooleanExpression"
+          "$ref": "#/definitions/BoolExpression"
         },
         "group_by_model": {
           "type": "string"
@@ -56,7 +56,7 @@
       "description": "Represents a complete audience definition with a root logical expression.\nExamples:\n1. Simple audience:\n{\n\"schema_version\": \"1.0.0\",\n\"audience\": {\n\"operator\": \"and\",\n\"expressions\": [\n{ \"model\": \"user\", \"expression\": { \"operator\": \"exists\", \"operand\": { \"path\": \"id\" } } },\n{ \"model\": \"purchase\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"status\" }, \"right\": \"completed\" } }\n]\n}\n}\n\n2. Audience with nested logic:\n{\n\"schema_version\": \"1.0.0\",\n\"audience\": {\n\"operator\": \"or\",\n\"expressions\": [\n{ \"model\": \"user\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"country\" }, \"right\": \"US\" } },\n{\n\"operator\": \"and\",\n\"expressions\": [\n{ \"model\": \"signup\", \"expression\": { \"operator\": \"equals\", \"left\": { \"path\": \"status\" }, \"right\": \"completed\" } },\n{ \"model\": \"user\", \"expression\": { \"operator\": \"greater_than\", \"left\": { \"path\": \"age\" }, \"right\": 18 } }\n]\n}\n]\n}\n}",
       "properties": {
         "audience": {
-          "$ref": "#/definitions/BooleanExpression",
+          "$ref": "#/definitions/BoolExpression",
           "title": "Audience"
         },
         "schema_version": {
@@ -70,6 +70,27 @@
       "title": "AudienceDefinition",
       "type": "object"
     },
+    "AudienceBoolExpression": {
+      "additionalProperties": false,
+      "properties": {
+        "left": {
+          "$ref": "#/definitions/ModelReference"
+        },
+        "operator": {
+          "$ref": "#/definitions/AudienceOperator"
+        },
+        "right": {
+          "$ref": "#/definitions/AudienceReference"
+        }
+      },
+      "required": [
+        "operator",
+        "left",
+        "right"
+      ],
+      "title": "AudienceBoolExpression",
+      "type": "object"
+    },
     "AudienceOperator": {
       "description": "Represents operators that work with audiences. Examples:\n- \"in\": { audience: 12345, model: \"users\" }",
       "enum": [
@@ -77,6 +98,20 @@
         "not_in"
       ],
       "type": "string"
+    },
+    "AudienceReference": {
+      "additionalProperties": false,
+      "description": "Represents an audience. Audience is identified by a string ID.\nExample:\n{ \"audience\": \"12345\" }",
+      "properties": {
+        "audience": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "audience"
+      ],
+      "title": "AudienceReference",
+      "type": "object"
     },
     "BinaryNumberExpression": {
       "additionalProperties": false,
@@ -110,7 +145,7 @@
       ],
       "type": "string"
     },
-    "BooleanExpression": {
+    "BoolExpression": {
       "anyOf": [
         {
           "type": "boolean"
@@ -137,10 +172,10 @@
           "$ref": "#/definitions/LogicalManyBoolExpression"
         },
         {
-          "$ref": "#/definitions/LocationBooleanExpression"
+          "$ref": "#/definitions/LocationBoolExpression"
         }
       ],
-      "title": "BooleanExpression"
+      "title": "BoolExpression"
     },
     "DateBoolExpression": {
       "additionalProperties": false,
@@ -233,7 +268,7 @@
     "Expression": {
       "anyOf": [
         {
-          "$ref": "#/definitions/BooleanExpression"
+          "$ref": "#/definitions/BoolExpression"
         },
         {
           "$ref": "#/definitions/DateExpression"
@@ -243,9 +278,6 @@
         },
         {
           "$ref": "#/definitions/LocationExpression"
-        },
-        {
-          "$ref": "#/definitions/ModelPath"
         }
       ],
       "description": "Represents a complex expression that can evaluate to true, false, or noop.\nExamples:\n1. Join expression (combining expressions from different models):\n{\n\"model\": \"user\",\n\"expression\": {\n\"operator\": \"equals\",\n\"left\": { \"path\": \"age\" },\n\"right\": 18\n}\n}\n\n2. Logical expression (AND):\n{\n\"operator\": \"and\",\n\"expressions\": [\n{ \"operator\": \"equals\", \"left\": { \"path\": \"country\" }, \"right\": \"US\" },\n{ \"operator\": \"greater_than\", \"left\": { \"path\": \"age\" }, \"right\": 18 }\n]\n}\n\n3. Location expression:\n{\n\"operator\": \"within\",\n\"left\": { \"location\": { \"latitude\": 37.7749, \"longitude\": -122.4194, \"distance\": { \"value\": 10, \"unit\": \"miles\" } } },\n\"right\": { \"model\": \"user\", \"path\": \"location\" }\n}",
@@ -321,15 +353,7 @@
       "title": "Location",
       "type": "object"
     },
-    "LocationBoolOperator": {
-      "description": "Represents operators for location-based comparisons. Examples:\n- \"within\": { location1: { lat: 40, lng: -74 }, location2: { lat: 40, lng: -74 }, radius: 5 }\n- \"equals\": { location1: { lat: 40, lng: -74 }, location2: { lat: 40, lng: -74 } }",
-      "enum": [
-        "within",
-        "equals"
-      ],
-      "type": "string"
-    },
-    "LocationBooleanExpression": {
+    "LocationBoolExpression": {
       "additionalProperties": false,
       "properties": {
         "left": {
@@ -347,8 +371,16 @@
         "left",
         "right"
       ],
-      "title": "LocationBooleanExpression",
+      "title": "LocationBoolExpression",
       "type": "object"
+    },
+    "LocationBoolOperator": {
+      "description": "Represents operators for location-based comparisons. Examples:\n- \"within\": { location1: { lat: 40, lng: -74 }, location2: { lat: 40, lng: -74 }, radius: 5 }\n- \"equals\": { location1: { lat: 40, lng: -74 }, location2: { lat: 40, lng: -74 } }",
+      "enum": [
+        "within",
+        "equals"
+      ],
+      "type": "string"
     },
     "LocationExpression": {
       "anyOf": [
@@ -366,13 +398,13 @@
       "additionalProperties": false,
       "properties": {
         "left": {
-          "$ref": "#/definitions/BooleanExpression"
+          "$ref": "#/definitions/BoolExpression"
         },
         "operator": {
           "$ref": "#/definitions/LogicalBoolOperator"
         },
         "right": {
-          "$ref": "#/definitions/BooleanExpression"
+          "$ref": "#/definitions/BoolExpression"
         }
       },
       "required": [
@@ -396,7 +428,7 @@
       "properties": {
         "expressions": {
           "items": {
-            "$ref": "#/definitions/BooleanExpression"
+            "$ref": "#/definitions/BoolExpression"
           },
           "type": "array"
         },
@@ -427,6 +459,20 @@
         "path"
       ],
       "title": "ModelPath",
+      "type": "object"
+    },
+    "ModelReference": {
+      "additionalProperties": false,
+      "description": "Represents a model reference within a data model",
+      "properties": {
+        "model": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "model"
+      ],
+      "title": "ModelReference",
       "type": "object"
     },
     "NumberBoolExpression": {

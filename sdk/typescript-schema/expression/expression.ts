@@ -1,8 +1,7 @@
-import { BooleanExpression } from "./boolean-expression";
+import { BoolExpression } from "./boolean-expression";
 import { DateExpression } from "./date-expression";
 import { NumberExpression } from "./number-expression";
 import { LocationExpression } from "./location-expression";
-import { ModelPath } from "../literal/model-path";
 
 /**
  * @title Expression
@@ -35,8 +34,7 @@ import { ModelPath } from "../literal/model-path";
  *    }
  */
 export type Expression =
-    BooleanExpression
+    BoolExpression
     | DateExpression
     | NumberExpression
     | LocationExpression
-    | ModelPath

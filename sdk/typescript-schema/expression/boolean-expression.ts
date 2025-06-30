@@ -1,5 +1,6 @@
-import { LocationBoolOperator, LogicalBoolOperator, NumberBoolOperator, StringBoolOperator, UnaryBoolOperator } from "../common/operator";
-import { ModelPath } from "../literal/model-path";
+import { AudienceOperator as AudienceBoolOperator, LocationBoolOperator, LogicalBoolOperator, NumberBoolOperator, StringBoolOperator, UnaryBoolOperator } from "../common/operator";
+import { AudienceReference } from "../literal/audience";
+import { ModelPath, ModelReference } from "../literal/model-path";
 import { DateExpression } from "./date-expression";
 import { Expression } from "./expression";
 import { LocationExpression } from "./location-expression";
@@ -29,22 +30,27 @@ export type DateBoolExpression = { operator: NumberBoolOperator, left: DateExpre
 /**
  * @title LogicalBoolExpression
  */
-export type LogicalBoolExpression = { operator: LogicalBoolOperator, left: BooleanExpression, right: BooleanExpression }
+export type LogicalBoolExpression = { operator: LogicalBoolOperator, left: BoolExpression, right: BoolExpression }
 
 /**
  * @title LogicalManyBoolExpression
  */
-export type LogicalManyBoolExpression = { operator: LogicalBoolOperator, expressions: BooleanExpression[] }
+export type LogicalManyBoolExpression = { operator: LogicalBoolOperator, expressions: BoolExpression[] }
 
 /**
- * @title LocationBooleanExpression
+ * @title LocationBoolExpression
  */
-export type LocationBooleanExpression = { operator: LocationBoolOperator, left: LocationExpression, right: LocationExpression }
+export type LocationBoolExpression = { operator: LocationBoolOperator, left: LocationExpression, right: LocationExpression }
 
 /**
- * @title BooleanExpression
+* @title AudienceBoolExpression
  */
-export type BooleanExpression =
+export type AudienceBoolExpression = { operator: AudienceBoolOperator, left: ModelReference, right: AudienceReference }
+
+/**
+ * @title BoolExpression
+ */
+export type BoolExpression =
     boolean
     | ModelPath
     | UnaryBoolExpression
@@ -53,5 +59,5 @@ export type BooleanExpression =
     | DateBoolExpression
     | LogicalBoolExpression
     | LogicalManyBoolExpression
-    | LocationBooleanExpression
+    | LocationBoolExpression
 // TODO: | { operator: ListBoolOperator, left: Expression, right: ListExpression }
