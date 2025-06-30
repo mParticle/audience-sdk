@@ -37,6 +37,8 @@ export type StringBoolOperator =
 	| "not_starts_with"
 	| "ends_with"
 	| "not_ends_with"
+	| "in"
+	| "not_in"
 
 /**
  * Represents operators that work with lists of values.
@@ -52,6 +54,16 @@ export type ListBoolOperator =
 	| "match_any"
 	| "match_all"
 	| "in"
+	| "not_in"
+
+/**
+ * Represents operators that work with audiences.
+ * Examples:
+ * - "in": { audience: 12345, model: "users" }
+ */
+export type AudienceOperator =
+	"in"
+	| "not_in"
 
 /**
  * Represents mathematical operators for numeric calculations.
