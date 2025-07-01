@@ -14,7 +14,7 @@ from mp_audience_sdk.models.audience_models import (
     NumberBoolOperator,
     Relative,
     RelativeDate,
-    DateLiteralExpression,
+    ValueDateExpression,
     StringBoolExpression,
     StringBoolOperator,
 )
@@ -187,13 +187,13 @@ def test_user_query_with_single_model():
     absolute_date_expr = DateBoolExpression(
         operator=NumberBoolOperator.equals,
         left=ModelPath(model="user", path="registration_date"),
-        right=DateLiteralExpression(date=AbsoluteDate(absolute="2024-01-15T00:00:00Z")),
+        right=ValueDateExpression(date=AbsoluteDate(absolute="2024-01-15T00:00:00Z")),
     )
 
     relative_date_expr = DateBoolExpression(
         operator=NumberBoolOperator.greater_than_equal,
         left=ModelPath(model="user", path="last_seen_date"),
-        right=DateLiteralExpression(
+        right=ValueDateExpression(
             date=RelativeDate(relative=Relative(offset=-30, unit=DateUnit.day))
         ),
     )

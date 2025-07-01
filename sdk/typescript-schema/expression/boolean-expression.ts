@@ -8,6 +8,11 @@ import { NumberExpression } from "./number-expression";
 import { StringExpression } from "./string-expression";
 
 /**
+ * @title ValueBoolExpression
+ */
+export type ValueBoolExpression = boolean | ModelPath
+
+/**
  * @title UnaryBoolExpression
  */
 export type UnaryBoolExpression = { operator: UnaryBoolOperator, operand: Expression }
@@ -33,11 +38,6 @@ export type DateBoolExpression = { operator: NumberBoolOperator, left: DateExpre
 export type LogicalBoolExpression = { operator: LogicalBoolOperator, left: BoolExpression, right: BoolExpression }
 
 /**
- * @title LogicalManyBoolExpression
- */
-export type LogicalManyBoolExpression = { operator: LogicalBoolOperator, expressions: BoolExpression[] }
-
-/**
  * @title LocationBoolExpression
  */
 export type LocationBoolExpression = { operator: LocationBoolOperator, left: LocationExpression, right: LocationExpression }
@@ -48,16 +48,26 @@ export type LocationBoolExpression = { operator: LocationBoolOperator, left: Loc
 export type AudienceBoolExpression = { operator: AudienceBoolOperator, left: ModelReference, right: AudienceReference }
 
 /**
+ * @title BoolBinaryExpression
+ */
+export type BinaryBoolExpression = AudienceBoolExpression | LocationBoolExpression | LocationBoolExpression | DateBoolExpression | StringBoolExpression | NumberBoolExpression;
+
+/**
+ * @title LogicalManyBoolExpression
+ */
+export type LogicalManyBoolExpression = { operator: LogicalBoolOperator, expressions: BoolExpression[] }
+
+/**
+ * @title ManyBoolExpression
+ */
+export type ManyBoolExpression = LogicalManyBoolExpression
+
+/**
  * @title BoolExpression
  */
 export type BoolExpression =
-    boolean
-    | ModelPath
+    ValueBoolExpression
     | UnaryBoolExpression
-    | NumberBoolExpression
-    | StringBoolExpression
-    | DateBoolExpression
-    | LogicalBoolExpression
-    | LogicalManyBoolExpression
-    | LocationBoolExpression
+    | BinaryBoolExpression
+    | ManyBoolExpression
 // TODO: | { operator: ListBoolOperator, left: Expression, right: ListExpression }

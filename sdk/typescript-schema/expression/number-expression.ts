@@ -3,6 +3,11 @@ import { BoolExpression } from "./boolean-expression";
 import { ModelPath } from "../literal/model-path";
 
 /**
+ * @title ValueNumberExpression
+ */
+export type ValueNumberExpression = number | ModelPath
+
+/**
  * @title BinaryNumberExpression
  */
 export type BinaryNumberExpression = { operator: BinaryNumberOperator, left: NumberExpression, right: NumberExpression }
@@ -14,25 +19,9 @@ export type AggregateNumberExpression = { operator: AggregationNumberOperator, g
 
 /**
  * @title NumberExpression
- * @description Represents a count expression, which can be a number, a binary operation, or a logical group.
- * Examples:
- * 1. Simple count:
- *    5
- *
- * 2. Binary count expression:
- *    { operator: "greater_than", operand: { path: "event.count" } }
- *
- * 3. Logical group of count expressions:
- *    {
- *      operator: "and",
- *      expressions: [
- *        1,
- *        { operator: "greater_than", operand: { path: "event.count" } }
- *      ]
- *    }
+ * @description Represents an expression that evaluates to a number.
  */
 export type NumberExpression =
-    number
-    | ModelPath
+    ValueNumberExpression
     | BinaryNumberExpression
     | AggregateNumberExpression

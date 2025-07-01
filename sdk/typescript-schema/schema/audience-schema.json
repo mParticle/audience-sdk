@@ -15,6 +15,10 @@
       "title": "AbsoluteDate",
       "type": "object"
     },
+    "AggregateExpression": {
+      "$ref": "#/definitions/AggregateNumberExpression",
+      "title": "AggregateExpression"
+    },
     "AggregateNumberExpression": {
       "additionalProperties": false,
       "properties": {
@@ -113,6 +117,37 @@
       "title": "AudienceReference",
       "type": "object"
     },
+    "BinaryBoolExpression": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/AudienceBoolExpression"
+        },
+        {
+          "$ref": "#/definitions/LocationBoolExpression"
+        },
+        {
+          "$ref": "#/definitions/DateBoolExpression"
+        },
+        {
+          "$ref": "#/definitions/StringBoolExpression"
+        },
+        {
+          "$ref": "#/definitions/NumberBoolExpression"
+        }
+      ],
+      "title": "BoolBinaryExpression"
+    },
+    "BinaryExpression": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/BinaryBoolExpression"
+        },
+        {
+          "$ref": "#/definitions/BinaryNumberExpression"
+        }
+      ],
+      "title": "BinaryExpression"
+    },
     "BinaryNumberExpression": {
       "additionalProperties": false,
       "properties": {
@@ -148,31 +183,16 @@
     "BoolExpression": {
       "anyOf": [
         {
-          "type": "boolean"
-        },
-        {
-          "$ref": "#/definitions/ModelPath"
+          "$ref": "#/definitions/ValueBoolExpression"
         },
         {
           "$ref": "#/definitions/UnaryBoolExpression"
         },
         {
-          "$ref": "#/definitions/NumberBoolExpression"
+          "$ref": "#/definitions/BinaryBoolExpression"
         },
         {
-          "$ref": "#/definitions/StringBoolExpression"
-        },
-        {
-          "$ref": "#/definitions/DateBoolExpression"
-        },
-        {
-          "$ref": "#/definitions/LogicalBoolExpression"
-        },
-        {
-          "$ref": "#/definitions/LogicalManyBoolExpression"
-        },
-        {
-          "$ref": "#/definitions/LocationBoolExpression"
+          "$ref": "#/definitions/ManyBoolExpression"
         }
       ],
       "title": "BoolExpression"
@@ -199,16 +219,9 @@
       "type": "object"
     },
     "DateExpression": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/DateLiteralExpression"
-        },
-        {
-          "$ref": "#/definitions/ModelPath"
-        }
-      ],
-      "description": "Represents an expression that evaluates to a date or date-based condition.\nExamples:\n1. Absolute date:\n{ absolute: \"2023-01-01T00:00:00Z\" }\n\n2. Relative date:\n{ relative: { offset: -30, unit: \"day\" } }\n\n3. Date with binary operator:\n{ operator: \"greater_than\", operand: { absolute: \"2023-01-01T00:00:00Z\" } }\n\n4. Logical combination of dates:\n{\noperator: \"and\",\nexpressions: [\n{ absolute: \"2023-01-01T00:00:00Z\" },\n{ operator: \"less_than\", operand: { relative: { offset: 0, unit: \"month\", boundary: \"end\" } } }\n]\n}",
-      "title": "BooleanExpression"
+      "$ref": "#/definitions/ValueDateExpression",
+      "description": "Represents an expression that evaluates to a date",
+      "title": "DateExpression"
     },
     "DateLiteral": {
       "anyOf": [
@@ -220,26 +233,6 @@
         }
       ],
       "title": "DateLiteral"
-    },
-    "DateLiteralExpression": {
-      "additionalProperties": false,
-      "properties": {
-        "date": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/AbsoluteDate"
-            },
-            {
-              "$ref": "#/definitions/RelativeDate"
-            }
-          ]
-        }
-      },
-      "required": [
-        "date"
-      ],
-      "title": "DateLiteralExpression",
-      "type": "object"
     },
     "DateUnit": {
       "description": "Represents units of time that can be used in relative date calculations.\nExamples:\n- 'second': 1 second\n- 'minute': 60 seconds\n- 'hour': 60 minutes\n- 'day': 24 hours\n- 'week': 7 days\n- 'month': ~30 days\n- 'quarter': 3 months\n- 'year': 12 months",
@@ -268,19 +261,19 @@
     "Expression": {
       "anyOf": [
         {
-          "$ref": "#/definitions/BoolExpression"
+          "$ref": "#/definitions/ValueExpression"
         },
         {
-          "$ref": "#/definitions/DateExpression"
+          "$ref": "#/definitions/UnaryExpression"
         },
         {
-          "$ref": "#/definitions/NumberExpression"
+          "$ref": "#/definitions/BinaryExpression"
         },
         {
-          "$ref": "#/definitions/LocationExpression"
+          "$ref": "#/definitions/ManyExpression"
         }
       ],
-      "description": "Represents a complex expression that can evaluate to true, false, or noop.\nExamples:\n1. Join expression (combining expressions from different models):\n{\n\"model\": \"user\",\n\"expression\": {\n\"operator\": \"equals\",\n\"left\": { \"path\": \"age\" },\n\"right\": 18\n}\n}\n\n2. Logical expression (AND):\n{\n\"operator\": \"and\",\n\"expressions\": [\n{ \"operator\": \"equals\", \"left\": { \"path\": \"country\" }, \"right\": \"US\" },\n{ \"operator\": \"greater_than\", \"left\": { \"path\": \"age\" }, \"right\": 18 }\n]\n}\n\n3. Location expression:\n{\n\"operator\": \"within\",\n\"left\": { \"location\": { \"latitude\": 37.7749, \"longitude\": -122.4194, \"distance\": { \"value\": 10, \"unit\": \"miles\" } } },\n\"right\": { \"model\": \"user\", \"path\": \"location\" }\n}",
+      "description": "Represents an expression that accepts a variety of arguments and evaluates to a value.",
       "title": "Expression"
     },
     "ListBoolOperator": {
@@ -383,15 +376,8 @@
       "type": "string"
     },
     "LocationExpression": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/Location"
-        },
-        {
-          "$ref": "#/definitions/ModelPath"
-        }
-      ],
-      "description": "Represents an expression that evaluates to a location or location-based condition.\nExamples:\n1. Simple location:\n{ latitude: 40.7128, longitude: -74.0060, distance: { value: 5, unit: \"miles\" } }\n\n2. Location with operator:\n{ operator: \"within\", operand: { latitude: 40.7128, longitude: -74.0060, distance: { value: 5, unit: \"miles\" } } }\n\n3. Logical combination of locations:\n{\noperator: \"or\",\nexpressions: [\n{ latitude: 40.7128, longitude: -74.0060, distance: { value: 5, unit: \"miles\" } },\n{ operator: \"within\", operand: { latitude: 34.0522, longitude: -118.2437, distance: { value: 10, unit: \"miles\" } } }\n]\n}",
+      "$ref": "#/definitions/ValueLocationExpression",
+      "description": "Represents an expression that evaluates to a location or location-based condition.",
       "title": "LocationExpression"
     },
     "LogicalBoolExpression": {
@@ -442,6 +428,14 @@
       ],
       "title": "LogicalManyBoolExpression",
       "type": "object"
+    },
+    "ManyBoolExpression": {
+      "$ref": "#/definitions/LogicalManyBoolExpression",
+      "title": "ManyBoolExpression"
+    },
+    "ManyExpression": {
+      "$ref": "#/definitions/ManyBoolExpression",
+      "title": "ManyExpression"
     },
     "ModelPath": {
       "additionalProperties": false,
@@ -511,10 +505,7 @@
     "NumberExpression": {
       "anyOf": [
         {
-          "type": "number"
-        },
-        {
-          "$ref": "#/definitions/ModelPath"
+          "$ref": "#/definitions/ValueNumberExpression"
         },
         {
           "$ref": "#/definitions/BinaryNumberExpression"
@@ -523,7 +514,7 @@
           "$ref": "#/definitions/AggregateNumberExpression"
         }
       ],
-      "description": "Represents a count expression, which can be a number, a binary operation, or a logical group.\nExamples:\n1. Simple count:\n5\n\n2. Binary count expression:\n{ operator: \"greater_than\", operand: { path: \"event.count\" } }\n\n3. Logical group of count expressions:\n{\noperator: \"and\",\nexpressions: [\n1,\n{ operator: \"greater_than\", operand: { path: \"event.count\" } }\n]\n}",
+      "description": "Represents an expression that evaluates to a number.",
       "title": "NumberExpression"
     },
     "RelativeDate": {
@@ -598,14 +589,7 @@
       "type": "string"
     },
     "StringExpression": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "$ref": "#/definitions/ModelPath"
-        }
-      ],
+      "$ref": "#/definitions/ValueStringExpression",
       "title": "StringExpression"
     },
     "UnaryBoolExpression": {
@@ -634,6 +618,94 @@
         "not_exists"
       ],
       "type": "string"
+    },
+    "UnaryExpression": {
+      "$ref": "#/definitions/UnaryBoolExpression",
+      "title": "UnaryExpression"
+    },
+    "ValueBoolExpression": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "#/definitions/ModelPath"
+        }
+      ],
+      "title": "ValueBoolExpression"
+    },
+    "ValueDateExpression": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "date": {
+              "$ref": "#/definitions/DateLiteral"
+            }
+          },
+          "required": [
+            "date"
+          ],
+          "type": "object"
+        },
+        {
+          "$ref": "#/definitions/ModelPath"
+        }
+      ],
+      "title": "ValueDateExpression"
+    },
+    "ValueExpression": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/ValueBoolExpression"
+        },
+        {
+          "$ref": "#/definitions/ValueDateExpression"
+        },
+        {
+          "$ref": "#/definitions/ValueLocationExpression"
+        },
+        {
+          "$ref": "#/definitions/ValueNumberExpression"
+        },
+        {
+          "$ref": "#/definitions/ValueStringExpression"
+        }
+      ],
+      "title": "ValueExpression"
+    },
+    "ValueLocationExpression": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Location"
+        },
+        {
+          "$ref": "#/definitions/ModelPath"
+        }
+      ],
+      "title": "ValueLocationExpression"
+    },
+    "ValueNumberExpression": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "$ref": "#/definitions/ModelPath"
+        }
+      ],
+      "title": "ValueNumberExpression"
+    },
+    "ValueStringExpression": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/ModelPath"
+        }
+      ],
+      "title": "ValueStringExpression"
     },
     "Version": {
       "type": [
