@@ -15,11 +15,7 @@ echo "Setting emitDeclarationOnly to false..."
 jq '.compilerOptions.emitDeclarationOnly = false' "$TSCONFIG" > tmp.tsconfig.json && mv tmp.tsconfig.json "$TSCONFIG"
 
 echo "Generating JSON schema..."
-./node_modules/.bin/ts-json-schema-generator --path index.ts --out schema/audience-schema.tmp.json
-
-echo "Adding titles to schema..."
-./scripts/add_titles_to_schema.sh schema/audience-schema.tmp.json > schema/audience-schema.json
+./node_modules/.bin/ts-json-schema-generator --path index.ts --out schema/audience-schema.json
 cp -f schema/audience-schema.json ../../schema/audience-definition-schema.json
-rm -f schema/audience-schema.tmp.json
 
 echo "Schema generation complete."

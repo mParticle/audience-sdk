@@ -1,39 +1,56 @@
-import { Operand } from "../operand/operand";
-import { BinaryOperator, LogicalOperator, UnaryOperator } from "../common/operator";
+import { BoolExpression, ValueBoolExpression } from "./boolean-expression";
+import { DateExpression, ValueDateExpression } from "./date-expression";
+import { NumberExpression, ValueNumberExpression } from "./number-expression";
+import { LocationExpression, ValueLocationExpression } from "./location-expression";
+import { StringExpression, ValueStringExpression } from "./string-expression";
+import { IAggregateExpression, IBinaryExpression, IManyExpression, IUnaryExpression } from "./expression-interfaces";
+import { Literal } from "../literal/literal";
 
 /**
- * Represents a complex expression that can evaluate to true, false, or noop.
- * Examples:
- * 1. Join expression (combining expressions from different models):
- *    {
- *      "model": "user",
- *      "expression": {
- *        "operator": "equals",
- *        "left": { "path": "age" },
- *        "right": 18
- *      }
- *    }
- *
- * 2. Logical expression (AND):
- *    {
- *      "operator": "and",
- *      "expressions": [
- *        { "operator": "equals", "left": { "path": "country" }, "right": "US" },
- *        { "operator": "greater_than", "left": { "path": "age" }, "right": 18 }
- *      ]
- *    }
- *
- * 3. Location expression:
- *    {
- *      "operator": "within",
- *      "left": { "location": { "latitude": 37.7749, "longitude": -122.4194, "distance": { "value": 10, "unit": "miles" } } },
- *      "right": { "model": "user", "path": "location" }
- *    }
+ * @title ValueExpression
+ */
+export type ValueExpression =
+    ValueBoolExpression
+    | ValueDateExpression
+    | ValueLocationExpression
+    | ValueNumberExpression
+    | ValueStringExpression
+
+/**
+//  * @title UnaryExpression
+//  */
+// export type UnaryExpression = UnaryBoolExpression
+
+// /**
+//  * @title BinaryExpression
+//  */
+// export type BinaryExpression = BinaryBoolExpression | BinaryNumberExpression
+
+// /**
+//  * @title ManyExpression
+//  */
+// export type ManyExpression = ManyBoolExpression
+
+
+
+// /**
+//  * @title AggregateExpression
+//  */
+// export type AggregateExpression = AggregateNumberExpression
+
+/**
+ * @title Expression
+ * @description Represents an expression that accepts a variety of arguments and evaluates to a value.
  */
 export type Expression =
-    // unary expression
-    { operator: UnaryOperator, operand: Operand }
-    |   // binary expression
-    { operator: BinaryOperator, left: Operand, right: Operand }
-    |   // logical expression group
-    { operator: LogicalOperator, expressions: Expression[] }
+    ValueExpression
+    | IUnaryExpression
+    | IBinaryExpression
+    | IManyExpression
+    | IAggregateExpression
+    | BoolExpression
+    | NumberExpression
+    | StringExpression
+    | LocationExpression
+    | DateExpression
+    | Literal
