@@ -36,9 +36,9 @@
         }
       },
       "required": [
-        "operator",
         "group_by_model",
-        "operand"
+        "operand",
+        "operator"
       ],
       "title": "AggregateNumberExpression",
       "type": "object"
@@ -88,8 +88,8 @@
         }
       },
       "required": [
-        "operator",
         "left",
+        "operator",
         "right"
       ],
       "title": "AudienceBoolExpression",
@@ -162,8 +162,8 @@
         }
       },
       "required": [
-        "operator",
         "left",
+        "operator",
         "right"
       ],
       "title": "BinaryNumberExpression",
@@ -211,8 +211,8 @@
         }
       },
       "required": [
-        "operator",
         "left",
+        "operator",
         "right"
       ],
       "title": "DateBoolExpression",
@@ -267,14 +267,94 @@
           "$ref": "#/definitions/UnaryExpression"
         },
         {
-          "$ref": "#/definitions/BinaryExpression"
+          "$ref": "#/definitions/IBinaryExpression"
         },
         {
           "$ref": "#/definitions/ManyExpression"
+        },
+        {
+          "$ref": "#/definitions/BoolExpression"
+        },
+        {
+          "$ref": "#/definitions/NumberExpression"
+        },
+        {
+          "$ref": "#/definitions/StringExpression"
+        },
+        {
+          "$ref": "#/definitions/LocationExpression"
+        },
+        {
+          "$ref": "#/definitions/DateExpression"
+        },
+        {
+          "$ref": "#/definitions/Literal"
         }
       ],
       "description": "Represents an expression that accepts a variety of arguments and evaluates to a value.",
       "title": "Expression"
+    },
+    "IAggregateExpression": {
+      "additionalProperties": false,
+      "properties": {
+        "condition": {
+          "$ref": "#/definitions/Expression"
+        },
+        "group_by_model": {
+          "type": "string"
+        },
+        "operand": {
+          "$ref": "#/definitions/Expression"
+        }
+      },
+      "required": [
+        "operand",
+        "group_by_model"
+      ],
+      "type": "object"
+    },
+    "IBinaryExpression": {
+      "additionalProperties": false,
+      "properties": {
+        "left": {
+          "$ref": "#/definitions/Expression"
+        },
+        "right": {
+          "$ref": "#/definitions/Expression"
+        }
+      },
+      "required": [
+        "left",
+        "right"
+      ],
+      "type": "object"
+    },
+    "IManyExpression": {
+      "additionalProperties": false,
+      "properties": {
+        "expressions": {
+          "items": {
+            "$ref": "#/definitions/Expression"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "expressions"
+      ],
+      "type": "object"
+    },
+    "IUnaryExpression<Expression>": {
+      "additionalProperties": false,
+      "properties": {
+        "operand": {
+          "$ref": "#/definitions/Expression"
+        }
+      },
+      "required": [
+        "operand"
+      ],
+      "type": "object"
     },
     "ListBoolOperator": {
       "description": "Represents operators that work with lists of values. Examples:\n- \"contains\": { list: [1, 2, 3], value: 2 }\n- \"between\": { list: [1, 10], value: 5 }\n- \"match_any\": { list: [\"a\", \"b\"], value: \"a\" }\n- \"in\": { list: [1, 2, 3], value: 2 }",
@@ -307,6 +387,12 @@
         },
         {
           "$ref": "#/definitions/Location"
+        },
+        {
+          "$ref": "#/definitions/ModelReference"
+        },
+        {
+          "$ref": "#/definitions/AudienceReference"
         }
       ],
       "description": "Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations.\nExamples:\n1. Primitive values:\ntrue\n42\n\"hello\"\n\n2. Path reference:\n{ path: \"user.age\" }\n\n3. Arithmetic operation:\n{\noperator: \"plus\",\nleft: { path: \"price\" },\nright: { path: \"tax\" }\n}\n\n4. Nested arithmetic operation:\n{\noperator: \"multiply\",\nleft: { operator: \"plus\", left: { path: \"base_price\" }, right: { path: \"shipping\" } },\nright: 1.1\n}\n\n5. Date operand:\n{ date: { absolute: \"2023-01-01T00:00:00Z\" } }",
@@ -360,8 +446,8 @@
         }
       },
       "required": [
-        "operator",
         "left",
+        "operator",
         "right"
       ],
       "title": "LocationBoolExpression",
@@ -394,8 +480,8 @@
         }
       },
       "required": [
-        "operator",
         "left",
+        "operator",
         "right"
       ],
       "title": "LogicalBoolExpression",
@@ -423,8 +509,8 @@
         }
       },
       "required": [
-        "operator",
-        "expressions"
+        "expressions",
+        "operator"
       ],
       "title": "LogicalManyBoolExpression",
       "type": "object"
@@ -483,8 +569,8 @@
         }
       },
       "required": [
-        "operator",
         "left",
+        "operator",
         "right"
       ],
       "title": "NumberBoolExpression",
@@ -565,8 +651,8 @@
         }
       },
       "required": [
-        "operator",
         "left",
+        "operator",
         "right"
       ],
       "title": "StringBoolExpression",
@@ -603,8 +689,8 @@
         }
       },
       "required": [
-        "operator",
-        "operand"
+        "operand",
+        "operator"
       ],
       "title": "UnaryBoolExpression",
       "type": "object"

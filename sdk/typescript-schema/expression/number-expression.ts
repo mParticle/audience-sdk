@@ -1,6 +1,7 @@
 import { AggregationNumberOperator, BinaryNumberOperator } from "../common/operator";
 import { BoolExpression } from "./boolean-expression";
 import { ModelPath } from "../literal/model-path";
+import { IAggregateExpression, IBinaryExpression } from "./expression-interfaces";
 
 /**
  * @title ValueNumberExpression
@@ -10,12 +11,21 @@ export type ValueNumberExpression = number | ModelPath
 /**
  * @title BinaryNumberExpression
  */
-export type BinaryNumberExpression = { operator: BinaryNumberOperator, left: NumberExpression, right: NumberExpression }
+export class BinaryNumberExpression implements IBinaryExpression {
+    operator: BinaryNumberOperator;
+    left: NumberExpression;
+    right: NumberExpression
+}
 
 /**
  * @title AggregateNumberExpression
  */
-export type AggregateNumberExpression = { operator: AggregationNumberOperator, group_by_model: string, operand: NumberExpression, condition?: BoolExpression }
+export class AggregateNumberExpression implements IAggregateExpression {
+    operator: AggregationNumberOperator
+    group_by_model: string
+    operand: NumberExpression
+    condition?: BoolExpression
+}
 
 /**
  * @title NumberExpression

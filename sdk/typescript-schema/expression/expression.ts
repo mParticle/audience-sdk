@@ -1,8 +1,10 @@
-import { BinaryBoolExpression, ManyBoolExpression, UnaryBoolExpression, ValueBoolExpression } from "./boolean-expression";
-import { ValueDateExpression } from "./date-expression";
-import { AggregateNumberExpression, BinaryNumberExpression, ValueNumberExpression } from "./number-expression";
-import { ValueLocationExpression } from "./location-expression";
-import { ValueStringExpression } from "./string-expression";
+import { BinaryBoolExpression, BoolExpression, ManyBoolExpression, UnaryBoolExpression, ValueBoolExpression } from "./boolean-expression";
+import { DateExpression, ValueDateExpression } from "./date-expression";
+import { AggregateNumberExpression, BinaryNumberExpression, NumberExpression, ValueNumberExpression } from "./number-expression";
+import { LocationExpression, ValueLocationExpression } from "./location-expression";
+import { StringExpression, ValueStringExpression } from "./string-expression";
+import { IBinaryExpression } from "./expression-interfaces";
+import { Literal } from "../literal/literal";
 
 /**
  * @title ValueExpression
@@ -29,6 +31,8 @@ export type BinaryExpression = BinaryBoolExpression | BinaryNumberExpression
  */
 export type ManyExpression = ManyBoolExpression
 
+
+
 /**
  * @title AggregateExpression
  */
@@ -41,5 +45,12 @@ export type AggregateExpression = AggregateNumberExpression
 export type Expression =
     ValueExpression
     | UnaryExpression
-    | BinaryExpression
+    // | BinaryExpression
+    | IBinaryExpression
     | ManyExpression
+    | BoolExpression
+    | NumberExpression
+    | StringExpression
+    | LocationExpression
+    | DateExpression
+    | Literal

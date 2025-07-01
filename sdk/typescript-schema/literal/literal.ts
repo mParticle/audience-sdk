@@ -1,6 +1,7 @@
 import { DateLiteral } from "./date";
-import { ModelPath } from "./model-path";
+import { ModelPath, ModelReference } from "./model-path";
 import { Location } from "./location";
+import { AudienceReference } from "./audience";
 
 /**
  * @title Literal
@@ -38,3 +39,5 @@ export type Literal =
     | DateLiteral
     | ModelPath
     | Location
+    | ModelReference
+    | AudienceReference

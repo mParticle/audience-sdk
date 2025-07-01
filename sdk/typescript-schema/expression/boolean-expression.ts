@@ -3,6 +3,7 @@ import { AudienceReference } from "../literal/audience";
 import { ModelPath, ModelReference } from "../literal/model-path";
 import { DateExpression } from "./date-expression";
 import { Expression } from "./expression";
+import { IBinaryExpression, IManyExpression, IUnaryExpression } from "./expression-interfaces";
 import { LocationExpression } from "./location-expression";
 import { NumberExpression } from "./number-expression";
 import { StringExpression } from "./string-expression";
@@ -15,37 +16,71 @@ export type ValueBoolExpression = boolean | ModelPath
 /**
  * @title UnaryBoolExpression
  */
-export type UnaryBoolExpression = { operator: UnaryBoolOperator, operand: Expression }
+export class UnaryBoolExpression implements IUnaryExpression<Expression> {
+    operator: UnaryBoolOperator
+    operand: Expression
+
+}
 
 /**
  * @title NumberBoolExpression
  */
-export type NumberBoolExpression = { operator: NumberBoolOperator, left: NumberExpression, right: NumberExpression }
+export class NumberBoolExpression implements IBinaryExpression {
+    operator: NumberBoolOperator
+    left: NumberExpression
+    right: NumberExpression
+
+}
 
 /**
  * @title StringBoolExpression
  */
-export type StringBoolExpression = { operator: StringBoolOperator, left: StringExpression, right: StringExpression }
+export class StringBoolExpression implements IBinaryExpression {
+    operator: StringBoolOperator
+    left: StringExpression
+    right: StringExpression
+
+}
 
 /**
  * @title DateBoolExpression
  */
-export type DateBoolExpression = { operator: NumberBoolOperator, left: DateExpression, right: DateExpression }
+export class DateBoolExpression implements IBinaryExpression {
+    operator: NumberBoolOperator
+    left: DateExpression
+    right: DateExpression
+
+}
 
 /**
  * @title LogicalBoolExpression
  */
-export type LogicalBoolExpression = { operator: LogicalBoolOperator, left: BoolExpression, right: BoolExpression }
+export class LogicalBoolExpression implements IBinaryExpression {
+    operator: LogicalBoolOperator
+    left: BoolExpression
+    right: BoolExpression
+
+}
 
 /**
  * @title LocationBoolExpression
  */
-export type LocationBoolExpression = { operator: LocationBoolOperator, left: LocationExpression, right: LocationExpression }
+export class LocationBoolExpression implements IBinaryExpression {
+    operator: LocationBoolOperator
+    left: LocationExpression
+    right: LocationExpression
+
+}
 
 /**
 * @title AudienceBoolExpression
  */
-export type AudienceBoolExpression = { operator: AudienceBoolOperator, left: ModelReference, right: AudienceReference }
+export class AudienceBoolExpression implements IBinaryExpression {
+    operator: AudienceBoolOperator
+    left: ModelReference
+    right: AudienceReference
+
+}
 
 /**
  * @title BoolBinaryExpression
@@ -55,7 +90,11 @@ export type BinaryBoolExpression = AudienceBoolExpression | LocationBoolExpressi
 /**
  * @title LogicalManyBoolExpression
  */
-export type LogicalManyBoolExpression = { operator: LogicalBoolOperator, expressions: BoolExpression[] }
+export class LogicalManyBoolExpression implements IManyExpression {
+    operator: LogicalBoolOperator
+    expressions: BoolExpression[]
+
+}
 
 /**
  * @title ManyBoolExpression
@@ -70,4 +109,3 @@ export type BoolExpression =
     | UnaryBoolExpression
     | BinaryBoolExpression
     | ManyBoolExpression
-// TODO: | { operator: ListBoolOperator, left: Expression, right: ListExpression }
