@@ -293,11 +293,15 @@
         },
         "operand": {
           "$ref": "#/definitions/Expression"
+        },
+        "operator": {
+          "$ref": "#/definitions/Operator"
         }
       },
       "required": [
+        "group_by_model",
         "operand",
-        "group_by_model"
+        "operator"
       ],
       "type": "object"
     },
@@ -307,12 +311,16 @@
         "left": {
           "$ref": "#/definitions/Expression"
         },
+        "operator": {
+          "$ref": "#/definitions/Operator"
+        },
         "right": {
           "$ref": "#/definitions/Expression"
         }
       },
       "required": [
         "left",
+        "operator",
         "right"
       ],
       "type": "object"
@@ -325,10 +333,14 @@
             "$ref": "#/definitions/Expression"
           },
           "type": "array"
+        },
+        "operator": {
+          "$ref": "#/definitions/Operator"
         }
       },
       "required": [
-        "expressions"
+        "expressions",
+        "operator"
       ],
       "type": "object"
     },
@@ -337,10 +349,14 @@
       "properties": {
         "operand": {
           "$ref": "#/definitions/Expression"
+        },
+        "operator": {
+          "$ref": "#/definitions/Operator"
         }
       },
       "required": [
-        "operand"
+        "operand",
+        "operator"
       ],
       "type": "object"
     },
@@ -586,6 +602,37 @@
       ],
       "description": "Represents an expression that evaluates to a number.",
       "title": "NumberExpression"
+    },
+    "Operator": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/LogicalBoolOperator"
+        },
+        {
+          "$ref": "#/definitions/LocationBoolOperator"
+        },
+        {
+          "$ref": "#/definitions/AggregationNumberOperator"
+        },
+        {
+          "$ref": "#/definitions/BinaryNumberOperator"
+        },
+        {
+          "$ref": "#/definitions/AudienceOperator"
+        },
+        {
+          "$ref": "#/definitions/ListBoolOperator"
+        },
+        {
+          "$ref": "#/definitions/StringBoolOperator"
+        },
+        {
+          "$ref": "#/definitions/NumberBoolOperator"
+        },
+        {
+          "$ref": "#/definitions/UnaryBoolOperator"
+        }
+      ]
     },
     "RelativeDate": {
       "additionalProperties": false,

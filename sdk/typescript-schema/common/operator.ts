@@ -114,3 +114,5 @@ export type LocationBoolOperator =
 export type LogicalBoolOperator =
 	"and"
 	| "or"
+
+export type Operator = LogicalBoolOperator | LocationBoolOperator | AggregationNumberOperator | BinaryNumberOperator | AudienceOperator | ListBoolOperator | StringBoolOperator | NumberBoolOperator | UnaryBoolOperator
