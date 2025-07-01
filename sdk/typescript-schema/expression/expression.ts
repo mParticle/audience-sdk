@@ -1,9 +1,9 @@
-import { BinaryBoolExpression, BoolExpression, ManyBoolExpression, UnaryBoolExpression, ValueBoolExpression } from "./boolean-expression";
+import { BoolExpression, ValueBoolExpression } from "./boolean-expression";
 import { DateExpression, ValueDateExpression } from "./date-expression";
-import { AggregateNumberExpression, BinaryNumberExpression, NumberExpression, ValueNumberExpression } from "./number-expression";
+import { NumberExpression, ValueNumberExpression } from "./number-expression";
 import { LocationExpression, ValueLocationExpression } from "./location-expression";
 import { StringExpression, ValueStringExpression } from "./string-expression";
-import { IBinaryExpression } from "./expression-interfaces";
+import { IAggregateExpression, IBinaryExpression, IManyExpression, IUnaryExpression } from "./expression-interfaces";
 import { Literal } from "../literal/literal";
 
 /**
@@ -17,26 +17,26 @@ export type ValueExpression =
     | ValueStringExpression
 
 /**
- * @title UnaryExpression
- */
-export type UnaryExpression = UnaryBoolExpression
+//  * @title UnaryExpression
+//  */
+// export type UnaryExpression = UnaryBoolExpression
 
-/**
- * @title BinaryExpression
- */
-export type BinaryExpression = BinaryBoolExpression | BinaryNumberExpression
+// /**
+//  * @title BinaryExpression
+//  */
+// export type BinaryExpression = BinaryBoolExpression | BinaryNumberExpression
 
-/**
- * @title ManyExpression
- */
-export type ManyExpression = ManyBoolExpression
+// /**
+//  * @title ManyExpression
+//  */
+// export type ManyExpression = ManyBoolExpression
 
 
 
-/**
- * @title AggregateExpression
- */
-export type AggregateExpression = AggregateNumberExpression
+// /**
+//  * @title AggregateExpression
+//  */
+// export type AggregateExpression = AggregateNumberExpression
 
 /**
  * @title Expression
@@ -44,10 +44,10 @@ export type AggregateExpression = AggregateNumberExpression
  */
 export type Expression =
     ValueExpression
-    | UnaryExpression
-    // | BinaryExpression
+    | IUnaryExpression
     | IBinaryExpression
-    | ManyExpression
+    | IManyExpression
+    | IAggregateExpression
     | BoolExpression
     | NumberExpression
     | StringExpression

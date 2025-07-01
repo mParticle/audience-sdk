@@ -16,7 +16,7 @@ export type ValueBoolExpression = boolean | ModelPath
 /**
  * @title UnaryBoolExpression
  */
-export class UnaryBoolExpression implements IUnaryExpression<Expression> {
+export class UnaryBoolExpression implements IUnaryExpression {
     operator: UnaryBoolOperator
     operand: Expression
 

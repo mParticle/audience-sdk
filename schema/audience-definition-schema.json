@@ -15,10 +15,6 @@
       "title": "AbsoluteDate",
       "type": "object"
     },
-    "AggregateExpression": {
-      "$ref": "#/definitions/AggregateNumberExpression",
-      "title": "AggregateExpression"
-    },
     "AggregateNumberExpression": {
       "additionalProperties": false,
       "properties": {
@@ -137,17 +133,6 @@
       ],
       "title": "BoolBinaryExpression"
     },
-    "BinaryExpression": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/BinaryBoolExpression"
-        },
-        {
-          "$ref": "#/definitions/BinaryNumberExpression"
-        }
-      ],
-      "title": "BinaryExpression"
-    },
     "BinaryNumberExpression": {
       "additionalProperties": false,
       "properties": {
@@ -264,13 +249,16 @@
           "$ref": "#/definitions/ValueExpression"
         },
         {
-          "$ref": "#/definitions/UnaryExpression"
+          "$ref": "#/definitions/IUnaryExpression"
         },
         {
           "$ref": "#/definitions/IBinaryExpression"
         },
         {
-          "$ref": "#/definitions/ManyExpression"
+          "$ref": "#/definitions/IManyExpression"
+        },
+        {
+          "$ref": "#/definitions/IAggregateExpression"
         },
         {
           "$ref": "#/definitions/BoolExpression"
@@ -344,7 +332,7 @@
       ],
       "type": "object"
     },
-    "IUnaryExpression<Expression>": {
+    "IUnaryExpression": {
       "additionalProperties": false,
       "properties": {
         "operand": {
@@ -518,10 +506,6 @@
     "ManyBoolExpression": {
       "$ref": "#/definitions/LogicalManyBoolExpression",
       "title": "ManyBoolExpression"
-    },
-    "ManyExpression": {
-      "$ref": "#/definitions/ManyBoolExpression",
-      "title": "ManyExpression"
     },
     "ModelPath": {
       "additionalProperties": false,
@@ -704,10 +688,6 @@
         "not_exists"
       ],
       "type": "string"
-    },
-    "UnaryExpression": {
-      "$ref": "#/definitions/UnaryBoolExpression",
-      "title": "UnaryExpression"
     },
     "ValueBoolExpression": {
       "anyOf": [

@@ -1,7 +1,7 @@
 import { Expression } from "./expression"
 
-export interface IUnaryExpression<T> {
-    operand: T
+export interface IUnaryExpression {
+    operand: Expression
 }
 
 export interface IBinaryExpression {
