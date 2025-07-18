@@ -1,3 +1,16 @@
+# [1.3.0](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.2.1...audience-typescript-schema@1.3.0) (2025-07-18)
+
+
+### Bug Fixes
+
+* Add audience operators to binary operator ([#36](https://github.com/mParticle/audience-sdk/issues/36)) ([3749153](https://github.com/mParticle/audience-sdk/commit/37491534a1a202e74346592be4ec25cc5a433148))
+
+
+### Features
+
+* Add in audience operator ([#33](https://github.com/mParticle/audience-sdk/issues/33)) ([ca98057](https://github.com/mParticle/audience-sdk/commit/ca980574f8c087e4f68b2ce2656a453a34967fce))
+* Change audience ID type from number -> string ([#35](https://github.com/mParticle/audience-sdk/issues/35)) ([5297227](https://github.com/mParticle/audience-sdk/commit/52972273beca7593441915b10c35c7f1ce3537eb))
+
 ## [1.2.1](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.2.0...audience-typescript-schema@1.2.1) (2025-06-06)
 
 # [1.2.0](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.1.13...audience-typescript-schema@1.2.0) (2025-06-04)
