@@ -22,8 +22,7 @@
     "outDir": "dist",
     "declaration": true,
     "declarationDir": "dist",
-    "declarationMap": false,
-    "emitDeclarationOnly": true
+    "declarationMap": false
   },
   "include": [
     "./**/*"
