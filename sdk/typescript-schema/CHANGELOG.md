@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.3.0...audience-typescript-schema@1.3.1) (2025-07-21)
+
+
+### Bug Fixes
+
+* emit js files on build ([#37](https://github.com/mParticle/audience-sdk/issues/37)) ([a7b76a0](https://github.com/mParticle/audience-sdk/commit/a7b76a06320ad2e87009e76a1b6c9f852a740f72))
+
 # [1.3.0](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.2.1...audience-typescript-schema@1.3.0) (2025-07-18)
 
 
