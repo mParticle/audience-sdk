@@ -13,5 +13,5 @@ if [ -d "dist" ]; then
     echo "export const VERSION = '$VERSION';" > version.ts
 
     # Compile version.ts to JavaScript and declaration files
-    npx tsc version.ts --outDir dist --module amd --declaration --skipLibCheck
+    npx tsc version.ts --outDir dist --declaration --skipLibCheck
 fi
