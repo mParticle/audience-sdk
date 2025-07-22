@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.3.2...audience-typescript-schema@1.3.3) (2025-07-22)
+
+
+### Bug Fixes
+
+* don't use modules when re-compiling version ([#39](https://github.com/mParticle/audience-sdk/issues/39)) ([6f7d691](https://github.com/mParticle/audience-sdk/commit/6f7d691ff806c1d5665c4fd1bd58e07faf55df76))
+
 ## [1.3.2](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.3.1...audience-typescript-schema@1.3.2) (2025-07-22)
 
 ## [1.3.1](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.3.0...audience-typescript-schema@1.3.1) (2025-07-21)
