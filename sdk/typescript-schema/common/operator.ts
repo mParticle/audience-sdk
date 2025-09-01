@@ -4,7 +4,7 @@
  * - "not": Negates a boolean expression
  * - "exist": Checks if a value exists
  */
-export enum UnaryOperator {
+export enum UnaryBoolOperator {
 	Null = "null",
 	NotNull = "not_null",
 	Exists = "exists",
@@ -19,13 +19,17 @@ export enum UnaryOperator {
  * - "matches": { value1: "pattern", value2: "text" }
  * - "contains": { value1: "string", value2: "substring" }
  */
-export type BinaryOperator =
+export type NumberBoolOperator =
 	"equals"
 	| "not_equals"
 	| "less_than"
 	| "less_than_equal"
 	| "greater_than"
 	| "greater_than_equal"
+
+export type StringBoolOperator =
+	"equals"
+	| "not_equals"
 	| "matches"
 	| "contains"
 	| "not_contains"
@@ -44,7 +48,7 @@ export type BinaryOperator =
  * - "match_any": { list: ["a", "b"], value: "a" }
  * - "in": { list: [1, 2, 3], value: 2 }
  */
-export type ListOperator =
+export type ListBoolOperator =
 	"contains"
 	| "between"
 	| "match_any"
@@ -68,7 +72,7 @@ export type AudienceOperator =
  * - "multiply": { value1: 4, value2: 2 } // result: 8
  * - "mod": { value1: 10, value2: 3 } // result: 1
  */
-export type ArithmeticOperator =
+export type BinaryNumberOperator =
 	"plus"
 	| "minus"
 	| "multiply"
@@ -83,7 +87,7 @@ export type ArithmeticOperator =
  * - "avg": [1, 2, 3] // result: 2
  * - "count": [1, 2, 3] // result: 3
  */
-export type AggregationOperator =
+export type AggregationNumberOperator =
 	"min"
 	| "max"
 	| "sum"
@@ -97,7 +101,7 @@ export type AggregationOperator =
  * - "within": { location1: { lat: 40, lng: -74 }, location2: { lat: 40, lng: -74 }, radius: 5 }
  * - "equals": { location1: { lat: 40, lng: -74 }, location2: { lat: 40, lng: -74 } }
  */
-export type LocationOperator =
+export type LocationBoolOperator =
 	"within"
 	| "equals"
 
@@ -107,6 +111,8 @@ export type LocationOperator =
  * - "and": { condition1: true, condition2: true } // result: true
  * - "or": { condition1: true, condition2: false } // result: true
  */
-export type LogicalOperator =
+export type LogicalBoolOperator =
 	"and"
 	| "or"
+
+export type Operator = LogicalBoolOperator | LocationBoolOperator | AggregationNumberOperator | BinaryNumberOperator | AudienceOperator | ListBoolOperator | StringBoolOperator | NumberBoolOperator | UnaryBoolOperator

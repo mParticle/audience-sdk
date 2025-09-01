@@ -1,5 +1,6 @@
 /**
- * Represents a model path reference within a data model.
+ * @title ModelPath
+ * @description Represents a model path reference within a data model.
  * Examples:
  * 1. Simple model path:
  *    { "model": "user", "path": "email" }
@@ -13,4 +14,12 @@
 export type ModelPath = {
     model: string,
     path: string
+}
+
+/**
+ * @title ModelReference
+ * @description Represents a model reference within a data model
+ */
+export type ModelReference = {
+    model: string
 }

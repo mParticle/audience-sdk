@@ -1,10 +1,14 @@
+/**
+ * @title DistanceUnit
+ */
 export type DistanceUnit =
     "meters"
     | "miles"
     | "kilometers";
 
 /**
- * Represents a geographic location, optionally with a distance constraint.
+ * @title Location
+ * @description Represents a geographic location, optionally with a distance constraint.
  * Examples:
  * 1. Simple location:
  *    { "latitude": 37.7749, "longitude": -122.4194 }
