@@ -14,7 +14,8 @@
   "scripts": {
     "build": "tsc",
     "semantic-release": "semantic-release",
-    "gen-schema": "scripts/gen_schema_with_titles.sh",
+    "gen-minified-types": "npx ts-node scripts/generate-minified-types.ts",
+    "gen-schema": "scripts/gen_schema_with_titles.sh && yarn gen-minified-types",
     "test": "jest",
     "test:watch": "jest --watch"
   },
