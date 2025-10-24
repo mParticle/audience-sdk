@@ -110,6 +110,38 @@ function minify(content: string): string {
 }
 
 /**
+ * Converts multi-line content to a single line with semicolons
+ */
+function convertToSingleLine(content: string): string {
+    // Remove all newlines and excessive whitespace
+    content = content.replace(/\n+/g, ' ');
+
+    // Collapse multiple spaces into one
+    content = content.replace(/\s+/g, ' ');
+
+    // Ensure proper semicolon separation between statements
+    // Add semicolon before type/interface/enum keywords if not already present
+    content = content.replace(/\s+(type|interface|enum)\s+/g, '; $1 ');
+
+    // Add semicolon after closing braces if not already present
+    content = content.replace(/}\s*(?=[a-zA-Z])/g, '}; ');
+
+    // Clean up any double semicolons
+    content = content.replace(/;+/g, ';');
+
+    // Clean up semicolon at the start if present
+    content = content.replace(/^\s*;\s*/, '');
+
+    // Remove spaces around semicolons for compactness
+    content = content.replace(/\s*;\s*/g, '; ');
+
+    // Replace all double quotes with single quotes
+    content = content.replace(/"/g, "'");
+
+    return content.trim();
+}
+
+/**
  * Resolves a relative import path to an absolute file path
  */
 function resolveImportPath(currentFilePath: string, importPath: string): string {
@@ -204,8 +236,12 @@ function main() {
     const version = extractVersion(rootDir);
 
     // Prepend version constant and combine all definitions
-    const versionExport = `export const CURRENT_VERSION = "${version}";\n`;
-    const combined = versionExport + Array.from(definitions.values()).join('\n');
+    const versionExport = `export const CURRENT_VERSION = "${version}";`;
+    const allDefinitions = Array.from(definitions.values()).join('\n');
+    const combined = versionExport + '\n' + allDefinitions;
+
+    // Convert to single line with semicolons
+    const singleLine = convertToSingleLine(combined);
 
     // Ensure output directory exists
     if (!fs.existsSync(outputDir)) {
@@ -213,12 +249,12 @@ function main() {
     }
 
     // Write the output
-    fs.writeFileSync(outputFile, combined, 'utf-8');
+    fs.writeFileSync(outputFile, singleLine, 'utf-8');
 
     console.log(`Generated minified types at: ${outputFile}`);
     console.log(`Version: ${version}`);
     console.log(`Total files processed: ${definitions.size}`);
-    console.log(`Output size: ${combined.length} characters`);
+    console.log(`Output size: ${singleLine.length} characters`);
 }
 
 // Run the script
