@@ -4,6 +4,14 @@
   "description": "TypeScript schema definitions for mParticle Audiences",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./schema.json": "./dist/schema/audience-schema.json",
+    "./types.min": "./dist/schema/audience-types.min.ts"
+  },
   "files": [
     "dist"
   ],
@@ -12,9 +20,10 @@
     "node": ">=18.20.4"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && mkdir -p dist/schema && cp schema/audience-schema.json dist/schema/ && cp schema/audience-types.min.ts dist/schema/",
     "semantic-release": "semantic-release",
-    "gen-schema": "scripts/gen_schema_with_titles.sh",
+    "gen-minified-types": "npx ts-node scripts/generate-minified-types.ts",
+    "gen-schema": "scripts/gen_schema_with_titles.sh && yarn gen-minified-types",
     "test": "jest",
     "test:watch": "jest --watch"
   },
