@@ -60,6 +60,8 @@ export type ListOperator =
 export type AudienceOperator =
 	"in"
 	| "not_in"
+	| "matches"
+	| "not_matches"
 
 /**
  * Represents mathematical operators for numeric calculations.
