@@ -27,6 +27,7 @@ export type BinaryOperator =
 	| "greater_than"
 	| "greater_than_equal"
 	| "matches"
+	| "not_matches"
 	| "contains"
 	| "not_contains"
 	| "starts_with"
