@@ -1,74 +1,83 @@
-import { LogicalOperator } from "./common/operator";
 import { Version } from "./common/version";
-import { EventQuery } from "./query/event-query";
-import { Query } from "./query/query";
-import { UserQuery } from "./query/user-query";
+import { Expression } from "./expression/expression";
 
 /**
- * Represents a query that can be either a general query, an event query, or a user query.
- * Examples:
- * 1. General query:
- *    { query: { models: [{ type: "user", id: 1 }], expression: { ... } } }
- * 
- * 2. Event query:
- *    { event: { models: [{ type: "event", id: 1 }], event_name: { path: "purchase" }, attributes: { ... } } }
- * 
- * 3. User query:
- *    { user: { models: [{ type: "user", id: 1 }], attributes: { ... } } }
- */
-export type AudienceQuery = 
-    { query: Query }
-    | { event: EventQuery }
-    | { user: UserQuery };
-
-/**
- * Represents a logical combination of audience queries using AND/OR operators.
+ * Represents a logical combination of audience expressions using AND/OR operators.
  * Examples:
  * 1. Simple AND combination:
  *    {
- *      operator: "and",
- *      queries: [
- *        { query: { models: [{ type: "user", id: 1 }] } },
- *        { event: { models: [{ type: "event", id: 1 }], event_name: { path: "purchase" } } }
+ *      "operator": "and",
+ *      "expressions": [
+ *        { "model": "user", "expression": { "operator": "exists", "operand": { "path": "id" } } },
+ *        { "model": "purchase", "expression": { "operator": "equals", "left": { "path": "status" }, "right": "completed" } }
  *      ]
  *    }
- * 
+ *
  * 2. Nested logical combinations:
  *    {
- *      operator: "or",
- *      queries: [
- *        { query: { models: [{ type: "user", id: 1 }] } },
+ *      "operator": "or",
+ *      "expressions": [
+ *        { "model": "user", "expression": { "operator": "exists", "operand": { "path": "id" } } },
  *        {
- *          operator: "and",
- *          queries: [
- *            { event: { models: [{ type: "event", id: 1 }] } },
- *            { user: { models: [{ type: "user", id: 1 }] } }
+ *          "operator": "and",
+ *          "expressions": [
+ *            { "model": "purchase", "expression": { "operator": "exists", "operand": { "path": "id" } } },
+ *            { "model": "user", "expression": { "operator": "exists", "operand": { "path": "email" } } }
  *          ]
  *        }
  *      ]
  *    }
+ *
+ * 3. Deeply nested combination:
+ *    {
+ *      "operator": "and",
+ *      "expressions": [
+ *        {
+ *          "operator": "or",
+ *          "expressions": [
+ *            { "model": "user", "expression": { "operator": "exists", "operand": { "path": "id" } } },
+ *            { "model": "signup", "expression": { "operator": "equals", "left": { "path": "status" }, "right": "completed" } }
+ *          ]
+ *        },
+ *        { "model": "user", "expression": { "operator": "equals", "left": { "path": "country" }, "right": "CA" } }
+ *      ]
+ *    }
  */
-export type LogicalAudienceQueries = 
-    { 
-        operator: LogicalOperator, 
-        queries: (LogicalAudienceQueries | AudienceQuery)[] 
-    };
 
 /**
- * Represents a complete audience definition with a root logical query.
- * Example:
- * {
- *   audience: {
- *     operator: "and",
- *     queries: [
- *       { query: { models: [{ type: "user", id: 1 }] } },
- *       { event: { models: [{ type: "event", id: 1 }], event_name: { path: "purchase" } } }
- *     ]
- *   }
- * }
+ * Represents a complete audience definition with a root logical expression.
+ * Examples:
+ * 1. Simple audience:
+ *    {
+ *      "schema_version": "1.0.0",
+ *      "audience": {
+ *        "operator": "and",
+ *        "expressions": [
+ *          { "model": "user", "expression": { "operator": "exists", "operand": { "path": "id" } } },
+ *          { "model": "purchase", "expression": { "operator": "equals", "left": { "path": "status" }, "right": "completed" } }
+ *        ]
+ *      }
+ *    }
+ *
+ * 2. Audience with nested logic:
+ *    {
+ *      "schema_version": "1.0.0",
+ *      "audience": {
+ *        "operator": "or",
+ *        "expressions": [
+ *          { "model": "user", "expression": { "operator": "equals", "left": { "path": "country" }, "right": "US" } },
+ *          {
+ *            "operator": "and",
+ *            "expressions": [
+ *              { "model": "signup", "expression": { "operator": "equals", "left": { "path": "status" }, "right": "completed" } },
+ *              { "model": "user", "expression": { "operator": "greater_than", "left": { "path": "age" }, "right": 18 } }
+ *            ]
+ *          }
+ *        ]
+ *      }
+ *    }
  */
-export type Audience = { 
-    audience: 
-        { version: Version }
-        & LogicalAudienceQueries
+export type Audience = {
+    schema_version: Version,
+    audience: Expression
 }

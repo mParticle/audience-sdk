@@ -1,2 +1,17 @@
 node_modules
 dist
+.cursor/
+.vscode/
+.DS_Store
+.idea/
+.pytest_cache/
+.mypy_cache/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+*.egg-info/
+*.egg
+sdk/python/build

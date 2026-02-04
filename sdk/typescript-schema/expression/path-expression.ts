@@ -4,22 +4,17 @@ import { UnaryOperator, BinaryOperator } from "../common/operator";
 /**
  * Represents an expression that evaluates to a path or value.
  * Examples:
- * 
  * 1. Primitive values:
- *    - boolean: true
- *    - number: 42
- *    - string: "hello"
- * 
- * 2. Unary expression (operating on a path):
+ *    true
+ *    42
+ *    "hello"
+ *
+ * 2. Unary expression (NOT):
  *    {
  *      operator: "not",
- *      expression: {
- *        operator: "equals",
- *        left: { path: "status" },
- *        right: "inactive"
- *      }
+ *      expression: { operator: "equals", operand: { path: "status" } }
  *    }
- * 
+ *
  * 3. Binary expression (comparing a path to a value):
  *    {
  *      operator: "equals",
