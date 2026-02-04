@@ -8,9 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write
-      issues: write
-      pull-requests: write
+      contents: read
       id-token: write  # Required for OIDC authentication with npm  
     env:
       GITHUB_TOKEN: ${{ secrets.MP_SEMANTIC_RELEASE_BOT }}
