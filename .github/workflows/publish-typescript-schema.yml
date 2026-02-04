@@ -44,7 +44,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Ensure npm CLI supports OIDC
-        run: npm install CLI supports OIDC
+        run: npm install -g npm@latest
 
       - name: Build package
         run: yarn build
