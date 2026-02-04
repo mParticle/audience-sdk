@@ -68,7 +68,8 @@
     [
       "@semantic-release/exec", 
       {
-        "prepareCmd": "./scripts/prepare-dist.sh"
+        "prepareCmd": "./scripts/prepare-dist.sh",
+        "publishCmd": "npm publish"
       }
     ],    
     [
@@ -76,14 +77,6 @@
       {
         "assets": ["version.ts", "package.json", "CHANGELOG.md"],
         "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
-      }
-    ],
-    [
-      "@semantic-release/npm",
-      {
-        "npmPublish": true,
-        "tarballDir": "dist",
-        "pkgRoot": "."
       }
     ],
     [
