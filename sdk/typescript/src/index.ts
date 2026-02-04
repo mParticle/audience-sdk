@@ -1,13 +1,7 @@
-import { Audience, AudienceQuery } from '@mparticle/audience-typescript-schema/audience';
 import { AudienceBuilder } from './audience-builder';
-import { LogicalQueryBuilder } from './audience-builder';
-import { Query } from '@mparticle/audience-typescript-schema/query/query';
-import { EventQuery } from '@mparticle/audience-typescript-schema/query/event-query';
-import { UserQuery } from '@mparticle/audience-typescript-schema/query/user-query';
-import { EventQueryBuilder } from './query-builders/event-query-builder';
+import { LogicalExpressionBuilder } from './audience-builder';
 import { QueryBuilder } from './query-builders/query-builder';
-import { UserQueryBuilder } from './query-builders/user-query-builder';
-
+import { Audience } from '@mparticle/audience-typescript-schema';
 /**
  * Validates an Audience object
  * @param audience The audience to validate
@@ -15,8 +9,8 @@ import { UserQueryBuilder } from './query-builders/user-query-builder';
  */
 export function validateAudience(audience: Audience): boolean {
     try {
-        // Basic validation - ensure the audience has the required structure
-        if (!audience.audience || !audience.audience.operator || !audience.audience.queries) {
+        // Ensure the audience has the required structure
+        if (!audience.schema_version || !audience.audience || !audience.audience.operator || !audience.audience.queries) {
             return false;
         }
 
@@ -73,10 +67,7 @@ export { ExpressionFactory } from './expression-factory/expression-factory';
 export { LocationOperandFactory } from './expression-factory/location-operand-factory';
 export { OperandFactory } from './expression-factory/operand-factory';
 export { PathExpressionFactory } from './expression-factory/path-expression-factory';
-export { SingleModelExpressionFactory } from './expression-factory/single-model-expression-factory';
 
-export { EventQueryBuilder } from './query-builders/event-query-builder';
-export { UserQueryBuilder } from './query-builders/user-query-builder';
 export { QueryBuilder } from './query-builders/query-builder';
 
 export { AudienceBuilder } from './audience-builder';

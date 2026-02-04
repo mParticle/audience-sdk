@@ -1,5 +1,4 @@
 import { Audience } from "../../spec/audience";
-import { EventQuery } from "../../spec/query/event-query";
 
 // 0 events in the last 30 days
 const noEventsInTheLast30Days: Audience = {

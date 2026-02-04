@@ -18,6 +18,28 @@ npm install @mparticle/audience-typescript-schema
 yarn add @mparticle/audience-typescript-schema
 ```
 
+## Setup
+
+Before using or developing with this package, ensure you have the following prerequisites:
+
+- [Node.js](https://nodejs.org/) (version 20 or higher recommended)
+- [yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/)
+- The [`jq`](https://stedolan.github.io/jq/) command-line JSON processor must be installed and available in your system's `PATH`.
+
+To verify `jq` is installed, run:
+
+```bash
+jq --version
+```
+
+If you do not have `jq`, you can install it using [Homebrew](https://brew.sh/) on macOS:
+
+```bash
+brew install jq
+```
+
+Or see the [jq installation guide](https://stedolan.github.io/jq/download/) for other platforms.
+
 ## Usage
 
 ```typescript
@@ -46,6 +68,20 @@ yarn build
 # or
 npm run build
 ```
+
+### Updating the Schema
+
+Whenever you make changes to the schema definitions, you must regenerate the schema output by running:
+
+```bash
+npm run gen-schema
+```
+
+This ensures that all generated files are up to date with your changes.
+
+### Updating Title Paths in add_titles_to_schema.sh
+
+If you add, remove, or rename types or titles in the schema, you will need to update the relevant JSONPath mappings in [`scripts/add_titles_to_schema.sh`](./scripts/add_titles_to_schema.sh) to reflect these changes. This script relies on hardcoded paths to insert titles into the schema, so keeping these paths accurate is necessary for correct schema generation.
 
 ## License
 

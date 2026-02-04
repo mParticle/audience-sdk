@@ -21,7 +21,7 @@ export class DateOperandFactory {
     static createRelativeDate(
         offset: number,
         unit: DateUnit,
-        boundary?: 'start' | 'end' | 'middle'
+        boundary?: 'start' | 'end'
     ): DateOperand {
         const relativeDate: RelativeDate = {
             relative: {
@@ -38,7 +38,7 @@ export class DateOperandFactory {
      * @param days The number of days ago
      * @param boundary Optional boundary specification
      */
-    static daysAgo(days: number, boundary?: 'start' | 'end' | 'middle'): DateOperand {
+    static daysAgo(days: number, boundary?: 'start' | 'end'): DateOperand {
         return this.createRelativeDate(-days, 'day', boundary);
     }
 
@@ -47,7 +47,7 @@ export class DateOperandFactory {
      * @param days The number of days in the future
      * @param boundary Optional boundary specification
      */
-    static daysFromNow(days: number, boundary?: 'start' | 'end' | 'middle'): DateOperand {
+    static daysFromNow(days: number, boundary?: 'start' | 'end'): DateOperand {
         return this.createRelativeDate(days, 'day', boundary);
     }
 
@@ -56,7 +56,7 @@ export class DateOperandFactory {
      * @param months The number of months ago
      * @param boundary Optional boundary specification
      */
-    static monthsAgo(months: number, boundary?: 'start' | 'end' | 'middle'): DateOperand {
+    static monthsAgo(months: number, boundary?: 'start' | 'end'): DateOperand {
         return this.createRelativeDate(-months, 'month', boundary);
     }
 
@@ -65,7 +65,7 @@ export class DateOperandFactory {
      * @param months The number of months in the future
      * @param boundary Optional boundary specification
      */
-    static monthsFromNow(months: number, boundary?: 'start' | 'end' | 'middle'): DateOperand {
+    static monthsFromNow(months: number, boundary?: 'start' | 'end'): DateOperand {
         return this.createRelativeDate(months, 'month', boundary);
     }
 
@@ -74,7 +74,7 @@ export class DateOperandFactory {
      * @param years The number of years ago
      * @param boundary Optional boundary specification
      */
-    static yearsAgo(years: number, boundary?: 'start' | 'end' | 'middle'): DateOperand {
+    static yearsAgo(years: number, boundary?: 'start' | 'end'): DateOperand {
         return this.createRelativeDate(-years, 'year', boundary);
     }
 
@@ -83,7 +83,7 @@ export class DateOperandFactory {
      * @param years The number of years in the future
      * @param boundary Optional boundary specification
      */
-    static yearsFromNow(years: number, boundary?: 'start' | 'end' | 'middle'): DateOperand {
+    static yearsFromNow(years: number, boundary?: 'start' | 'end'): DateOperand {
         return this.createRelativeDate(years, 'year', boundary);
     }
 } 
