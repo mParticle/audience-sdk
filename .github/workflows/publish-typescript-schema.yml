@@ -11,7 +11,7 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
-      id-token: write  # Required for OIDC authentication with npm
+      id-token: write  # Required for OIDC authentication with npm  
     env:
       GITHUB_TOKEN: ${{ secrets.MP_SEMANTIC_RELEASE_BOT }}
       GIT_AUTHOR_NAME: mparticle-automation
