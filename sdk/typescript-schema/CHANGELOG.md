@@ -1,3 +1,19 @@
+# [1.4.0](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.3.3...audience-typescript-schema@1.4.0) (2026-02-05)
+
+
+### Bug Fixes
+
+* permissions ([2a2fb5b](https://github.com/mParticle/audience-sdk/commit/2a2fb5b7e47b96ebc91e911482bc6525a98501fd))
+* publish ([#46](https://github.com/mParticle/audience-sdk/issues/46)) ([08a3fdd](https://github.com/mParticle/audience-sdk/commit/08a3fddbd531010101809eaa413af2267bbef28b))
+* release ([cff2e31](https://github.com/mParticle/audience-sdk/commit/cff2e31417aa46d76f327659eeea6e5d776a6a5b))
+
+
+### Features
+
+* Add matches audience operator ([#42](https://github.com/mParticle/audience-sdk/issues/42)) ([7477d2b](https://github.com/mParticle/audience-sdk/commit/7477d2b4839c863b760b250b3250af4667018a74))
+* Add not matches ([#43](https://github.com/mParticle/audience-sdk/issues/43)) ([6da1875](https://github.com/mParticle/audience-sdk/commit/6da18755e7745a17d7b05ed938fddd53094f4f93))
+* use-OIDC ([#45](https://github.com/mParticle/audience-sdk/issues/45)) ([1b661c1](https://github.com/mParticle/audience-sdk/commit/1b661c1b703559a3da213f35ca6eecfef3b90b2b))
+
 ## [1.3.3](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.3.2...audience-typescript-schema@1.3.3) (2025-07-22)
 
 
