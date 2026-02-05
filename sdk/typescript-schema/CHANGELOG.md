@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.4.1...audience-typescript-schema@1.4.2) (2026-02-05)
+
+
+### Bug Fixes
+
+* repository ([#49](https://github.com/mParticle/audience-sdk/issues/49)) ([ce74fda](https://github.com/mParticle/audience-sdk/commit/ce74fda0109d6c50333e8bfb026437dde9123f01))
+
 ## [1.4.1](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.4.0...audience-typescript-schema@1.4.1) (2026-02-05)
 
 
