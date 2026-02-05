@@ -8,6 +8,10 @@
     "dist"
   ],
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mParticle/audience-sdk"
+  },
   "engines": {
     "node": ">=18.20.4"
   },
