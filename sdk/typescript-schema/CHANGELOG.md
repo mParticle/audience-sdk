@@ -1,3 +1,11 @@
+## [1.4.1](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.4.0...audience-typescript-schema@1.4.1) (2026-02-05)
+
+
+### Bug Fixes
+
+* version ([#47](https://github.com/mParticle/audience-sdk/issues/47)) ([6296db0](https://github.com/mParticle/audience-sdk/commit/6296db00bcf64fbc60e8d9c6def9981e39b69a04))
+* yarnlock ([#48](https://github.com/mParticle/audience-sdk/issues/48)) ([815bf6e](https://github.com/mParticle/audience-sdk/commit/815bf6ee301e45cbeb188839ad6a727509a46088))
+
 # [1.4.0](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.3.3...audience-typescript-schema@1.4.0) (2026-02-05)
 
 
