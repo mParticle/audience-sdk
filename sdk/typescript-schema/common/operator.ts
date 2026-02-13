@@ -20,7 +20,8 @@ export enum UnaryOperator {
  * - "contains": { value1: "string", value2: "substring" }
  */
 export type BinaryOperator =
-	"equals"
+	"strict_equals"
+	| "equals"
 	| "not_equals"
 	| "less_than"
 	| "less_than_equal"
