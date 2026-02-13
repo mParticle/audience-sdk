@@ -79,6 +79,16 @@ npm run gen-schema
 
 This ensures that all generated files are up to date with your changes.
 
+### Generating Minified Types
+
+To generate a single minified TypeScript file containing all type definitions from `audience.ts` and its dependencies:
+
+```bash
+npm run gen-minified-types
+```
+
+This will create `schema/audience-types.min.ts` with all types consolidated into a single file without imports, exports, or comments. This is useful for documentation, distribution, or embedding in other tools.
+
 ### Updating Title Paths in add_titles_to_schema.sh
 
 If you add, remove, or rename types or titles in the schema, you will need to update the relevant JSONPath mappings in [`scripts/add_titles_to_schema.sh`](./scripts/add_titles_to_schema.sh) to reflect these changes. This script relies on hardcoded paths to insert titles into the schema, so keeping these paths accurate is necessary for correct schema generation.
