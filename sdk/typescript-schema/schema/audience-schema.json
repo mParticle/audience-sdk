@@ -26,6 +26,23 @@
       ],
       "type": "string"
     },
+    "AliasPath": {
+      "additionalProperties": false,
+      "description": "References a specific field on a named alias (e.g., a step in an event sequence). Examples: 1. Reference event1's timestamp:    { alias: \"event1\", path: \"timestamp\" }",
+      "properties": {
+        "alias": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "alias",
+        "path"
+      ],
+      "type": "object"
+    },
     "ArithmeticOperator": {
       "description": "Represents mathematical operators for numeric calculations. Examples:\n- \"plus\": { value1: 5, value2: 3 } // result: 8\n- \"multiply\": { value1: 4, value2: 2 } // result: 8\n- \"mod\": { value1: 10, value2: 3 } // result: 1",
       "enum": [
@@ -309,6 +326,25 @@
           ],
           "type": "object",
           "title": "LogicalExpression"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "operator": {
+              "$ref": "#/definitions/SequenceOperator"
+            },
+            "sequence": {
+              "items": {
+                "$ref": "#/definitions/SequenceOperand"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "operator",
+            "sequence"
+          ],
+          "type": "object"
         }
       ],
       "description": "Represents a complex expression that can evaluate to true, false, or noop. Examples: 1. Join expression (combining expressions from different models):    {      \"model\": \"user\",      \"expression\": {        \"operator\": \"equals\",        \"left\": { \"path\": \"age\" },        \"right\": 18      }    }\n\n2. Logical expression (AND):    {      \"operator\": \"and\",      \"expressions\": [        { \"operator\": \"equals\", \"left\": { \"path\": \"country\" }, \"right\": \"US\" },        { \"operator\": \"greater_than\", \"left\": { \"path\": \"age\" }, \"right\": 18 }      ]    }\n\n3. Location expression:    {      \"operator\": \"within\",      \"left\": { \"location\": { \"latitude\": 37.7749, \"longitude\": -122.4194, \"distance\": { \"value\": 10, \"unit\": \"miles\" } } },      \"right\": { \"model\": \"user\", \"path\": \"location\" }    }"
@@ -562,7 +598,7 @@
     },
     "RelativeDate": {
       "additionalProperties": false,
-      "description": "Represents a date/time relative to the current time. Examples: 1. 7 days ago:    { relative: { offset: -7, unit: \"day\" } }\n\n2. Start of current month:    { relative: { offset: 0, unit: \"month\", boundary: \"start\" } }\n\n3. End of previous quarter:    { relative: { offset: -1, unit: \"quarter\", boundary: \"end\" } }",
+      "description": "Represents a date/time relative to the current time, or optionally relative to a named alias field. Examples: 1. 7 days ago:    { relative: { offset: -7, unit: \"day\" } }\n\n2. Start of current month:    { relative: { offset: 0, unit: \"month\", boundary: \"start\" } }\n\n3. End of previous quarter:    { relative: { offset: -1, unit: \"quarter\", boundary: \"end\" } }\n\n4. Within 7 days of event1's timestamp (for event sequencing):    { relative: { offset: 7, unit: \"day\", relative_to: { alias: \"event1\", path: \"timestamp\" } } }",
       "properties": {
         "relative": {
           "additionalProperties": false,
@@ -576,6 +612,9 @@
             },
             "offset": {
               "type": "number"
+            },
+            "relative_to": {
+              "$ref": "#/definitions/AliasPath"
             },
             "unit": {
               "$ref": "#/definitions/DateUnit"
@@ -592,6 +631,31 @@
         "relative"
       ],
       "type": "object"
+    },
+    "SequenceOperand": {
+      "additionalProperties": false,
+      "description": "Represents a single step in an event sequence. The alias uniquely identifies this step so other parts of the definition (e.g., relative_to) can reference it. Examples: 1. Step A with a timestamp operand and event name filter:    {      \"alias\": \"event1\",      \"operand\": { \"model\": \"events\", \"path\": \"timestamp\" },      \"condition\": { \"operator\": \"equal\", \"left\": { \"model\": \"events\", \"path\": \"name\" }, \"right\": \"purchase\" }    }",
+      "properties": {
+        "alias": {
+          "type": "string"
+        },
+        "condition": {
+          "$ref": "#/definitions/Expression"
+        },
+        "operand": {
+          "$ref": "#/definitions/ModelPath"
+        }
+      },
+      "required": [
+        "alias",
+        "operand"
+      ],
+      "type": "object"
+    },
+    "SequenceOperator": {
+      "const": "then",
+      "description": "Represents operators for expressing ordered event sequences. Examples:\n- \"then\": user performed Event A, then Event B   { operator: \"then\", sequence: [{ alias: \"a\", operand: {...} }, { alias: \"b\", operand: {...} }] }",
+      "type": "string"
     },
     "UnaryOperator": {
       "description": "Represents unary operators that operate on a single value. Examples:\n- \"not\": Negates a boolean expression\n- \"exist\": Checks if a value exists",
