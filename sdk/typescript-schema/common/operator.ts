@@ -113,3 +113,11 @@ export type LocationOperator =
 export type LogicalOperator =
 	"and"
 	| "or"
+
+/**
+ * Represents operators for expressing ordered event sequences.
+ * Examples:
+ * - "then": user performed Event A, then Event B
+ *   { operator: "then", sequence: [{ alias: "a", operand: {...} }, { alias: "b", operand: {...} }] }
+ */
+export type SequenceOperator = "then"
