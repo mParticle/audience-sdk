@@ -4,6 +4,7 @@ import { AggregationOperator } from "../common/operator";
 import { Expression } from "../expression/expression";
 import { AudienceOperand } from "./audience-operand";
 import { ModelOperand } from "./model-operand";
+import { SequenceOperand } from "./sequence-operand";
 
 /**
  * Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations.
@@ -41,5 +42,6 @@ export type Operand =
     | ModelPath
     | ModelOperand
     | AudienceOperand
+    | SequenceOperand
     | { operator: AggregationOperator, group_by_model: string, operand: Operand, condition?: Expression };
 // | { operator: ArithmeticOperator, left: Operand, right: Operand };
