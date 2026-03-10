@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.4.2...audience-typescript-schema@1.5.0) (2026-03-10)
+
+
+### Features
+
+* add sequence operator types for event sequencing (A THEN B)    ([#50](https://github.com/mParticle/audience-sdk/issues/50)) ([cebde5a](https://github.com/mParticle/audience-sdk/commit/cebde5a90e9f833ecb602c27a1c4f7232639ba13))
+
 ## [1.4.2](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.4.1...audience-typescript-schema@1.4.2) (2026-02-05)
 
 
