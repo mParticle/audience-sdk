@@ -38,7 +38,18 @@ export type AbsoluteDate =
     };
 
 /**
- * Represents a date/time relative to the current time.
+ * References a specific field on a named alias (e.g., a step in an event sequence).
+ * Examples:
+ * 1. Reference event1's timestamp:
+ *    { alias: "event1", path: "timestamp" }
+ */
+export type AliasPath = {
+    alias: string,
+    path: string
+};
+
+/**
+ * Represents a date/time relative to the current time, or optionally relative to a named alias field.
  * Examples:
  * 1. 7 days ago:
  *    { relative: { offset: -7, unit: "day" } }
@@ -48,13 +59,17 @@ export type AbsoluteDate =
  *
  * 3. End of previous quarter:
  *    { relative: { offset: -1, unit: "quarter", boundary: "end" } }
+ *
+ * 4. Within 7 days of event1's timestamp (for event sequencing):
+ *    { relative: { offset: 7, unit: "day", relative_to: { alias: "event1", path: "timestamp" } } }
  */
 export type RelativeDate =
     {
         "relative": {
             offset: number,
             unit: DateUnit,
-            boundary?: "start" | "end"
+            boundary?: "start" | "end",
+            relative_to?: AliasPath
         }
     };
 

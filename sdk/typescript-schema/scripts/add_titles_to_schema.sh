@@ -22,6 +22,7 @@ $.definitions.DateOperand.anyOf[1]|RelativeDateOperand
 $.definitions.Expression.anyOf[0]|UnaryExpression
 $.definitions.Expression.anyOf[1]|BinaryExpression
 $.definitions.Expression.anyOf[2]|LogicalExpression
+$.definitions.Expression.anyOf[3]|SequenceExpression
 $.definitions.PathExpression.anyOf[0]|BooleanPathExpression
 $.definitions.PathExpression.anyOf[1]|NumberPathExpression
 $.definitions.PathExpression.anyOf[2]|StringPathExpression

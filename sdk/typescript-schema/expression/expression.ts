@@ -1,5 +1,6 @@
 import { Operand } from "../operand/operand";
-import { BinaryOperator, LogicalOperator, UnaryOperator } from "../common/operator";
+import { BinaryOperator, LogicalOperator, SequenceOperator, UnaryOperator } from "../common/operator";
+import { SequenceOperand } from "../operand/sequence-operand";
 
 /**
  * Represents a complex expression that can evaluate to true, false, or noop.
@@ -37,3 +38,5 @@ export type Expression =
     { operator: BinaryOperator, left: Operand, right: Operand }
     |   // logical expression group
     { operator: LogicalOperator, expressions: Expression[] }
+    |   // sequence expression (A THEN B)
+    { operator: SequenceOperator, sequence: SequenceOperand[] }
