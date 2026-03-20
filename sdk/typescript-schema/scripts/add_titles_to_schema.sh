@@ -28,7 +28,7 @@ $.definitions.PathExpression.anyOf[1]|NumberPathExpression
 $.definitions.PathExpression.anyOf[2]|StringPathExpression
 $.definitions.PathExpression.anyOf[3]|UnaryPathExpression
 $.definitions.PathExpression.anyOf[4]|BinaryPathExpression
-$.definitions.Operand.anyOf[7]|ModelAggregationOperand
+$.definitions.Operand.anyOf[8]|ModelAggregationOperand
 EOF
 
 jq_script="."

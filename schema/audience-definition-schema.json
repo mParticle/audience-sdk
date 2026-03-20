@@ -28,7 +28,7 @@
     },
     "AliasPath": {
       "additionalProperties": false,
-      "description": "References a specific field on a named alias (e.g., a step in an event sequence). Examples: 1. Reference event1's timestamp:    { alias: \"event1\", path: \"timestamp\" }",
+      "description": "References a specific field on a named alias (e.g., a step in an event sequence).\n\nUsed for cross-step field comparisons in sequences where one step references a field from a previous step.\n\nExamples: 1. Reference event1's session_id:    { alias: \"event1\", path: \"session_id\" }\n\n2. Reference purchase step's user_id:    { alias: \"purchase\", path: \"user_id\" }",
       "properties": {
         "alias": {
           "type": "string"
@@ -512,6 +512,9 @@
         },
         {
           "$ref": "#/definitions/ModelPath"
+        },
+        {
+          "$ref": "#/definitions/AliasPath"
         },
         {
           "$ref": "#/definitions/ModelOperand"

@@ -1,4 +1,5 @@
 import { DateOperand } from "./date-operand";
+import { AliasPath } from "./alias-path";
 import { ModelPath } from "../common/model-path";
 import { AggregationOperator } from "../common/operator";
 import { Expression } from "../expression/expression";
@@ -39,6 +40,7 @@ export type Operand =
     | string
     | DateOperand
     | ModelPath
+    | AliasPath
     | ModelOperand
     | AudienceOperand
     | { operator: AggregationOperator, group_by_model: string, operand: Operand, condition?: Expression };
