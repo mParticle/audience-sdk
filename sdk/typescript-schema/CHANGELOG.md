@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.5.1...audience-typescript-schema@1.6.0) (2026-03-20)
+
+
+### Features
+
+* add AliasPath to Operand union for cross-step field comparisons  ([#52](https://github.com/mParticle/audience-sdk/issues/52)) ([501827b](https://github.com/mParticle/audience-sdk/commit/501827b378ea32a81454b1d69c109ad22afae28e))
+
 ## [1.5.1](https://github.com/mParticle/audience-sdk/compare/audience-typescript-schema@1.5.0...audience-typescript-schema@1.5.1) (2026-03-10)
 
 
