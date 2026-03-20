@@ -1,4 +1,5 @@
-import { DateOperand, AliasPath } from "./date-operand";
+import { DateOperand } from "./date-operand";
+import { AliasPath } from "./alias-path";
 import { ModelPath } from "../common/model-path";
 import { AggregationOperator } from "../common/operator";
 import { Expression } from "../expression/expression";

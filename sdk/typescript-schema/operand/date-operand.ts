@@ -37,16 +37,7 @@ export type AbsoluteDate =
         "absolute": string
     };
 
-/**
- * References a specific field on a named alias (e.g., a step in an event sequence).
- * Examples:
- * 1. Reference event1's timestamp:
- *    { alias: "event1", path: "timestamp" }
- */
-export type AliasPath = {
-    alias: string,
-    path: string
-};
+import { AliasPath } from "./alias-path";
 
 /**
  * Represents a date/time relative to the current time, or optionally relative to a named alias field.
