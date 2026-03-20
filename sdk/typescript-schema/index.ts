@@ -15,6 +15,7 @@ export * from './expression/path-expression';
 export * from './operand/operand';
 export * from './operand/location-operand';
 export * from './operand/date-operand';
+export * from './operand/alias-path';
 export * from './operand/sequence-operand';
 
 // Export common types
