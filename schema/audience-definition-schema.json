@@ -520,7 +520,8 @@
           "$ref": "#/definitions/ModelOperand"
         },
         {
-          "$ref": "#/definitions/AudienceOperand"
+          "$ref": "#/definitions/AudienceOperand",
+          "title": "ModelAggregationOperand"
         },
         {
           "additionalProperties": false,
@@ -543,8 +544,7 @@
             "group_by_model",
             "operand"
           ],
-          "type": "object",
-          "title": "ModelAggregationOperand"
+          "type": "object"
         }
       ],
       "description": "Represents a value that can be used in expressions, including primitive values, paths, and arithmetic operations. Examples: 1. Primitive values:    true    42    \"hello\"\n\n2. Path reference:    { path: \"user.age\" }\n\n3. Arithmetic operation:    {      operator: \"plus\",      left: { path: \"price\" },      right: { path: \"tax\" }    }\n\n4. Nested arithmetic operation:    {      operator: \"multiply\",      left: { operator: \"plus\", left: { path: \"base_price\" }, right: { path: \"shipping\" } },      right: 1.1    }\n\n5. Date operand:    { date: { absolute: \"2023-01-01T00:00:00Z\" } }"
